@@ -1,18 +1,20 @@
-import org.junit.Test;
+package test;
 
-import static org.junit.Assert.assertEquals;
+import main.ConMan;
+import org.junit.Assert;
+import org.junit.Test;
 
 public class ConManTest {
     ConMan conMan = new ConMan();
 
     @Test
     public void createReturnsAContactName() {
-        assertEquals("Priya", conMan.create("Priya"));
+        Assert.assertEquals("Priya", conMan.create("Priya"));
     }
 
     @Test
     public void readReturnsCreatedContact() {
         conMan.create("Priya");
-        assertEquals("Priya", conMan.read());
+        Assert.assertEquals("Priya", conMan.read());
     }
 }

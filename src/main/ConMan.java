@@ -1,3 +1,5 @@
+package main;
+
 public class ConMan {
     private String contact;
 
@@ -9,4 +11,5 @@ public class ConMan {
     public String read() {
         return contact;
     }
+
 }
