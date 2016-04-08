@@ -15,4 +15,8 @@ public class ConMan {
     public void update(String newName) {
         contact = newName;
     }
+
+    public void delete() {
+        contact = "";
+    }
 }

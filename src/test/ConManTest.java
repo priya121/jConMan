@@ -8,20 +8,22 @@ public class ConManTest {
     ConMan conMan = new ConMan();
 
     @Test
-    public void createReturnsAContactName() {
-        Assert.assertEquals("Priya", conMan.create("Priya"));
-    }
-
-    @Test
-    public void readReturnsCreatedContact() {
+    public void canReadACreatedContact() {
         conMan.create("Priya");
         Assert.assertEquals("Priya", conMan.read());
     }
 
     @Test
-    public void updateChangesContactsName() {
+    public void canUpdateACreatedContact() {
         conMan.create("Priya");
         conMan.update("Sophie");
         Assert.assertEquals("Sophie", conMan.read());
+    }
+
+    @Test
+    public void canDeleteACreatedContact() {
+        conMan.create("Priya");
+        conMan.delete();
+        Assert.assertEquals("", conMan.read());
     }
 }
