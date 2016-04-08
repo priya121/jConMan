@@ -17,4 +17,11 @@ public class ConManTest {
         conMan.create("Priya");
         Assert.assertEquals("Priya", conMan.read());
     }
+
+    @Test
+    public void updateChangesContactsName() {
+        conMan.create("Priya");
+        conMan.update("Sophie");
+        Assert.assertEquals("Sophie", conMan.read());
+    }
 }

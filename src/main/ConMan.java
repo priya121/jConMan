@@ -12,4 +12,7 @@ public class ConMan {
         return contact;
     }
 
+    public void update(String newName) {
+        contact = newName;
+    }
 }
