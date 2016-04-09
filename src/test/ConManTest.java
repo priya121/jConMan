@@ -1,8 +1,12 @@
 package test;
 
 import main.ConMan;
-import org.junit.Assert;
 import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
 
 public class ConManTest {
     ConMan conMan = new ConMan();
@@ -10,20 +14,30 @@ public class ConManTest {
     @Test
     public void canReadACreatedContact() {
         conMan.create("Priya");
-        Assert.assertEquals("Priya", conMan.read());
+        assertEquals("Priya", conMan.read());
     }
 
     @Test
     public void canUpdateACreatedContact() {
         conMan.create("Priya");
         conMan.update("Sophie");
-        Assert.assertEquals("Sophie", conMan.read());
+        assertEquals("Sophie", conMan.read());
     }
 
     @Test
     public void canDeleteACreatedContact() {
         conMan.create("Priya");
         conMan.delete();
-        Assert.assertEquals("", conMan.read());
+        assertEquals("", conMan.read());
+    }
+
+    @Test
+    public void createsAListOfTwoContacts() {
+        List<String> contacts = new ArrayList<>();
+        contacts.add("Sarah");
+        contacts.add("Priya");
+        conMan.create("Sarah");
+        conMan.create("Priya");
+        assertEquals(contacts, conMan.getAllContacts());
     }
 }

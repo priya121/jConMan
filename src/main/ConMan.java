@@ -1,11 +1,15 @@
 package main;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ConMan {
     private String contact;
+    private List<String> allContacts = new ArrayList<>();
 
-    public String create(String name) {
+    public void create(String name) {
+        allContacts.add(name);
         contact = name;
-        return name;
     }
 
     public String read() {
@@ -18,5 +22,9 @@ public class ConMan {
 
     public void delete() {
         contact = "";
+    }
+
+    public List<String> getAllContacts() {
+        return allContacts;
     }
 }
