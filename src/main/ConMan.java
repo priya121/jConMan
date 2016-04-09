@@ -27,4 +27,14 @@ public class ConMan {
     public List<String> getAllContacts() {
         return allContacts;
     }
+
+    public String numbersContacts() {
+        String listOfContacts = "";
+        int number = 1;
+        for (String contact : allContacts) {
+            listOfContacts += number + ") " + contact + "\n";
+            number ++;
+        }
+        return listOfContacts;
+    }
 }

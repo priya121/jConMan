@@ -3,7 +3,7 @@ package test;
 import main.ConMan;
 import org.junit.Test;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -33,11 +33,17 @@ public class ConManTest {
 
     @Test
     public void createsAListOfTwoContacts() {
-        List<String> contacts = new ArrayList<>();
-        contacts.add("Sarah");
-        contacts.add("Priya");
+        List<String> contacts = Arrays.asList("Sarah", "Priya");
         conMan.create("Sarah");
         conMan.create("Priya");
         assertEquals(contacts, conMan.getAllContacts());
+    }
+
+    @Test
+    public void formatsTheNamesInANumberedList() {
+        conMan.create("Sarah");
+        conMan.create("Priya");
+        assertEquals("1) Sarah\n" +
+                     "2) Priya\n", conMan.numbersContacts());
     }
 }
