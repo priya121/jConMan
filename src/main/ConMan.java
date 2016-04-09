@@ -6,8 +6,8 @@ import java.util.List;
 public class ConMan {
     private List<String> allContacts = new ArrayList<>();
 
-    public void create(String name) {
-        allContacts.add(name);
+    public void create(Contact contact) {
+        allContacts.add(contact.getName());
     }
 
     public String read(int contactNumber) {
