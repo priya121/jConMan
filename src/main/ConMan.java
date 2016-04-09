@@ -1,12 +1,15 @@
 package main;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ConMan {
-    
-    private List<Contact> allContacts = new ArrayList<>();
-    Update update = new Update(allContacts);
+    private ArrayList<Contact> allContacts;
+    private final Update update;
+
+    public ConMan(){
+        this.allContacts = new ArrayList<>();
+        this.update = new Update(allContacts);
+    }
 
     public void create(Contact contact) {
         allContacts.add(contact);
