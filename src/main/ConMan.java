@@ -4,24 +4,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ConMan {
-    private String contact;
     private List<String> allContacts = new ArrayList<>();
 
     public void create(String name) {
         allContacts.add(name);
-        contact = name;
     }
 
-    public String read() {
-        return contact;
+    public String read(int contactNumber) {
+        return allContacts.get(contactNumber - 1);
     }
 
-    public void update(String newName) {
-        contact = newName;
+    public void update(int updateContact, String newName) {
+        allContacts.set(updateContact - 1, newName);
     }
 
-    public void delete() {
-        contact = "";
+    public void delete(int contactNumber) {
+        allContacts.remove(contactNumber - 1);
     }
 
     public List<String> getAllContacts() {
@@ -33,7 +31,7 @@ public class ConMan {
         int number = 1;
         for (String contact : allContacts) {
             listOfContacts += number + ") " + contact + "\n";
-            number ++;
+            number++;
         }
         return listOfContacts;
     }

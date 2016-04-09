@@ -14,21 +14,29 @@ public class ConManTest {
     @Test
     public void canReadACreatedContact() {
         conMan.create("Priya");
-        assertEquals("Priya", conMan.read());
+        assertEquals("Priya", conMan.read(1));
+    }
+
+    @Test
+    public void readsAChosenContactFromList() {
+        conMan.create("Sarah");
+        conMan.create("Priya");
+        assertEquals("Priya", conMan.read(2));
     }
 
     @Test
     public void canUpdateACreatedContact() {
         conMan.create("Priya");
-        conMan.update("Sophie");
-        assertEquals("Sophie", conMan.read());
+        conMan.update(1, "Sophie");
+        assertEquals("Sophie", conMan.read(1));
     }
 
     @Test
     public void canDeleteACreatedContact() {
         conMan.create("Priya");
-        conMan.delete();
-        assertEquals("", conMan.read());
+        conMan.create("Sarah");
+        conMan.delete(1);
+        assertEquals("Sarah", conMan.read(1));
     }
 
     @Test
