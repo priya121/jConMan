@@ -24,7 +24,7 @@ public class ContactTest {
     }
 
     @Test
-    public void canChangeContactsFirstName() {
+    public void canChangeContactsFirstAndLastName() {
         contact.setFirstName("Sam");
         contact.setLastName("Smith");
         assertEquals("Sam Smith", contact.getName());
@@ -33,5 +33,11 @@ public class ContactTest {
     @Test
     public void contactHasAnEmailAddress() {
         assertEquals("123@gmail.com", contact.getEmail());
+    }
+
+    @Test
+    public void canChangeEmailAddress() {
+        contact.setEmailAddress("567@gmail.com");
+        assertEquals("567@gmail.com", contact.getEmail());
     }
 }

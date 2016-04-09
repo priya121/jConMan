@@ -30,6 +30,11 @@ public class ConMan {
         contactToUpdate.setLastName(newName);
     }
 
+    public void updateEmail(int contactNumber, String newEmail) {
+        Contact contactToUpdate = allContacts.get(contactNumber - 1);
+        contactToUpdate.setEmailAddress(newEmail);
+    }
+
     public void delete(int contactNumber) {
         allContacts.remove(contactNumber - 1);
     }

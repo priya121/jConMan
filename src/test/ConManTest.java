@@ -41,6 +41,11 @@ public class ConManTest {
     }
 
     @Test
+    public void canUpdateEmailAddressOfAContact() {
+        conMan.create(priya);
+    }
+
+    @Test
     public void canDeleteACreatedContact() {
         createContacts(Arrays.asList(priya, sarah));
         conMan.delete(1);
@@ -59,6 +64,15 @@ public class ConManTest {
         createContacts(Arrays.asList(sarah, priya));
         assertEquals("Name: Sarah Smith\n" +
                      "Email: 234@gmail.com\n", conMan.readContact(1));
+    }
+
+    @Test
+    public void canUpdateEmailOfAClient() {
+        createContacts(Arrays.asList(sarah, priya));
+        conMan.updateEmail(2, "567@gmail.com");
+        assertEquals("Name: Priya Patil\n" +
+                     "Email: 567@gmail.com\n", conMan.readContact(2));
+
     }
 
     private void createContacts(List<Contact> contacts) {
