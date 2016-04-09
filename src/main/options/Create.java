@@ -1,4 +1,6 @@
-package main;
+package main.options;
+
+import main.Contact;
 
 import java.util.List;
 

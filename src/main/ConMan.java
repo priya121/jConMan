@@ -1,5 +1,10 @@
 package main;
 
+import main.options.Create;
+import main.options.Delete;
+import main.options.Read;
+import main.options.Update;
+
 import java.util.ArrayList;
 
 public class ConMan {
@@ -11,9 +16,9 @@ public class ConMan {
 
     public ConMan(){
         this.allContacts = new ArrayList<>();
-        this.update = new Update(allContacts);
         this.create = new Create(allContacts);
         this.read = new Read(allContacts);
+        this.update = new Update(allContacts);
         this.delete = new Delete(allContacts);
     }
 
