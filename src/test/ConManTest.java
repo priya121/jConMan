@@ -11,40 +11,40 @@ import static org.junit.Assert.assertEquals;
 
 public class ConManTest {
     ConMan conMan = new ConMan();
-    Contact priya = new Contact("Priya");
-    Contact sarah = new Contact("Sarah");
+    Contact priya = new Contact("Priya", "Patil");
+    Contact sarah = new Contact("Sarah", "Smith");
 
     @Test
     public void canReadACreatedContact() {
         conMan.create(priya);
-        assertEquals("Priya", conMan.read(1));
+        assertEquals("Priya Patil", conMan.read(1));
     }
 
     @Test
     public void readsAChosenContactFromList() {
         createContacts(Arrays.asList(sarah, priya));
-        assertEquals("Priya", conMan.read(2));
+        assertEquals("Priya Patil", conMan.read(2));
     }
 
     @Test
-    public void canUpdateACreatedContact() {
+    public void canUpdateTheFirstNameOfACreatedContact() {
         conMan.create(priya);
-        conMan.update(1, "Sophie");
-        assertEquals("Sophie", conMan.read(1));
+        conMan.updateFirstName(1, "Sophie");
+        assertEquals("Sophie Patil", conMan.read(1));
     }
 
     @Test
     public void canDeleteACreatedContact() {
         createContacts(Arrays.asList(priya, sarah));
         conMan.delete(1);
-        assertEquals("Sarah", conMan.read(1));
+        assertEquals("Sarah Smith", conMan.read(1));
     }
 
     @Test
     public void formatsTheNamesIntoANumberedList() {
         createContacts(Arrays.asList(sarah, priya));
-        assertEquals("1) Sarah\n" +
-                     "2) Priya\n", conMan.listAllNames());
+        assertEquals("1) Sarah Smith\n" +
+                     "2) Priya Patil\n", conMan.listAllNames());
     }
 
     private void createContacts(List<Contact> contacts) {
