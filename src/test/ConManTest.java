@@ -4,6 +4,9 @@ import main.ConMan;
 import main.Contact;
 import org.junit.Test;
 
+import java.util.Arrays;
+import java.util.List;
+
 import static org.junit.Assert.assertEquals;
 
 public class ConManTest {
@@ -19,8 +22,7 @@ public class ConManTest {
 
     @Test
     public void readsAChosenContactFromList() {
-        conMan.create(sarah);
-        conMan.create(priya);
+        createContacts(Arrays.asList(sarah, priya));
         assertEquals("Priya", conMan.read(2));
     }
 
@@ -33,17 +35,21 @@ public class ConManTest {
 
     @Test
     public void canDeleteACreatedContact() {
-        conMan.create(priya);
-        conMan.create(sarah);
+        createContacts(Arrays.asList(priya, sarah));
         conMan.delete(1);
         assertEquals("Sarah", conMan.read(1));
     }
 
     @Test
-    public void formatsTheNamesInANumberedList() {
-        conMan.create(sarah);
-        conMan.create(priya);
+    public void formatsTheNamesIntoANumberedList() {
+        createContacts(Arrays.asList(sarah, priya));
         assertEquals("1) Sarah\n" +
                      "2) Priya\n", conMan.listAllNames());
+    }
+
+    private void createContacts(List<Contact> contacts) {
+        for(Contact contact : contacts) {
+            conMan.create(contact);
+        }
     }
 }
