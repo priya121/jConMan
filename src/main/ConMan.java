@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ConMan {
+    
     private List<Contact> allContacts = new ArrayList<>();
+    Update update = new Update(allContacts);
 
     public void create(Contact contact) {
         allContacts.add(contact);
@@ -21,18 +23,15 @@ public class ConMan {
     }
 
     public void updateFirstName(int contactNumber, String newName) {
-        Contact contactToUpdate = allContacts.get(contactNumber - 1);
-        contactToUpdate.setFirstName(newName);
+        update.firstName(contactNumber, newName);
     }
 
     public void updateLastName(int contactNumber, String newName) {
-        Contact contactToUpdate = allContacts.get(contactNumber - 1);
-        contactToUpdate.setLastName(newName);
+        update.lastName(contactNumber, newName);
     }
 
     public void updateEmail(int contactNumber, String newEmail) {
-        Contact contactToUpdate = allContacts.get(contactNumber - 1);
-        contactToUpdate.setEmailAddress(newEmail);
+        update.email(contactNumber, newEmail);
     }
 
     public void delete(int contactNumber) {
