@@ -47,7 +47,7 @@ public class ConManTest {
         List<String> contacts = Arrays.asList("Sarah", "Priya");
         conMan.create(sarah);
         conMan.create(priya);
-        assertEquals(contacts, conMan.getAllContacts());
+        assertEquals(contacts, conMan.getAllNames());
     }
 
     @Test

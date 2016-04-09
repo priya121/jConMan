@@ -8,7 +8,7 @@ import static org.junit.Assert.assertEquals;
 public class ContactTest {
 
     @Test
-    public void contactHasNameField() {
+    public void contactHasTheNamePriya() {
         Contact contact = new Contact("Priya");
         assertEquals("Priya", contact.getName());
     }
