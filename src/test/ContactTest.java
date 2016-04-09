@@ -6,30 +6,32 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 public class ContactTest {
+    Contact contact = new Contact("Priya", "Patil", "123@gmail.com");
 
     @Test
     public void contactHasAFirstName() {
-        Contact contact = new Contact("Priya", "Patil");
         assertEquals("Priya", contact.getFirstName());
     }
 
     @Test
     public void contactHasLastName() {
-        Contact contact = new Contact("Priya", "Patil");
         assertEquals("Patil", contact.getLastName());
     }
 
     @Test
     public void canGetContactFullName() {
-        Contact contact = new Contact("Priya", "Patil");
         assertEquals("Priya Patil", contact.getName());
     }
 
     @Test
     public void canChangeContactsFirstName() {
-        Contact contact = new Contact("Priya", "Patil");
         contact.setFirstName("Sam");
         contact.setLastName("Smith");
         assertEquals("Sam Smith", contact.getName());
+    }
+
+    @Test
+    public void contactHasAnEmailAddress() {
+        assertEquals("123@gmail.com", contact.getEmail());
     }
 }

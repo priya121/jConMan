@@ -10,8 +10,14 @@ public class ConMan {
         allContacts.add(contact);
     }
 
-    public String read(int contactNumber) {
+    public String readName(int contactNumber) {
         return allContacts.get(contactNumber - 1).getName();
+    }
+
+    public String readContact(int contactNumber) {
+        Contact selected = allContacts.get(contactNumber - 1);
+        return "Name: " + selected.getName() + "\n" +
+               "Email: " + selected.getEmail() + "\n";
     }
 
     public void updateFirstName(int contactNumber, String newName) {
