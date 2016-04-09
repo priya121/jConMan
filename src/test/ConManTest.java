@@ -27,13 +27,6 @@ public class ConManTest {
     }
 
     @Test
-    public void canDeleteACreatedContact() {
-        createContacts(Arrays.asList(priya, sarah));
-        conMan.delete(1);
-        assertEquals("Sarah Smith", conMan.readName(1));
-    }
-
-    @Test
     public void formatsTheNamesIntoANumberedList() {
         createContacts(Arrays.asList(sarah, priya));
         assertEquals("1) Sarah Smith\n" +
@@ -48,12 +41,31 @@ public class ConManTest {
     }
 
     @Test
+    public void canUpdateTheFirstNameOfACreatedContact() {
+        conMan.create(priya);
+        conMan.updateFirstName(1, "Sophie");
+        assertEquals("Sophie Patil", conMan.readName(1));
+    }
+
+    @Test
+    public void canUpdateTheLastNameOfAContact() {
+        conMan.create(priya);
+        conMan.updateLastName(1, "Smith");
+        assertEquals("Priya Smith", conMan.readName(1));
+    }
+
+    @Test
     public void canUpdateEmailOfAClient() {
         createContacts(Arrays.asList(sarah, priya));
         conMan.updateEmail(2, "567@gmail.com");
         assertEquals("Name: Priya Patil\n" +
-                     "Email: 567@gmail.com\n", conMan.readContact(2));
-
+                "Email: 567@gmail.com\n", conMan.readContact(2));
+    }
+    @Test
+    public void canDeleteACreatedContact() {
+        createContacts(Arrays.asList(priya, sarah));
+        conMan.delete(1);
+        assertEquals("Sarah Smith", conMan.readName(1));
     }
 
     private void createContacts(List<Contact> contacts) {

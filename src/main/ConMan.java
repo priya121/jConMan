@@ -5,24 +5,28 @@ import java.util.ArrayList;
 public class ConMan {
     private ArrayList<Contact> allContacts;
     private final Update update;
+    private final Create create;
+    private final Read read;
+    private final Delete delete;
 
     public ConMan(){
         this.allContacts = new ArrayList<>();
         this.update = new Update(allContacts);
+        this.create = new Create(allContacts);
+        this.read = new Read(allContacts);
+        this.delete = new Delete(allContacts);
     }
 
     public void create(Contact contact) {
-        allContacts.add(contact);
+        create.add(contact);
     }
 
     public String readName(int contactNumber) {
-        return allContacts.get(contactNumber - 1).getName();
+        return read.name(contactNumber);
     }
 
     public String readContact(int contactNumber) {
-        Contact selected = allContacts.get(contactNumber - 1);
-        return "Name: " + selected.getName() + "\n" +
-               "Email: " + selected.getEmail() + "\n";
+        return read.contact(contactNumber);
     }
 
     public void updateFirstName(int contactNumber, String newName) {
@@ -38,7 +42,7 @@ public class ConMan {
     }
 
     public void delete(int contactNumber) {
-        allContacts.remove(contactNumber - 1);
+        delete.delete(contactNumber - 1);
     }
 
     public String listAllNames() {
