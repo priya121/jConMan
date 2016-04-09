@@ -14,8 +14,8 @@ public class ConMan {
         return allContacts.get(contactNumber - 1).getName();
     }
 
-    public void update(int contact, String newName) {
-        Contact contactToUpdate = allContacts.get(contact - 1);
+    public void update(int contactNumber, String newName) {
+        Contact contactToUpdate = allContacts.get(contactNumber - 1);
         contactToUpdate.setName(newName);
     }
 
@@ -23,21 +23,14 @@ public class ConMan {
         allContacts.remove(contactNumber - 1);
     }
 
-    public List<String> getAllNames() {
-        List<String> listNames = new ArrayList<>();
-        for (Contact contact : allContacts) {
-            listNames.add(contact.getName());
-        }
-        return listNames;
-    }
-
-    public String numbersContacts() {
+    public String listAllNames() {
         String listOfContacts = "";
         int number = 1;
-        for (String contact : getAllNames()) {
-            listOfContacts += number + ") " + contact + "\n";
+        for (Contact contact : allContacts) {
+            listOfContacts += number + ") " + contact.getName() + "\n";
             number++;
         }
         return listOfContacts;
     }
+
 }

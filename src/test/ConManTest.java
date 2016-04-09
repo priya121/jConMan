@@ -4,9 +4,6 @@ import main.ConMan;
 import main.Contact;
 import org.junit.Test;
 
-import java.util.Arrays;
-import java.util.List;
-
 import static org.junit.Assert.assertEquals;
 
 public class ConManTest {
@@ -43,18 +40,10 @@ public class ConManTest {
     }
 
     @Test
-    public void createsAListOfTwoContacts() {
-        List<String> contacts = Arrays.asList("Sarah", "Priya");
-        conMan.create(sarah);
-        conMan.create(priya);
-        assertEquals(contacts, conMan.getAllNames());
-    }
-
-    @Test
     public void formatsTheNamesInANumberedList() {
         conMan.create(sarah);
         conMan.create(priya);
         assertEquals("1) Sarah\n" +
-                     "2) Priya\n", conMan.numbersContacts());
+                     "2) Priya\n", conMan.listAllNames());
     }
 }
