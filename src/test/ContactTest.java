@@ -24,4 +24,12 @@ public class ContactTest {
         Contact contact = new Contact("Priya", "Patil");
         assertEquals("Priya Patil", contact.getName());
     }
+
+    @Test
+    public void canChangeContactsFirstName() {
+        Contact contact = new Contact("Priya", "Patil");
+        contact.setFirstName("Sam");
+        contact.setLastName("Smith");
+        assertEquals("Sam Smith", contact.getName());
+    }
 }

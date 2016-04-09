@@ -34,6 +34,13 @@ public class ConManTest {
     }
 
     @Test
+    public void canUpdateTheLastNameOfAContact() {
+        conMan.create(priya);
+        conMan.updateLastName(1, "Smith");
+        assertEquals("Priya Smith", conMan.read(1));
+    }
+
+    @Test
     public void canDeleteACreatedContact() {
         createContacts(Arrays.asList(priya, sarah));
         conMan.delete(1);
@@ -48,8 +55,6 @@ public class ConManTest {
     }
 
     private void createContacts(List<Contact> contacts) {
-        for(Contact contact : contacts) {
-            conMan.create(contact);
-        }
+        contacts.forEach(conMan::create);
     }
 }

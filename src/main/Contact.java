@@ -13,15 +13,19 @@ public class Contact {
         firstName = newName;
     }
 
+    public void setLastName(String newName) {
+        lastName = newName;
+    }
+
     public String getFirstName() {
         return firstName;
     }
 
-    public String getName() {
-        return firstName + " " + lastName;
-    }
-
     public String getLastName() {
         return lastName;
+    }
+
+    public String getName() {
+        return firstName + " " + lastName;
     }
 }

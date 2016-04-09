@@ -19,6 +19,11 @@ public class ConMan {
         contactToUpdate.setFirstName(newName);
     }
 
+    public void updateLastName(int contactNumber, String newName) {
+        Contact contactToUpdate = allContacts.get(contactNumber - 1);
+        contactToUpdate.setLastName(newName);
+    }
+
     public void delete(int contactNumber) {
         allContacts.remove(contactNumber - 1);
     }
