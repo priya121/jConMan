@@ -22,10 +22,9 @@ public class Read implements Option {
 
     @Override
     public void perform() {
-        NameList names = new NameList(allContacts);
-        inputOutput.showOutput("Select a contact to view: ");
-        inputOutput.showOutput(names.listAllNames());
-        inputOutput.showOutput(contact(Integer.parseInt(inputOutput.takeInput())));
+        listAllNames();
+        int chosenNumber = Integer.parseInt(inputOutput.takeInput());
+        inputOutput.showOutput(contact(chosenNumber));
     }
 
     public String name(int contactNumber) {
@@ -36,5 +35,11 @@ public class Read implements Option {
         Contact selected = allContacts.get(contactNumber - 1);
         return "Name: " + selected.getName() + "\n" +
                 "Email: " + selected.getEmail() + "\n";
+    }
+
+    private void listAllNames() {
+        NameList names = new NameList(allContacts);
+        inputOutput.showOutput("Select a contact to view: ");
+        inputOutput.showOutput(names.listAllNames());
     }
 }
