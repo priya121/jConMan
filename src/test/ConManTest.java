@@ -1,6 +1,7 @@
 package test;
 
 import main.ConMan;
+import main.ConsoleIO;
 import main.Contact;
 import org.junit.Test;
 
@@ -10,7 +11,8 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 
 public class ConManTest {
-    ConMan conMan = new ConMan();
+    private ConsoleIO console = new FakeIO();
+    ConMan conMan = new ConMan(console);
     Contact priya = new Contact("Priya", "Patil", "123@gmail.com");
     Contact sarah = new Contact("Sarah", "Smith", "234@gmail.com");
 

@@ -9,17 +9,23 @@ import java.util.ArrayList;
 
 public class ConMan {
     private ArrayList<Contact> allContacts;
+    private final ConsoleIO console;
     private final Update update;
     private final Create create;
     private final Read read;
     private final Delete delete;
 
-    public ConMan(){
+    public ConMan(ConsoleIO console){
         this.allContacts = new ArrayList<>();
+        this.console = console;
         this.create = new Create(allContacts);
         this.read = new Read(allContacts);
         this.update = new Update(allContacts);
         this.delete = new Delete(allContacts);
+    }
+
+    public String showGreeting() {
+        return console.showOutput("Welcome to ConMan!");
     }
 
     public void create(Contact contact) {
@@ -59,4 +65,5 @@ public class ConMan {
         }
         return listOfContacts;
     }
+
 }
