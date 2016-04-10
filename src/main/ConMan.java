@@ -36,19 +36,9 @@ public class ConMan {
     }
 
     public void takeUserChoice() {
-        options.get(Integer.parseInt(console.takeInput()) - 1).show();
-    }
-
-    public void create(Contact contact) {
-        create.add(contact);
-    }
-
-    public String readName(int contactNumber) {
-        return read.name(contactNumber);
-    }
-
-    public String readContact(int contactNumber) {
-        return read.contact(contactNumber);
+        int userChoice = Integer.parseInt(console.takeInput()) - 1;
+        options.get(userChoice).show();
+        options.get(userChoice).perform();
     }
 
     public void updateFirstName(int contactNumber, String newName) {
@@ -63,18 +53,24 @@ public class ConMan {
         update.email(contactNumber, newEmail);
     }
 
+    public void create(Contact contact) {
+        create.add(contact);
+    }
+
+    public String readName(int contactNumber) {
+        return read.name(contactNumber);
+    }
+
+    public String readContact(int contactNumber) {
+        return read.contact(contactNumber);
+    }
+
     public void delete(int contactNumber) {
         delete.delete(contactNumber - 1);
     }
 
     public String listAllNames() {
-        String listOfContacts = "";
-        int number = 1;
-        for (Contact contact : allContacts) {
-            listOfContacts += number + ") " + contact.getName() + "\n";
-            number++;
-        }
-        return listOfContacts;
+        NameList names = new NameList(allContacts);
+        return names.listAllNames();
     }
-
 }

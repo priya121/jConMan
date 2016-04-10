@@ -1,5 +1,7 @@
 package main.options;
 
 public interface Option {
-    public void show();
+    void show();
+    void perform();
+
 }

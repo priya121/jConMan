@@ -17,11 +17,11 @@ import static org.junit.Assert.assertTrue;
 
 public class ReadTest {
     Contact priya = new Contact("Priya", "Patil", "123@gmail.com");
-    Contact sarah = new Contact("Sarah", "Smith", "234@gmail.com");
+    Contact sarah = new Contact("Sarah", "Black", "234@gmail.com");
     List<Contact> contacts = Arrays.asList(priya, sarah);
     ByteArrayOutputStream recordedOutput = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(recordedOutput);
-    InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream("2\n".getBytes()), out);
+    InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream("2\n1\n".getBytes()), out);
     ConMan conMan = new ConMan(consoleIO);
 
     @Test
@@ -33,8 +33,30 @@ public class ReadTest {
 
     @Test
     public void userEntering2ShowsReadAContactTitle() {
+        createContacts(Arrays.asList(priya, sarah));
         conMan.showGreeting();
         conMan.takeUserChoice();
-        assertTrue(recordedOutput.toString().contains("Read a contact's details: \n"));
+        assertTrue(recordedOutput.toString().contains("Read a contact's details:"));
+    }
+
+    @Test
+    public void readFirstDisplaysAListOfNames() {
+        Read read = new Read(contacts, consoleIO);
+        read.perform();
+        assertTrue(recordedOutput.toString().contains("1) Priya Patil\n" +
+                "2) Sarah Black\n\n"));
+    }
+
+    @Test
+    public void userCanChooseAContactToReadDetails() {
+        InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream("1\n".getBytes()), out);
+        Read read = new Read(contacts, consoleIO);
+        read.perform();
+        assertTrue(recordedOutput.toString().contains("Name: Priya Patil\n" +
+                "Email: 123@gmail.com\n"));
+    }
+
+    private void createContacts(List<Contact> contacts) {
+        contacts.forEach(conMan::create);
     }
 }

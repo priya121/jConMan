@@ -17,7 +17,7 @@ public class InputOutputTest {
     ByteArrayOutputStream recordedOutput = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(recordedOutput);
     InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream("\n".getBytes()), out);
-    InputOutput userIO = new FakeIO(Arrays.asList("1"));
+    FakeIO userIO = new FakeIO(Arrays.asList("1"));
 
     @Test
     public void showsInitialGreeting() {

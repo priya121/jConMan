@@ -19,6 +19,11 @@ public class Delete implements Option{
         inputOutput.showOutput("Delete a contact: \n");
     }
 
+    @Override
+    public void perform() {
+
+    }
+
     public void delete(int contactNumber) {
         allContacts.remove(contactNumber);
     }

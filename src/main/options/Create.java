@@ -19,6 +19,11 @@ public class Create implements Option {
         inputOutput.showOutput("Create a contact: \n");
     }
 
+    @Override
+    public void perform() {
+
+    }
+
     public void add(Contact contact) {
         allContacts.add(contact);
     }

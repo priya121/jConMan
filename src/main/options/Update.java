@@ -19,6 +19,11 @@ public class Update implements Option{
         inputOutput.showOutput("Update a contact's details: \n");
     }
 
+    @Override
+    public void perform() {
+
+    }
+
     public void firstName(int contactNumber, String newName) {
         Contact contactToUpdate = allContacts.get(contactNumber - 1);
         contactToUpdate.setFirstName(newName);
@@ -33,4 +38,5 @@ public class Update implements Option{
         Contact contactToUpdate = allContacts.get(contactNumber - 1);
         contactToUpdate.setEmailAddress(newEmail);
     }
+
 }
