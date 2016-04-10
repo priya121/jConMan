@@ -1,32 +1,42 @@
 package main;
 
 import main.inputoutput.InputOutput;
-import main.options.Create;
-import main.options.Delete;
-import main.options.Read;
-import main.options.Update;
+import main.options.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class ConMan {
     private ArrayList<Contact> allContacts;
-    private final InputOutput console;
-    private final Update update;
-    private final Create create;
-    private final Read read;
-    private final Delete delete;
+    private InputOutput console;
+    private Update update;
+    private Create create;
+    private Read read;
+    private Delete delete;
+    private List<Option> options;
 
     public ConMan(InputOutput console){
         this.allContacts = new ArrayList<>();
         this.console = console;
-        this.create = new Create(allContacts);
-        this.read = new Read(allContacts);
-        this.update = new Update(allContacts);
-        this.delete = new Delete(allContacts);
+        this.create = new Create(allContacts, console);
+        this.read = new Read(allContacts, console);
+        this.update = new Update(allContacts, console);
+        this.delete = new Delete(allContacts, console);
+        this.options = Arrays.asList(create, read, update, delete);
     }
 
     public String showGreeting() {
-        return console.showOutput("Welcome to ConMan!");
+        return console.showOutput("Welcome to ConMan! \n" +
+                "Please choose from the follwing options: \n" +
+                "1) Create a contact \n" +
+                "2) Read a contact \n" +
+                "3) Update a contact \n" +
+                "4) Delete a contact \n");
+    }
+
+    public void takeUserChoice() {
+        options.get(Integer.parseInt(console.takeInput()) - 1).show();
     }
 
     public void create(Contact contact) {

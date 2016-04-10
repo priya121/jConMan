@@ -1,14 +1,22 @@
 package main.options;
 
 import main.Contact;
+import main.inputoutput.InputOutput;
 
 import java.util.List;
 
-public class Update {
+public class Update implements Option{
     private final List<Contact> allContacts;
+    private final InputOutput inputOutput;
 
-    public Update(List<Contact> allContacts) {
+    public Update(List<Contact> allContacts, InputOutput inputOutput) {
         this.allContacts = allContacts;
+        this.inputOutput = inputOutput;
+    }
+
+    @Override
+    public void show() {
+        inputOutput.showOutput("Update a contact's details: \n");
     }
 
     public void firstName(int contactNumber, String newName) {

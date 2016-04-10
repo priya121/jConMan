@@ -12,7 +12,7 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 
 public class ConManTest {
-    private InputOutput console = new FakeIO();
+    private InputOutput console = new FakeIO(Arrays.asList(""));
     ConMan conMan = new ConMan(console);
     Contact priya = new Contact("Priya", "Patil", "123@gmail.com");
     Contact sarah = new Contact("Sarah", "Smith", "234@gmail.com");

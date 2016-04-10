@@ -18,4 +18,13 @@ public class ConsoleIO implements InputOutput {
         return null;
     }
 
+    @Override
+    public String takeInput() {
+        try {
+            return input.readLine();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }

@@ -1,15 +1,23 @@
 package main.options;
 
 import main.Contact;
+import main.inputoutput.InputOutput;
 
 import java.util.List;
 
-public class Read {
+public class Read implements Option {
     private final List<Contact> allContacts;
+    private final InputOutput inputOutput;
 
-    public Read(List<Contact> allContacts)  {
-      this.allContacts = allContacts;
-   }
+    public Read(List<Contact> allContacts, InputOutput inputOutput) {
+        this.allContacts = allContacts;
+        this.inputOutput = inputOutput;
+    }
+
+    @Override
+    public void show() {
+        inputOutput.showOutput("Read a contact's details: \n");
+    }
 
     public String name(int contactNumber) {
         return allContacts.get(contactNumber - 1).getName();
