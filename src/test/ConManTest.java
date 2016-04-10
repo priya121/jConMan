@@ -1,9 +1,10 @@
 package test;
 
 import main.ConMan;
-import main.ConsoleIO;
+import main.inputoutput.InputOutput;
 import main.Contact;
 import org.junit.Test;
+import test.inputOutput.FakeIO;
 
 import java.util.Arrays;
 import java.util.List;
@@ -11,7 +12,7 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 
 public class ConManTest {
-    private ConsoleIO console = new FakeIO();
+    private InputOutput console = new FakeIO();
     ConMan conMan = new ConMan(console);
     Contact priya = new Contact("Priya", "Patil", "123@gmail.com");
     Contact sarah = new Contact("Sarah", "Smith", "234@gmail.com");
@@ -63,6 +64,7 @@ public class ConManTest {
         assertEquals("Name: Priya Patil\n" +
                 "Email: 567@gmail.com\n", conMan.readContact(2));
     }
+
     @Test
     public void canDeleteACreatedContact() {
         createContacts(Arrays.asList(priya, sarah));
