@@ -1,7 +1,7 @@
 package test.options;
 
 import main.ConMan;
-import main.Contact;
+import main.contactfields.Contact;
 import main.inputoutput.ConsoleIO;
 import main.inputoutput.InputOutput;
 import main.options.Read;
@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.Arrays;
 import java.util.List;
@@ -16,12 +17,12 @@ import java.util.List;
 import static org.junit.Assert.assertTrue;
 
 public class ReadTest {
-    Contact priya = new Contact("Priya", "Patil", "123@gmail.com");
-    Contact sarah = new Contact("Sarah", "Black", "234@gmail.com");
-    List<Contact> contacts = Arrays.asList(priya, sarah);
     ByteArrayOutputStream recordedOutput = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(recordedOutput);
-    InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream("2\n1\n".getBytes()), out);
+    Contact priya = createContact(new ByteArrayInputStream("Priya\nPatil\n123@gmail.com\n".getBytes()));
+    Contact sarah = createContact(new ByteArrayInputStream("Sarah\nBlack\n234@gmail.com\n2\n1\n".getBytes()));
+    List<Contact> contacts = Arrays.asList(priya, sarah);
+    InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream("Priya\nPatil\n123@gmail.com\n2\n1\n".getBytes()), out);
     ConMan conMan = new ConMan(consoleIO);
 
     @Test
@@ -33,30 +34,23 @@ public class ReadTest {
 
     @Test
     public void userEntering2ShowsReadAContactTitle() {
-        createContacts(Arrays.asList(priya, sarah));
         conMan.showGreeting();
+        conMan.create();
         conMan.takeUserChoice();
         assertTrue(recordedOutput.toString().contains("Read a contact's details:"));
     }
 
     @Test
     public void readFirstDisplaysAListOfNames() {
-        Read read = new Read(contacts, consoleIO);
-        read.perform();
-        assertTrue(recordedOutput.toString().contains("1) Priya Patil\n" +
-                "2) Sarah Black\n\n"));
-    }
-
-    @Test
-    public void userCanChooseAContactToReadDetails() {
-        InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream("1\n".getBytes()), out);
-        Read read = new Read(contacts, consoleIO);
-        read.perform();
-        assertTrue(recordedOutput.toString().contains("Name: Priya Patil\n" +
+        conMan.create();
+        conMan.takeUserChoice();
+        assertTrue(recordedOutput.toString().contains("First Name: Priya\n" +
+                "Last Name: Patil\n" +
                 "Email: 123@gmail.com\n"));
     }
 
-    private void createContacts(List<Contact> contacts) {
-        contacts.forEach(conMan::create);
+    private Contact createContact(InputStream inputStream) {
+        ConsoleIO console = new ConsoleIO(inputStream, out);
+        return new Contact(console);
     }
 }

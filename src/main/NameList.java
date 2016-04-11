@@ -1,5 +1,7 @@
 package main;
 
+import main.contactfields.Contact;
+
 import java.util.List;
 
 public class NameList {

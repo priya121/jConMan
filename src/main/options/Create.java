@@ -1,6 +1,6 @@
 package main.options;
 
-import main.Contact;
+import main.contactfields.Contact;
 import main.inputoutput.InputOutput;
 
 import java.util.List;
@@ -21,11 +21,10 @@ public class Create implements Option {
 
     @Override
     public void perform() {
-
     }
 
-    public void add(Contact contact) {
-        allContacts.add(contact);
+    public void create(Contact newContact) {
+        newContact.setFields();
+        allContacts.add(newContact);
     }
-
 }

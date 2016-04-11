@@ -1,6 +1,7 @@
 package main.options;
 
-import main.Contact;
+import main.contactfields.Contact;
+import main.NameList;
 import main.inputoutput.InputOutput;
 
 import java.util.List;
@@ -21,22 +22,9 @@ public class Update implements Option{
 
     @Override
     public void perform() {
-
+        NameList contacts = new NameList(allContacts);
+        inputOutput.showOutput(contacts.listAllNames());
+        int chosenContact = Integer.parseInt(inputOutput.takeInput()) - 1;
+        allContacts.get(chosenContact).setFields();
     }
-
-    public void firstName(int contactNumber, String newName) {
-        Contact contactToUpdate = allContacts.get(contactNumber - 1);
-        contactToUpdate.setFirstName(newName);
-    }
-
-    public void lastName(int contactNumber, String newName) {
-        Contact contactToUpdate = allContacts.get(contactNumber - 1);
-        contactToUpdate.setLastName(newName);
-    }
-
-    public void email(int contactNumber, String newEmail) {
-        Contact contactToUpdate = allContacts.get(contactNumber - 1);
-        contactToUpdate.setEmailAddress(newEmail);
-    }
-
 }

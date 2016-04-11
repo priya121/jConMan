@@ -1,6 +1,6 @@
 package main.options;
 
-import main.Contact;
+import main.contactfields.Contact;
 import main.inputoutput.InputOutput;
 
 import java.util.List;

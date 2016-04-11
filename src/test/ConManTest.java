@@ -1,78 +1,78 @@
 package test;
 
 import main.ConMan;
+import main.inputoutput.ConsoleIO;
 import main.inputoutput.InputOutput;
-import main.Contact;
 import org.junit.Test;
-import test.inputOutput.FakeIO;
 
-import java.util.Arrays;
-import java.util.List;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 
 import static org.junit.Assert.assertEquals;
 
 public class ConManTest {
-    private InputOutput console = new FakeIO(Arrays.asList("1"));
-    ConMan conMan = new ConMan(console);
-    Contact priya = new Contact("Priya", "Patil", "123@gmail.com");
-    Contact sarah = new Contact("Sarah", "Smith", "234@gmail.com");
+    ByteArrayOutputStream recordedOutput = new ByteArrayOutputStream();
+    PrintStream out = new PrintStream(recordedOutput);
+    InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream(("Priya\nPatil\n123@gmail.com\n" +
+                                                                    "Sarah\nSmith\n234@gmail.com\n").getBytes()), out);
+    ConMan conMan = new ConMan(consoleIO);
 
     @Test
-    public void canReadACreatedContact() {
-        conMan.create(priya);
-        assertEquals("Priya Patil", conMan.readName(1));
-    }
-
-    @Test
-    public void readsAChosenContactFromList() {
-        createContacts(Arrays.asList(sarah, priya));
-        assertEquals("Priya Patil", conMan.readName(2));
+    public void canReadCreatedContactsDetails() {
+        conMan.create();
+        conMan.create();
+        assertEquals("First Name: Priya\n" +
+                "Last Name: Patil\n" +
+                "Email: 123@gmail.com\n", conMan.readContact(1));
+        assertEquals("First Name: Sarah\n" +
+                "Last Name: Smith\n" +
+                "Email: 234@gmail.com\n", conMan.readContact(2));
     }
 
     @Test
     public void formatsTheNamesIntoANumberedList() {
-        createContacts(Arrays.asList(sarah, priya));
-        assertEquals("1) Sarah Smith\n" +
-                     "2) Priya Patil\n", conMan.listAllNames());
+        InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream(("Priya\nPatil\n123@gmail.com\n" +
+                                                                        "Sarah\nSmith\n234@gmail.com\n").getBytes()), out);
+        ConMan conMan = new ConMan(consoleIO);
+        conMan.create();
+        conMan.create();
+        assertEquals("1) Priya Patil\n" +
+                     "2) Sarah Smith\n", conMan.listAllNames());
     }
 
     @Test
     public void readsContactInformationWhenSelected() {
-        createContacts(Arrays.asList(sarah, priya));
-        assertEquals("Name: Sarah Smith\n" +
+        InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream("Sarah\nSmith\n234@gmail.com\n".getBytes()), out);
+        ConMan conMan = new ConMan(consoleIO);
+        conMan.create();
+        assertEquals("First Name: Sarah\n" +
+                     "Last Name: Smith\n" +
                      "Email: 234@gmail.com\n", conMan.readContact(1));
     }
 
     @Test
     public void canUpdateTheFirstNameOfACreatedContact() {
-        conMan.create(priya);
-        conMan.updateFirstName(1, "Sophie");
-        assertEquals("Sophie Patil", conMan.readName(1));
-    }
-
-    @Test
-    public void canUpdateTheLastNameOfAContact() {
-        conMan.create(priya);
-        conMan.updateLastName(1, "Smith");
-        assertEquals("Priya Smith", conMan.readName(1));
-    }
-
-    @Test
-    public void canUpdateEmailOfAClient() {
-        createContacts(Arrays.asList(sarah, priya));
-        conMan.updateEmail(2, "567@gmail.com");
-        assertEquals("Name: Priya Patil\n" +
-                "Email: 567@gmail.com\n", conMan.readContact(2));
+        InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream(("Sarah\nSmith\n234@gmail.com\n" +
+                                                                        "1\nSam\nSmith\n123@gmail.com\n").getBytes()), out);
+        ConMan conMan = new ConMan(consoleIO);
+        conMan.create();
+        conMan.update();
+        assertEquals("First Name: Sam\n" +
+                "Last Name: Smith\n" +
+                "Email: 123@gmail.com\n", conMan.readContact(1));
     }
 
     @Test
     public void canDeleteACreatedContact() {
-        createContacts(Arrays.asList(priya, sarah));
+        InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream(("Sarah\nSmith\n234@gmail.com\n" +
+                                                                        "Priya\nPatil\n123@gmail.com\n").getBytes()), out);
+        ConMan conMan = new ConMan(consoleIO);
+        conMan.create();
+        conMan.create();
         conMan.delete(1);
-        assertEquals("Sarah Smith", conMan.readName(1));
-    }
-
-    private void createContacts(List<Contact> contacts) {
-        contacts.forEach(conMan::create);
+        assertEquals("First Name: Priya\n" +
+                "Last Name: Patil\n" +
+                "Email: 123@gmail.com\n", conMan.readContact(1));
     }
 }

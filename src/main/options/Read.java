@@ -1,6 +1,6 @@
 package main.options;
 
-import main.Contact;
+import main.contactfields.Contact;
 import main.NameList;
 import main.inputoutput.InputOutput;
 
@@ -27,14 +27,10 @@ public class Read implements Option {
         inputOutput.showOutput(contact(chosenNumber));
     }
 
-    public String name(int contactNumber) {
-        return allContacts.get(contactNumber - 1).getName();
-    }
 
     public String contact(int contactNumber) {
         Contact selected = allContacts.get(contactNumber - 1);
-        return "Name: " + selected.getName() + "\n" +
-                "Email: " + selected.getEmail() + "\n";
+        return selected.showFields();
     }
 
     private void listAllNames() {

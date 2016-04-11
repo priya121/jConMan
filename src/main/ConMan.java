@@ -1,5 +1,6 @@
 package main;
 
+import main.contactfields.Contact;
 import main.inputoutput.InputOutput;
 import main.options.*;
 
@@ -41,24 +42,13 @@ public class ConMan {
         options.get(userChoice).perform();
     }
 
-    public void updateFirstName(int contactNumber, String newName) {
-        update.firstName(contactNumber, newName);
+    public void update() {
+        update.perform();
     }
 
-    public void updateLastName(int contactNumber, String newName) {
-        update.lastName(contactNumber, newName);
-    }
-
-    public void updateEmail(int contactNumber, String newEmail) {
-        update.email(contactNumber, newEmail);
-    }
-
-    public void create(Contact contact) {
-        create.add(contact);
-    }
-
-    public String readName(int contactNumber) {
-        return read.name(contactNumber);
+    public void create() {
+        Contact newContact = new Contact(console);
+        create.create(newContact);
     }
 
     public String readContact(int contactNumber) {
