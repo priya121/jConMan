@@ -21,10 +21,7 @@ public class Delete implements Option{
 
     @Override
     public void perform() {
-
-    }
-
-    public void delete(int contactNumber) {
-        allContacts.remove(contactNumber);
+        int chosenContact = Integer.parseInt(inputOutput.takeInput()) - 1;
+        allContacts.remove(chosenContact);
     }
 }

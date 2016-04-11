@@ -54,8 +54,8 @@ public class ConMan {
         return read.contact(contactNumber);
     }
 
-    public void delete(int contactNumber) {
-        delete.delete(contactNumber - 1);
+    public void delete() {
+        delete.perform();
     }
 
     public String listAllNames() {

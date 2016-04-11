@@ -35,8 +35,7 @@ public class ConManTest {
         InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream(("Priya\nPatil\n123@gmail.com\n" +
                                                                         "Sarah\nSmith\n234@gmail.com\n").getBytes()), out);
         ConMan conMan = new ConMan(consoleIO);
-        conMan.create();
-        conMan.create();
+        createContacts(conMan, 2);
         assertEquals("1) Priya Patil\n" +
                      "2) Sarah Smith\n", conMan.listAllNames());
     }
@@ -66,13 +65,19 @@ public class ConManTest {
     @Test
     public void canDeleteACreatedContact() {
         InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream(("Sarah\nSmith\n234@gmail.com\n" +
-                                                                        "Priya\nPatil\n123@gmail.com\n").getBytes()), out);
+                                                                        "Priya\nPatil\n123@gmail.com\n" +
+                                                                        "1\n").getBytes()), out);
         ConMan conMan = new ConMan(consoleIO);
-        conMan.create();
-        conMan.create();
-        conMan.delete(1);
+        createContacts(conMan, 2);
+        conMan.delete();
         assertEquals("First Name: Priya\n" +
                 "Last Name: Patil\n" +
                 "Email: 123@gmail.com\n", conMan.readContact(1));
+    }
+
+    private void createContacts(ConMan conMan, int number) {
+        for (int i = 0; i < number; i++) {
+            conMan.create();
+        }
     }
 }
