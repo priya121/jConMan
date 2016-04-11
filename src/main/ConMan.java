@@ -47,8 +47,7 @@ public class ConMan {
     }
 
     public void create() {
-        Contact newContact = new Contact(console);
-        create.create(newContact);
+        create.perform();
     }
 
     public String readContact(int contactNumber) {

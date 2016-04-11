@@ -25,11 +25,13 @@ public class CreateTest {
 
     @Test
     public void userCanCreateAContact() {
-        List<Contact> contacts = Arrays.asList(Ben, Sarah);
-        contacts.get(0).setFields();
+        ConsoleIO console = new ConsoleIO(new ByteArrayInputStream("Ben\nSmith\n123@gmail.com\n".getBytes()), out);
+        Contact ben = new Contact(console);
+        List<Contact> contacts = Arrays.asList(ben);
+        ben.setFields();
         assertEquals("First Name: Ben\n" +
-                    "Last Name: Smith\n" +
-                    "Email: 123@gmail.com\n", contacts.get(0).showFields());
+                "Last Name: Smith\n" +
+                "Email: 123@gmail.com\n", contacts.get(0).showFields());
     }
 
     @Test
@@ -50,8 +52,19 @@ public class CreateTest {
         assertTrue(recordedOutput.toString().contains("Create a contact: \n"));
     }
 
+    @Test
+    public void userCanCreateAContactAfterEntering1() {
+        InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream("1\nGary\nPaul\n345@gmail.com\n".getBytes()), out);
+        ConMan conMan = new ConMan(consoleIO);
+        conMan.takeUserChoice();
+        assertEquals("First Name: Gary\n" +
+                     "Last Name: Paul\n" +
+                     "Email: 345@gmail.com\n", conMan.readContact(1));
+    }
+
     private Contact createContact(InputStream inputStream) {
         ConsoleIO console = new ConsoleIO(inputStream, out);
         return new Contact(console);
     }
+
 }

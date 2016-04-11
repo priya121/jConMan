@@ -22,6 +22,7 @@ public class Contact {
 
     public void setFields() {
         for (Field field : fields) {
+            inputOutput.showOutput(field.showFieldName());
             field.set();
         }
     }

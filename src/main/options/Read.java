@@ -27,7 +27,6 @@ public class Read implements Option {
         inputOutput.showOutput(contact(chosenNumber));
     }
 
-
     public String contact(int contactNumber) {
         Contact selected = allContacts.get(contactNumber - 1);
         return selected.showFields();

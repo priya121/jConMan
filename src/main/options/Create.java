@@ -21,9 +21,7 @@ public class Create implements Option {
 
     @Override
     public void perform() {
-    }
-
-    public void create(Contact newContact) {
+        Contact newContact = new Contact(inputOutput);
         newContact.setFields();
         allContacts.add(newContact);
     }
