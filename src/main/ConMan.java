@@ -15,16 +15,18 @@ public class ConMan {
     private Create create;
     private Read read;
     private Delete delete;
+    private ExitConMan exit;
     private List<Option> options;
+    private int userChoice;
 
-    public ConMan(InputOutput console) {
+    public ConMan(InputOutput console, Option exit) {
         this.allContacts = new ArrayList<>();
         this.console = console;
         this.create = new Create(allContacts, console);
         this.read = new Read(allContacts, console);
         this.update = new Update(allContacts, console);
         this.delete = new Delete(allContacts, console);
-        this.options = Arrays.asList(create, read, update, delete);
+        this.options = Arrays.asList(create, read, update, delete, exit);
     }
 
     public void showGreeting() {
@@ -42,7 +44,7 @@ public class ConMan {
     }
 
     public void optionSelected() {
-        int userChoice = Integer.parseInt(console.takeInput()) - 1;
+        userChoice = Integer.parseInt(console.takeInput()) - 1;
         options.get(userChoice).show();
         options.get(userChoice).perform();
     }

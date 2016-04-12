@@ -5,7 +5,9 @@ import main.contactfields.Contact;
 import main.inputoutput.ConsoleIO;
 import main.inputoutput.InputOutput;
 import main.options.Create;
+import main.options.Option;
 import org.junit.Test;
+import test.FakeExit;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -37,7 +39,8 @@ public class CreateTest {
     @Test
     public void userEntering1ShowsCreateAContactTitle() {
         InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream("1\n".getBytes()), out);
-        ConMan conMan = new ConMan(consoleIO);
+        Option exitOption = new FakeExit(consoleIO);
+        ConMan conMan = new ConMan(consoleIO, exitOption);
         conMan.optionSelected();
         assertTrue(recordedOutput.toString().contains("Create a contact \n"));
     }
@@ -57,7 +60,8 @@ public class CreateTest {
     @Test
     public void userCanCreateAContactAfterEntering1() {
         InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream("1\nGary\nPaul\n345@gmail.com\n3 Rosebury Av\n".getBytes()), out);
-        ConMan conMan = new ConMan(consoleIO);
+        Option exitOption = new FakeExit(consoleIO);
+        ConMan conMan = new ConMan(consoleIO, exitOption);
         conMan.optionSelected();
         assertEquals("First Name: Gary\n" +
                      "Last Name: Paul\n" +

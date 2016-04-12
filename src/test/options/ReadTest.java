@@ -4,8 +4,10 @@ import main.ConMan;
 import main.contactfields.Contact;
 import main.inputoutput.ConsoleIO;
 import main.inputoutput.InputOutput;
+import main.options.Option;
 import main.options.Read;
 import org.junit.Test;
+import test.FakeExit;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -25,7 +27,7 @@ public class ReadTest {
     List<Contact> contacts = new ArrayList<>();
     InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream(("1\nPriya\nPatil\n123@gmail.com\n1 Cedar Way\n" +
                                                                     "2\n1\n").getBytes()), out);
-
+    Option exitOption = new FakeExit(consoleIO);
 
     @Test
     public void readHasAReadTitle() {
@@ -36,7 +38,7 @@ public class ReadTest {
 
     @Test
     public void userEntering2ShowsReadAContactsDetailsTitle() {
-        ConMan conMan = new ConMan(consoleIO);
+        ConMan conMan = new ConMan(consoleIO, exitOption);
         conMan.showGreeting();
         conMan.optionSelected();
         conMan.optionSelected();
@@ -59,7 +61,7 @@ public class ReadTest {
         InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream(("1\nPriya\nPatil\n123@gmail.com\n2 Cedar Way\n" +
                                                                         "1\nSarah\nBlack\n345@gmail.com\n 3 Cedar Way\n" +
                                                                         "2\n1\n").getBytes()), out);
-        ConMan conMan = new ConMan(consoleIO);
+        ConMan conMan = new ConMan(consoleIO, exitOption);
         createTwoContacts(conMan);
         conMan.optionSelected();
         assertTrue(recordedOutput.toString().contains("1) Priya Patil\n" +

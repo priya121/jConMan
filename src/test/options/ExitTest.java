@@ -1,4 +1,4 @@
-package test.inputOutput;
+package test.options;
 
 import main.ConMan;
 import main.inputoutput.ConsoleIO;
@@ -13,16 +13,16 @@ import java.io.PrintStream;
 
 import static org.junit.Assert.assertTrue;
 
-public class InputOutputTest {
+public class ExitTest {
     ByteArrayOutputStream recordedOutput = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(recordedOutput);
-    InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream("\n".getBytes()), out);
-    Option exitOption = new FakeExit(consoleIO);
 
     @Test
-    public void showsInitialGreetingToRecordedOutput() {
-        ConMan conMan = new ConMan(consoleIO, exitOption);
-        conMan.showGreeting();
-        assertTrue(recordedOutput.toString().contains("Welcome to ConMan!"));
+    public void userEntering5ExitsConMan() {
+        InputOutput console = new ConsoleIO(new ByteArrayInputStream("5\n".getBytes()), out);
+        Option exitOption = new FakeExit(console);
+        ConMan conMan = new ConMan(console, exitOption);
+        conMan.optionSelected();
+        assertTrue(recordedOutput.toString().contains("Exiting ConMan..."));
     }
 }

@@ -4,8 +4,10 @@ import main.ConMan;
 import main.contactfields.Contact;
 import main.inputoutput.ConsoleIO;
 import main.inputoutput.InputOutput;
+import main.options.Option;
 import main.options.Update;
 import org.junit.Test;
+import test.FakeExit;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -36,7 +38,8 @@ public class UpdateTest {
         InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream(("1\nMaya\nPatil\n123@gmail.com\n1 Cedar Way\n" +
                                                                         "1\nSarah\nSmith\n234@gmail.com\n2 Cedar Way\n" +
                                                                         "3\n1\n").getBytes()), out);
-        ConMan conMan = new ConMan(consoleIO);
+        Option exitOption = new FakeExit(consoleIO);
+        ConMan conMan = new ConMan(consoleIO, exitOption);
         createTwoContacts(conMan);
         conMan.optionSelected();
         assertTrue(recordedOutput.toString().contains("Update a contact's details \n"));
@@ -49,7 +52,8 @@ public class UpdateTest {
                                                                         "1\nSarah\nSmith\n234@gmail.com\n2 Cedar Way\n" +
                                                                         "3\n1\nSam\nPatil\n789@gmail.com\n3 Cedar Way\n" +
                                                                         "2\n1\n").getBytes()), out);
-        ConMan conMan = new ConMan(consoleIO);
+        Option exitOption = new FakeExit(consoleIO);
+        ConMan conMan = new ConMan(consoleIO, exitOption);
         createTwoContacts(conMan);
         conMan.optionSelected();
         conMan.optionSelected();

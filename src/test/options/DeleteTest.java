@@ -4,7 +4,9 @@ import main.ConMan;
 import main.contactfields.Contact;
 import main.inputoutput.ConsoleIO;
 import main.options.Delete;
+import main.options.Option;
 import org.junit.Test;
+import test.FakeExit;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -24,7 +26,8 @@ public class DeleteTest {
     Contact priya = createContact(new ByteArrayInputStream("Priya\nPatil\n123@gmail.com\n3 Rosebury Av\n".getBytes()));
     ConsoleIO consoleIO = new ConsoleIO(new ByteArrayInputStream(("1\nBen\nSmith\n345@gmail.com\n2 Rosebury Av\n" +
                                                                   "4\n1\n").getBytes()), out);
-    ConMan conMan = new ConMan(consoleIO);
+    Option exitOption = new FakeExit(consoleIO);
+    ConMan conMan = new ConMan(consoleIO, exitOption);
 
     @Test
     public void deleteHasADeleteTitle() {

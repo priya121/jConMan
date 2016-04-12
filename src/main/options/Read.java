@@ -34,7 +34,7 @@ public class Read implements Option {
 
     private void listAllNames() {
         NameList names = new NameList(allContacts);
-        inputOutput.showOutput("Select a contact to view: ");
+        inputOutput.showOutput("Select a contact to view: \n");
         inputOutput.showOutput(names.listAllNames());
     }
 }
