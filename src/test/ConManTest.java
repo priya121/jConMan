@@ -19,6 +19,24 @@ public class ConManTest {
     ConMan conMan = new ConMan(consoleIO);
 
     @Test
+    public void showsInitialGreeting() {
+        ConMan conMan = new ConMan(consoleIO);
+        conMan.showGreeting();
+        assertEquals("Welcome to ConMan! \n" +
+                "Please choose from the following options: \n", recordedOutput.toString());
+    }
+
+    @Test
+    public void showsUserOptions() {
+        ConMan conMan = new ConMan(consoleIO);
+        conMan.showOptionTitles();
+        assertEquals("1) Create a contact \n" +
+                "2) Read a contact's details \n" +
+                "3) Update a contact's details \n" +
+                "4) Delete a contact \n", recordedOutput.toString());
+    }
+
+    @Test
     public void canReadCreatedContactsDetails() {
         createTwoContacts(conMan);
         assertEquals("First Name: Priya\n" +

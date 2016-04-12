@@ -17,7 +17,7 @@ public class Read implements Option {
 
     @Override
     public void show() {
-        inputOutput.showOutput("Read a contact's details: \n");
+        inputOutput.showOutput("Read a contact's details \n");
     }
 
     @Override

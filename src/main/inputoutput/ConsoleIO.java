@@ -14,7 +14,7 @@ public class ConsoleIO implements InputOutput {
 
     @Override
     public String showOutput(String message) {
-        output.println(message);
+        output.print(message);
         return null;
     }
 

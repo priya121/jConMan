@@ -28,7 +28,7 @@ public class UpdateTest {
         InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream("3\n1\n".getBytes()), out);
         Update update = new Update(contacts, consoleIO);
         update.show();
-        assertTrue(recordedOutput.toString().contains("Update a contact's details: \n"));
+        assertTrue(recordedOutput.toString().contains("Update a contact's details \n"));
     }
 
     @Test
@@ -39,7 +39,7 @@ public class UpdateTest {
         ConMan conMan = new ConMan(consoleIO);
         createTwoContacts(conMan);
         conMan.optionSelected();
-        assertTrue(recordedOutput.toString().contains("Update a contact's details: \n"));
+        assertTrue(recordedOutput.toString().contains("Update a contact's details \n"));
     }
 
 

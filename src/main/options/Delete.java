@@ -16,7 +16,7 @@ public class Delete implements Option{
 
     @Override
     public void show() {
-        inputOutput.showOutput("Delete a contact: \n");
+        inputOutput.showOutput("Delete a contact \n");
     }
 
     @Override

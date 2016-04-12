@@ -31,7 +31,7 @@ public class ReadTest {
     public void readHasAReadTitle() {
         Read read = new Read(contacts, consoleIO);
         read.show();
-        assertTrue(recordedOutput.toString().contains("Read a contact's details: \n"));
+        assertTrue(recordedOutput.toString().contains("Read a contact's details \n"));
     }
 
     @Test
@@ -40,7 +40,7 @@ public class ReadTest {
         conMan.showGreeting();
         conMan.optionSelected();
         conMan.optionSelected();
-        assertTrue(recordedOutput.toString().contains("Read a contact's details: \n"));
+        assertTrue(recordedOutput.toString().contains("Read a contact's details \n"));
     }
 
     @Test

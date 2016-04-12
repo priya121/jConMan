@@ -17,7 +17,7 @@ public class ConMan {
     private Delete delete;
     private List<Option> options;
 
-    public ConMan(InputOutput console){
+    public ConMan(InputOutput console) {
         this.allContacts = new ArrayList<>();
         this.console = console;
         this.create = new Create(allContacts, console);
@@ -27,13 +27,18 @@ public class ConMan {
         this.options = Arrays.asList(create, read, update, delete);
     }
 
-    public String showGreeting() {
-        return console.showOutput("Welcome to ConMan! \n" +
-                "Please choose from the follwing options: \n" +
-                "1) Create a contact \n" +
-                "2) Read a contact \n" +
-                "3) Update a contact \n" +
-                "4) Delete a contact \n");
+    public void showGreeting() {
+        console.showOutput("Welcome to ConMan! \n" +
+                "Please choose from the following options: \n");
+    }
+
+    public void showOptionTitles() {
+        int number = 1;
+        for (Option option : options) {
+            console.showOutput(String.valueOf(number) + ") ");
+            option.show();
+            number++;
+        }
     }
 
     public void optionSelected() {

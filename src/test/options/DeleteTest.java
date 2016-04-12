@@ -31,7 +31,7 @@ public class DeleteTest {
         List<Contact> contacts = Arrays.asList(priya, ben);
         Delete delete = new Delete(contacts, consoleIO);
         delete.show();
-        assertTrue(recordedOutput.toString().contains("Delete a contact: "));
+        assertTrue(recordedOutput.toString().contains("Delete a contact "));
     }
 
     @Test
@@ -39,7 +39,7 @@ public class DeleteTest {
         conMan.showGreeting();
         conMan.optionSelected();
         conMan.optionSelected();
-        assertTrue(recordedOutput.toString().contains("Delete a contact: "));
+        assertTrue(recordedOutput.toString().contains("Delete a contact "));
     }
 
     @Test

@@ -16,7 +16,7 @@ public class Create implements Option {
 
     @Override
     public void show() {
-        inputOutput.showOutput("Create a contact: \n");
+        inputOutput.showOutput("Create a contact \n");
     }
 
     @Override

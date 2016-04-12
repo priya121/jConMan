@@ -31,7 +31,7 @@ public class CreateTest {
         InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream("".getBytes()), out);
         Create createOption = new Create(contacts, consoleIO);
         createOption.show();
-        assertTrue(recordedOutput.toString().contains("Create a contact: \n"));
+        assertTrue(recordedOutput.toString().contains("Create a contact \n"));
     }
 
     @Test
@@ -39,7 +39,7 @@ public class CreateTest {
         InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream("1\n".getBytes()), out);
         ConMan conMan = new ConMan(consoleIO);
         conMan.optionSelected();
-        assertTrue(recordedOutput.toString().contains("Create a contact: \n"));
+        assertTrue(recordedOutput.toString().contains("Create a contact \n"));
     }
 
     @Test

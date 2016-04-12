@@ -17,7 +17,7 @@ public class Update implements Option{
 
     @Override
     public void show() {
-        inputOutput.showOutput("Update a contact's details: \n");
+        inputOutput.showOutput("Update a contact's details \n");
     }
 
     @Override
