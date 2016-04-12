@@ -11,7 +11,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.PrintStream;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertTrue;
@@ -20,10 +20,12 @@ public class ReadTest {
     ByteArrayOutputStream recordedOutput = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(recordedOutput);
     Contact priya = createContact(new ByteArrayInputStream("Priya\nPatil\n123@gmail.com\n".getBytes()));
-    Contact sarah = createContact(new ByteArrayInputStream("Sarah\nBlack\n234@gmail.com\n2\n1\n".getBytes()));
-    List<Contact> contacts = Arrays.asList(priya, sarah);
-    InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream("Priya\nPatil\n123@gmail.com\n2\n1\n".getBytes()), out);
-    ConMan conMan = new ConMan(consoleIO);
+    Contact sarah = createContact(new ByteArrayInputStream(("Sarah\nBlack\n234@gmail.com\n" +
+                                                            "2\n1\n").getBytes()));
+    List<Contact> contacts = new ArrayList<>();
+    InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream(("1\nPriya\nPatil\n123@gmail.com\n" +
+                                                                    "2\n1\n").getBytes()), out);
+
 
     @Test
     public void readHasAReadTitle() {
@@ -33,24 +35,56 @@ public class ReadTest {
     }
 
     @Test
-    public void userEntering2ShowsReadAContactTitle() {
+    public void userEntering2ShowsReadAContactsDetailsTitle() {
+        ConMan conMan = new ConMan(consoleIO);
         conMan.showGreeting();
-        conMan.create();
-        conMan.takeUserChoice();
-        assertTrue(recordedOutput.toString().contains("Read a contact's details:"));
+        conMan.optionSelected();
+        conMan.optionSelected();
+        assertTrue(recordedOutput.toString().contains("Read a contact's details: \n"));
+    }
+
+    @Test
+    public void userEntering1ReadsFirstContact() {
+        createContactsList();
+        Read read = new Read(contacts, consoleIO);
+        read.perform();
+        assertTrue(recordedOutput.toString().contains("First Name: Priya\n" +
+                                                      "Last Name: Patil\n" +
+                                                      "Email: 123@gmail.com\n"));
     }
 
     @Test
     public void readFirstDisplaysAListOfNames() {
-        conMan.create();
-        conMan.takeUserChoice();
-        assertTrue(recordedOutput.toString().contains("First Name: Priya\n" +
-                "Last Name: Patil\n" +
-                "Email: 123@gmail.com\n"));
+        InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream(("1\nPriya\nPatil\n123@gmail.com\n" +
+                                                                        "1\nSarah\nBlack\n345@gmail.com\n" +
+                                                                        "2\n1\n").getBytes()), out);
+        ConMan conMan = new ConMan(consoleIO);
+        createTwoContacts(conMan);
+        conMan.optionSelected();
+        assertTrue(recordedOutput.toString().contains("1) Priya Patil\n" +
+                                                      "2) Sarah Black\n"));
+    }
+
+
+    private void createTwoContacts(ConMan conMan) {
+        conMan.optionSelected();
+        conMan.optionSelected();
     }
 
     private Contact createContact(InputStream inputStream) {
         ConsoleIO console = new ConsoleIO(inputStream, out);
         return new Contact(console);
+    }
+
+    private void setFields(List<Contact> contacts) {
+        for (Contact contact : contacts) {
+            contact.setFields();
+        }
+    }
+
+    private void createContactsList() {
+        contacts.add(priya);
+        contacts.add(sarah);
+        setFields(contacts);
     }
 }

@@ -22,7 +22,8 @@ public class DeleteTest {
     PrintStream out = new PrintStream(recordedOutput);
     Contact ben = createContact(new ByteArrayInputStream("Ben\nSmith\n234@gmail.com\n4\n".getBytes()));
     Contact priya = createContact(new ByteArrayInputStream("Priya\nPatil\n123@gmail.com\n".getBytes()));
-    ConsoleIO consoleIO = new ConsoleIO(new ByteArrayInputStream("Ben\nSmith\n345@gmail.com\n4\n1\n".getBytes()), out);
+    ConsoleIO consoleIO = new ConsoleIO(new ByteArrayInputStream(("1\nBen\nSmith\n345@gmail.com\n" +
+                                                                  "4\n1\n").getBytes()), out);
     ConMan conMan = new ConMan(consoleIO);
 
     @Test
@@ -35,9 +36,9 @@ public class DeleteTest {
 
     @Test
     public void userEntering4ShowsDeleteAContactTitle() {
-        conMan.create();
         conMan.showGreeting();
-        conMan.takeUserChoice();
+        conMan.optionSelected();
+        conMan.optionSelected();
         assertTrue(recordedOutput.toString().contains("Delete a contact: "));
     }
 
@@ -45,11 +46,13 @@ public class DeleteTest {
     public void userAbleToDeleteAContact() {
         ConsoleIO console = new ConsoleIO(new ByteArrayInputStream(("Ben\nSmith\n123@gmail.com\n" +
                                                                     "Sarah\nSmith\n678@gmail.com\n1\n").getBytes()), out);
-        List<Contact> contacts = addTwoContacts(console);
+        List<Contact> contacts = createContactList(console);
         Delete delete = new Delete(contacts, console);
         delete.perform();
         assertEquals("Sarah Smith", contacts.get(0).getName());
     }
+
+
 
     private Contact createContact(InputStream inputStream) {
         ConsoleIO console = new ConsoleIO(inputStream, out);
@@ -62,7 +65,7 @@ public class DeleteTest {
         }
     }
 
-    private List<Contact> addTwoContacts(ConsoleIO console) {
+    private List<Contact> createContactList(ConsoleIO console) {
         List<Contact> contacts = new ArrayList<>();
         Contact ben = new Contact(console);
         Contact sarah = new Contact(console);

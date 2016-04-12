@@ -32,27 +32,27 @@ public class UpdateTest {
     }
 
     @Test
-    public void userEntering1ShowsUpdateAContactTitle() {
-        InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream(("Maya\nPatil\n123@gmail.com\n" +
-                                                                        "Sarah\nSmith\n234@gmail.com\n" +
+    public void userEntering3ShowsUpdateAContactTitle() {
+        InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream(("1\nMaya\nPatil\n123@gmail.com\n" +
+                                                                        "1\nSarah\nSmith\n234@gmail.com\n" +
                                                                         "3\n1\n").getBytes()), out);
         ConMan conMan = new ConMan(consoleIO);
-        conMan.create();
-        conMan.create();
-        conMan.takeUserChoice();
+        createTwoContacts(conMan);
+        conMan.optionSelected();
         assertTrue(recordedOutput.toString().contains("Update a contact's details: \n"));
     }
 
+
     @Test
     public void userCanUpdateAChosenContactsDetails() {
-        InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream(("Maya\nPatil\n123@gmail.com\n" +
-                                                                        "Sarah\nSmith\n234@gmail.com\n" +
+        InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream(("1\nMaya\nPatil\n123@gmail.com\n" +
+                                                                        "1\nSarah\nSmith\n234@gmail.com\n" +
                                                                         "3\n1\nSam\nPatil\n789@gmail.com\n" +
                                                                         "2\n1\n").getBytes()), out);
         ConMan conMan = new ConMan(consoleIO);
-        createContacts(conMan, 2);
-        conMan.takeUserChoice();
-        conMan.takeUserChoice();
+        createTwoContacts(conMan);
+        conMan.optionSelected();
+        conMan.optionSelected();
         assertTrue(recordedOutput.toString().contains("1) Sam Patil"));
     }
 
@@ -61,9 +61,8 @@ public class UpdateTest {
         return new Contact(console);
     }
 
-    private void createContacts(ConMan conMan, int number) {
-        for (int i = 0; i < number; i++) {
-            conMan.create();
-        }
+    private void createTwoContacts(ConMan conMan) {
+        conMan.optionSelected();
+        conMan.optionSelected();
     }
 }

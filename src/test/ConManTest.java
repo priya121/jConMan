@@ -14,14 +14,13 @@ import static org.junit.Assert.assertEquals;
 public class ConManTest {
     ByteArrayOutputStream recordedOutput = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(recordedOutput);
-    InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream(("Priya\nPatil\n123@gmail.com\n" +
-                                                                    "Sarah\nSmith\n234@gmail.com\n").getBytes()), out);
+    InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream(("1\nPriya\nPatil\n123@gmail.com\n" +
+                                                                    "1\nSarah\nSmith\n234@gmail.com\n").getBytes()), out);
     ConMan conMan = new ConMan(consoleIO);
 
     @Test
     public void canReadCreatedContactsDetails() {
-        conMan.create();
-        conMan.create();
+        createTwoContacts(conMan);
         assertEquals("First Name: Priya\n" +
                 "Last Name: Patil\n" +
                 "Email: 123@gmail.com\n", conMan.readContact(1));
@@ -32,19 +31,19 @@ public class ConManTest {
 
     @Test
     public void formatsTheNamesIntoANumberedList() {
-        InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream(("Priya\nPatil\n123@gmail.com\n" +
-                                                                        "Sarah\nSmith\n234@gmail.com\n").getBytes()), out);
+        InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream(("1\nPriya\nPatil\n123@gmail.com\n" +
+                                                                        "1\nSarah\nSmith\n234@gmail.com\n").getBytes()), out);
         ConMan conMan = new ConMan(consoleIO);
-        createContacts(conMan, 2);
+        createTwoContacts(conMan);
         assertEquals("1) Priya Patil\n" +
-                     "2) Sarah Smith\n", conMan.listAllNames());
+                "2) Sarah Smith\n", conMan.listAllNames());
     }
 
     @Test
-    public void readsContactInformationWhenSelected() {
-        InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream("Sarah\nSmith\n234@gmail.com\n".getBytes()), out);
+    public void readsContactInformationDetailsWhenSelected() {
+        InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream("1\nSarah\nSmith\n234@gmail.com\n".getBytes()), out);
         ConMan conMan = new ConMan(consoleIO);
-        conMan.create();
+        conMan.optionSelected();
         assertEquals("First Name: Sarah\n" +
                      "Last Name: Smith\n" +
                      "Email: 234@gmail.com\n", conMan.readContact(1));
@@ -52,11 +51,11 @@ public class ConManTest {
 
     @Test
     public void canUpdateTheFirstNameOfACreatedContact() {
-        InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream(("Sarah\nSmith\n234@gmail.com\n" +
-                                                                        "1\nSam\nSmith\n123@gmail.com\n").getBytes()), out);
+        InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream(("1\nSarah\nSmith\n234@gmail.com\n" +
+                                                                        "3\n1\nSam\nSmith\n123@gmail.com\n").getBytes()), out);
         ConMan conMan = new ConMan(consoleIO);
-        conMan.create();
-        conMan.update();
+        conMan.optionSelected();
+        conMan.optionSelected();
         assertEquals("First Name: Sam\n" +
                 "Last Name: Smith\n" +
                 "Email: 123@gmail.com\n", conMan.readContact(1));
@@ -64,20 +63,19 @@ public class ConManTest {
 
     @Test
     public void canDeleteACreatedContact() {
-        InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream(("Sarah\nSmith\n234@gmail.com\n" +
-                                                                        "Priya\nPatil\n123@gmail.com\n" +
-                                                                        "1\n").getBytes()), out);
+        InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream(("1\nSarah\nSmith\n234@gmail.com\n" +
+                                                                        "1\nPriya\nPatil\n123@gmail.com\n" +
+                                                                        "4\n1\n").getBytes()), out);
         ConMan conMan = new ConMan(consoleIO);
-        createContacts(conMan, 2);
-        conMan.delete();
+        createTwoContacts(conMan);
+        conMan.optionSelected();
         assertEquals("First Name: Priya\n" +
                 "Last Name: Patil\n" +
                 "Email: 123@gmail.com\n", conMan.readContact(1));
     }
 
-    private void createContacts(ConMan conMan, int number) {
-        for (int i = 0; i < number; i++) {
-            conMan.create();
-        }
+    private void createTwoContacts(ConMan conMan) {
+        conMan.optionSelected();
+        conMan.optionSelected();
     }
 }

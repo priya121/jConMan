@@ -36,26 +36,14 @@ public class ConMan {
                 "4) Delete a contact \n");
     }
 
-    public void takeUserChoice() {
+    public void optionSelected() {
         int userChoice = Integer.parseInt(console.takeInput()) - 1;
         options.get(userChoice).show();
         options.get(userChoice).perform();
     }
 
-    public void update() {
-        update.perform();
-    }
-
-    public void create() {
-        create.perform();
-    }
-
     public String readContact(int contactNumber) {
         return read.contact(contactNumber);
-    }
-
-    public void delete() {
-        delete.perform();
     }
 
     public String listAllNames() {
