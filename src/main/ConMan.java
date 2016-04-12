@@ -2,6 +2,7 @@ package main;
 
 import main.contactfields.Contact;
 import main.inputoutput.InputOutput;
+import main.inputoutput.ValidDigit;
 import main.options.*;
 
 import java.util.ArrayList;
@@ -44,9 +45,19 @@ public class ConMan {
     }
 
     public void optionSelected() {
-        userChoice = Integer.parseInt(console.takeInput()) - 1;
+        getValidDigit();
         options.get(userChoice).show();
         options.get(userChoice).perform();
+    }
+
+    private void getValidDigit() {
+        ValidDigit validDigit = new ValidDigit();
+        String userInput = console.takeInput();
+        while (!validDigit.check(userInput)) {
+            console.showOutput("Please enter a valid number: ");
+            userInput = console.takeInput();
+        }
+        userChoice = Integer.parseInt(userInput) - 1;
     }
 
     public String readContact(int contactNumber) {

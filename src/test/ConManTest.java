@@ -11,6 +11,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class ConManTest {
     ByteArrayOutputStream recordedOutput = new ByteArrayOutputStream();
@@ -98,6 +99,14 @@ public class ConManTest {
                 "Last Name: Patil\n" +
                 "Email: 123@gmail.com\n" +
                 "Home Address: 2 Cedar Way\n", conMan.readContact(1));
+    }
+
+    @Test
+    public void ensuresAValidDigitIsEnteredWhenChoosingAnOption() {
+        InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream(("a\nb\n1\n").getBytes()), out);
+        ConMan conMan = new ConMan(consoleIO, exitOption);
+        conMan.optionSelected();
+        assertTrue(recordedOutput.toString().contains("Please enter a valid number: "));
     }
 
     private void createTwoContacts(ConMan conMan) {
