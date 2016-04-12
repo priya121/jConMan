@@ -20,9 +20,9 @@ import static org.junit.Assert.assertTrue;
 public class DeleteTest {
     ByteArrayOutputStream recordedOutput = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(recordedOutput);
-    Contact ben = createContact(new ByteArrayInputStream("Ben\nSmith\n234@gmail.com\n4\n".getBytes()));
-    Contact priya = createContact(new ByteArrayInputStream("Priya\nPatil\n123@gmail.com\n".getBytes()));
-    ConsoleIO consoleIO = new ConsoleIO(new ByteArrayInputStream(("1\nBen\nSmith\n345@gmail.com\n" +
+    Contact ben = createContact(new ByteArrayInputStream("Ben\nSmith\n234@gmail.com\n2 Rosebury Av\n".getBytes()));
+    Contact priya = createContact(new ByteArrayInputStream("Priya\nPatil\n123@gmail.com\n3 Rosebury Av\n".getBytes()));
+    ConsoleIO consoleIO = new ConsoleIO(new ByteArrayInputStream(("1\nBen\nSmith\n345@gmail.com\n2 Rosebury Av\n" +
                                                                   "4\n1\n").getBytes()), out);
     ConMan conMan = new ConMan(consoleIO);
 
@@ -44,8 +44,8 @@ public class DeleteTest {
 
     @Test
     public void userAbleToDeleteAContact() {
-        ConsoleIO console = new ConsoleIO(new ByteArrayInputStream(("Ben\nSmith\n123@gmail.com\n" +
-                                                                    "Sarah\nSmith\n678@gmail.com\n1\n").getBytes()), out);
+        ConsoleIO console = new ConsoleIO(new ByteArrayInputStream(("Ben\nSmith\n123@gmail.com\n1 Cedar Way\n" +
+                                                                    "Sarah\nSmith\n678@gmail.com\n2 Cedar Way\n1\n").getBytes()), out);
         List<Contact> contacts = createContactList(console);
         Delete delete = new Delete(contacts, console);
         delete.perform();

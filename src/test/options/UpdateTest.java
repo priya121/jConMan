@@ -19,8 +19,8 @@ import static org.junit.Assert.assertTrue;
 public class UpdateTest {
     ByteArrayOutputStream recordedOutput = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(recordedOutput);
-    Contact maya = createContact(new ByteArrayInputStream("Maya\nPatil\n123@gmail.com\n".getBytes()));
-    Contact sarah = createContact(new ByteArrayInputStream("Sarah\nSmith\n234@gmail.com\n".getBytes()));
+    Contact maya = createContact(new ByteArrayInputStream("Maya\nPatil\n123@gmail.com\n5 Rosebury Av\n".getBytes()));
+    Contact sarah = createContact(new ByteArrayInputStream("Sarah\nSmith\n234@gmail.com\n6 Rosebury Av\n".getBytes()));
     List<Contact> contacts = Arrays.asList(maya, sarah);
 
     @Test
@@ -33,8 +33,8 @@ public class UpdateTest {
 
     @Test
     public void userEntering3ShowsUpdateAContactTitle() {
-        InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream(("1\nMaya\nPatil\n123@gmail.com\n" +
-                                                                        "1\nSarah\nSmith\n234@gmail.com\n" +
+        InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream(("1\nMaya\nPatil\n123@gmail.com\n1 Cedar Way\n" +
+                                                                        "1\nSarah\nSmith\n234@gmail.com\n2 Cedar Way\n" +
                                                                         "3\n1\n").getBytes()), out);
         ConMan conMan = new ConMan(consoleIO);
         createTwoContacts(conMan);
@@ -45,15 +45,18 @@ public class UpdateTest {
 
     @Test
     public void userCanUpdateAChosenContactsDetails() {
-        InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream(("1\nMaya\nPatil\n123@gmail.com\n" +
-                                                                        "1\nSarah\nSmith\n234@gmail.com\n" +
-                                                                        "3\n1\nSam\nPatil\n789@gmail.com\n" +
+        InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream(("1\nMaya\nPatil\n123@gmail.com\n1 Cedar Way\n" +
+                                                                        "1\nSarah\nSmith\n234@gmail.com\n2 Cedar Way\n" +
+                                                                        "3\n1\nSam\nPatil\n789@gmail.com\n3 Cedar Way\n" +
                                                                         "2\n1\n").getBytes()), out);
         ConMan conMan = new ConMan(consoleIO);
         createTwoContacts(conMan);
         conMan.optionSelected();
         conMan.optionSelected();
-        assertTrue(recordedOutput.toString().contains("1) Sam Patil"));
+        assertTrue(recordedOutput.toString().contains("First Name: Sam\n" +
+                                                      "Last Name: Patil\n" +
+                                                      "Email: 789@gmail.com\n" +
+                                                      "Home Address: 3 Cedar Way\n"));
     }
 
     private Contact createContact(InputStream inputStream) {

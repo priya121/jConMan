@@ -19,8 +19,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class CreateTest {
-    Contact Ben = createContact(new ByteArrayInputStream("Ben\nSmith\n123@gmail.com\n".getBytes()));
-    Contact Sarah = createContact(new ByteArrayInputStream("Sarah\nSmith\n234@gmail.com\n".getBytes()));
+    Contact Ben = createContact(new ByteArrayInputStream("Ben\nSmith\n123@gmail.com\n1 Cedar Way\n".getBytes()));
+    Contact Sarah = createContact(new ByteArrayInputStream("Sarah\nSmith\n234@gmail.com\n2 Cedar Way\n".getBytes()));
     List<Contact> contacts = Arrays.asList(Ben, Sarah);
     ByteArrayOutputStream recordedOutput = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(recordedOutput);
@@ -44,23 +44,25 @@ public class CreateTest {
 
     @Test
     public void userAbleToCreateAContactByEnteringFields() {
-        ConsoleIO console = new ConsoleIO(new ByteArrayInputStream(("Maya\nPatil\n789@gmail.com\n").getBytes()), out);
+        ConsoleIO console = new ConsoleIO(new ByteArrayInputStream(("Maya\nPatil\n789@gmail.com\n2 Rosebury Av\n").getBytes()), out);
         List<Contact> contacts = new ArrayList<>();
         Create create = new Create(contacts, console);
         create.perform();
         assertEquals("First Name: Maya\n" +
                      "Last Name: Patil\n" +
-                     "Email: 789@gmail.com\n", contacts.get(0).showFields());
+                     "Email: 789@gmail.com\n" +
+                     "Home Address: 2 Rosebury Av\n", contacts.get(0).showFields());
     }
 
     @Test
     public void userCanCreateAContactAfterEntering1() {
-        InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream("1\nGary\nPaul\n345@gmail.com\n".getBytes()), out);
+        InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream("1\nGary\nPaul\n345@gmail.com\n3 Rosebury Av\n".getBytes()), out);
         ConMan conMan = new ConMan(consoleIO);
         conMan.optionSelected();
         assertEquals("First Name: Gary\n" +
                      "Last Name: Paul\n" +
-                     "Email: 345@gmail.com\n", conMan.readContact(1));
+                     "Email: 345@gmail.com\n" +
+                     "Home Address: 3 Rosebury Av\n", conMan.readContact(1));
     }
 
     private Contact createContact(InputStream inputStream) {

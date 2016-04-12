@@ -11,13 +11,15 @@ public class Contact {
     private FirstName firstName;
     private LastName lastName;
     private Email email;
+    private HomeAddress homeAddress;
 
     public Contact(InputOutput inputOutput) {
         this.inputOutput = inputOutput;
         this.firstName = new FirstName(inputOutput);
         this.lastName = new LastName(inputOutput);
         this.email = new Email(inputOutput);
-        this.fields = Arrays.asList(firstName, lastName, email);
+        this.homeAddress = new HomeAddress(inputOutput);
+        this.fields = Arrays.asList(firstName, lastName, email, homeAddress);
     }
 
     public void setFields() {

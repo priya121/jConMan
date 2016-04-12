@@ -19,11 +19,11 @@ import static org.junit.Assert.assertTrue;
 public class ReadTest {
     ByteArrayOutputStream recordedOutput = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(recordedOutput);
-    Contact priya = createContact(new ByteArrayInputStream("Priya\nPatil\n123@gmail.com\n".getBytes()));
-    Contact sarah = createContact(new ByteArrayInputStream(("Sarah\nBlack\n234@gmail.com\n" +
+    Contact priya = createContact(new ByteArrayInputStream("Priya\nPatil\n123@gmail.com\n1 Cedar Way\n".getBytes()));
+    Contact sarah = createContact(new ByteArrayInputStream(("Sarah\nBlack\n234@gmail.com\n2 Cedar Way\n" +
                                                             "2\n1\n").getBytes()));
     List<Contact> contacts = new ArrayList<>();
-    InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream(("1\nPriya\nPatil\n123@gmail.com\n" +
+    InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream(("1\nPriya\nPatil\n123@gmail.com\n1 Cedar Way\n" +
                                                                     "2\n1\n").getBytes()), out);
 
 
@@ -50,13 +50,14 @@ public class ReadTest {
         read.perform();
         assertTrue(recordedOutput.toString().contains("First Name: Priya\n" +
                                                       "Last Name: Patil\n" +
-                                                      "Email: 123@gmail.com\n"));
+                                                      "Email: 123@gmail.com\n" +
+                                                      "Home Address: 1 Cedar Way\n"));
     }
 
     @Test
     public void readFirstDisplaysAListOfNames() {
-        InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream(("1\nPriya\nPatil\n123@gmail.com\n" +
-                                                                        "1\nSarah\nBlack\n345@gmail.com\n" +
+        InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream(("1\nPriya\nPatil\n123@gmail.com\n2 Cedar Way\n" +
+                                                                        "1\nSarah\nBlack\n345@gmail.com\n 3 Cedar Way\n" +
                                                                         "2\n1\n").getBytes()), out);
         ConMan conMan = new ConMan(consoleIO);
         createTwoContacts(conMan);

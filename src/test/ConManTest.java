@@ -14,8 +14,8 @@ import static org.junit.Assert.assertEquals;
 public class ConManTest {
     ByteArrayOutputStream recordedOutput = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(recordedOutput);
-    InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream(("1\nPriya\nPatil\n123@gmail.com\n" +
-                                                                    "1\nSarah\nSmith\n234@gmail.com\n").getBytes()), out);
+    InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream(("1\nPriya\nPatil\n123@gmail.com\n1 Cedar Way\n" +
+                                                                    "1\nSarah\nSmith\n234@gmail.com\n2 Cedar Way\n").getBytes()), out);
     ConMan conMan = new ConMan(consoleIO);
 
     @Test
@@ -41,16 +41,18 @@ public class ConManTest {
         createTwoContacts(conMan);
         assertEquals("First Name: Priya\n" +
                 "Last Name: Patil\n" +
-                "Email: 123@gmail.com\n", conMan.readContact(1));
+                "Email: 123@gmail.com\n" +
+                "Home Address: 1 Cedar Way\n", conMan.readContact(1));
         assertEquals("First Name: Sarah\n" +
                 "Last Name: Smith\n" +
-                "Email: 234@gmail.com\n", conMan.readContact(2));
+                "Email: 234@gmail.com\n" +
+                "Home Address: 2 Cedar Way\n", conMan.readContact(2));
     }
 
     @Test
     public void formatsTheNamesIntoANumberedList() {
-        InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream(("1\nPriya\nPatil\n123@gmail.com\n" +
-                                                                        "1\nSarah\nSmith\n234@gmail.com\n").getBytes()), out);
+        InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream(("1\nPriya\nPatil\n123@gmail.com\n1 Cedar Way\n" +
+                                                                        "1\nSarah\nSmith\n234@gmail.com\n2 Cedar Way").getBytes()), out);
         ConMan conMan = new ConMan(consoleIO);
         createTwoContacts(conMan);
         assertEquals("1) Priya Patil\n" +
@@ -59,37 +61,40 @@ public class ConManTest {
 
     @Test
     public void readsContactInformationDetailsWhenSelected() {
-        InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream("1\nSarah\nSmith\n234@gmail.com\n".getBytes()), out);
+        InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream("1\nSarah\nSmith\n234@gmail.com\n1 Cedar Way\n".getBytes()), out);
         ConMan conMan = new ConMan(consoleIO);
         conMan.optionSelected();
         assertEquals("First Name: Sarah\n" +
                      "Last Name: Smith\n" +
-                     "Email: 234@gmail.com\n", conMan.readContact(1));
+                     "Email: 234@gmail.com\n" +
+                "Home Address: 1 Cedar Way\n", conMan.readContact(1));
     }
 
     @Test
     public void canUpdateTheFirstNameOfACreatedContact() {
-        InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream(("1\nSarah\nSmith\n234@gmail.com\n" +
-                                                                        "3\n1\nSam\nSmith\n123@gmail.com\n").getBytes()), out);
+        InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream(("1\nSarah\nSmith\n234@gmail.com\n1 Cedar Way\n" +
+                                                                        "3\n1\nSam\nSmith\n123@gmail.com\n2 Cedar Way\n").getBytes()), out);
         ConMan conMan = new ConMan(consoleIO);
         conMan.optionSelected();
         conMan.optionSelected();
         assertEquals("First Name: Sam\n" +
                 "Last Name: Smith\n" +
-                "Email: 123@gmail.com\n", conMan.readContact(1));
+                "Email: 123@gmail.com\n" +
+                "Home Address: 2 Cedar Way\n", conMan.readContact(1));
     }
 
     @Test
     public void canDeleteACreatedContact() {
-        InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream(("1\nSarah\nSmith\n234@gmail.com\n" +
-                                                                        "1\nPriya\nPatil\n123@gmail.com\n" +
+        InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream(("1\nSarah\nSmith\n234@gmail.com\n1 Cedar Way\n" +
+                                                                        "1\nPriya\nPatil\n123@gmail.com\n2 Cedar Way\n" +
                                                                         "4\n1\n").getBytes()), out);
         ConMan conMan = new ConMan(consoleIO);
         createTwoContacts(conMan);
         conMan.optionSelected();
         assertEquals("First Name: Priya\n" +
                 "Last Name: Patil\n" +
-                "Email: 123@gmail.com\n", conMan.readContact(1));
+                "Email: 123@gmail.com\n" +
+                "Home Address: 2 Cedar Way\n", conMan.readContact(1));
     }
 
     private void createTwoContacts(ConMan conMan) {
