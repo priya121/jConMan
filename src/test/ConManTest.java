@@ -109,6 +109,16 @@ public class ConManTest {
         assertTrue(recordedOutput.toString().contains("Please enter a valid number: "));
     }
 
+    @Test
+    public void conManLoopsThroughOptionsTillUserChoosesToExit() {
+        InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream(("1\nSarah\nSmith\n234@gmail.com\n1 Cedar Way\n" +
+                                                                        "1\nPriya\nPatil\n123@gmail.com\n2 Cedar Way\n" +
+                                                                        "4\n1\n5\n").getBytes()), out);
+        ConMan conMan = new ConMan(consoleIO, exitOption);
+        conMan.menuLoop();
+        assertTrue(recordedOutput.toString().contains("Delete a contact \n"));
+    }
+
     private void createTwoContacts(ConMan conMan) {
         conMan.optionSelected();
         conMan.optionSelected();

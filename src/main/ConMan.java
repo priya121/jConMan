@@ -63,4 +63,10 @@ public class ConMan {
         NameList names = new NameList(allContacts, console);
         return names.listNames(allContacts);
     }
+
+    public void menuLoop() {
+        while (userChoice != 4) {
+            optionSelected();
+        }
+    }
 }
