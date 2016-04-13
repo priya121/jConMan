@@ -36,12 +36,11 @@ public class UpdateTest {
     @Test
     public void userEntering3ShowsUpdateAContactTitle() {
         InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream(("1\nMaya\nPatil\n123@gmail.com\n1 Cedar Way\n" +
-                                                                        "1\nSarah\nSmith\n234@gmail.com\n2 Cedar Way\n" +
-                                                                        "3\n1\n").getBytes()), out);
+                                                                        "3\n1\nSarah\nSmith\n234@gmail.com\n2 Cedar Way\n" +
+                                                                        "5\n").getBytes()), out);
         Option exitOption = new FakeExit(consoleIO);
         ConMan conMan = new ConMan(consoleIO, exitOption);
-        createTwoContacts(conMan);
-        conMan.optionSelected();
+        conMan.menuLoop();
         assertTrue(recordedOutput.toString().contains("Update a contact's details \n"));
     }
 
@@ -50,12 +49,10 @@ public class UpdateTest {
         InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream(("1\nMaya\nPatil\n123@gmail.com\n1 Cedar Way\n" +
                                                                         "1\nSarah\nSmith\n234@gmail.com\n2 Cedar Way\n" +
                                                                         "3\n1\nSam\nPatil\n789@gmail.com\n3 Cedar Way\n" +
-                                                                        "2\n1\n").getBytes()), out);
+                                                                        "2\n1\n5\n").getBytes()), out);
         Option exitOption = new FakeExit(consoleIO);
         ConMan conMan = new ConMan(consoleIO, exitOption);
-        createTwoContacts(conMan);
-        conMan.optionSelected();
-        conMan.optionSelected();
+        conMan.menuLoop();
         assertTrue(recordedOutput.toString().contains("First Name: Sam\n" +
                                                       "Last Name: Patil\n" +
                                                       "Email: 789@gmail.com\n" +
@@ -65,11 +62,10 @@ public class UpdateTest {
     @Test
     public void userMustEnterAValidNumberWhenChoosingAContact() {
         InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream(("1\nMaya\nPatil\n123@gmail.com\n1 Cedar Way\n" +
-                                                                        "3\nabc\n1\nSam\nPatil\n789@gmail.com\n3 Cedar Way\n").getBytes()), out);
+                                                                        "3\nabc\n1\nSam\nPatil\n789@gmail.com\n3 Cedar Way\n5\n").getBytes()), out);
         Option exitOption = new FakeExit(consoleIO);
         ConMan conMan = new ConMan(consoleIO, exitOption);
-        conMan.optionSelected();
-        conMan.optionSelected();
+        conMan.menuLoop();
         assertTrue(recordedOutput.toString().contains("Please enter a valid number: "));
     }
 
@@ -89,10 +85,5 @@ public class UpdateTest {
     private Contact createContact(InputStream inputStream) {
         ConsoleIO console = new ConsoleIO(inputStream, out);
         return new Contact(console);
-    }
-
-    private void createTwoContacts(ConMan conMan) {
-        conMan.optionSelected();
-        conMan.optionSelected();
     }
 }

@@ -26,7 +26,7 @@ public class ReadTest {
                                                             "2\n1\n").getBytes()));
     List<Contact> contacts = new ArrayList<>();
     InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream(("1\nPriya\nPatil\n123@gmail.com\n1 Cedar Way\n" +
-                                                                    "2\n1\n").getBytes()), out);
+                                                                    "2\n1\n5\n").getBytes()), out);
     Option exitOption = new FakeExit(consoleIO);
 
     @Test
@@ -39,9 +39,7 @@ public class ReadTest {
     @Test
     public void userEntering2ShowsReadAContactsDetailsTitle() {
         ConMan conMan = new ConMan(consoleIO, exitOption);
-        conMan.showGreeting();
-        conMan.optionSelected();
-        conMan.optionSelected();
+        conMan.menuLoop();
         assertTrue(recordedOutput.toString().contains("Read a contact's details \n"));
     }
 
@@ -60,10 +58,9 @@ public class ReadTest {
     public void readFirstDisplaysAListOfNames() {
         InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream(("1\nPriya\nPatil\n123@gmail.com\n2 Cedar Way\n" +
                                                                         "1\nSarah\nBlack\n345@gmail.com\n 3 Cedar Way\n" +
-                                                                        "2\n1\n").getBytes()), out);
+                                                                        "2\n1\n5\n").getBytes()), out);
         ConMan conMan = new ConMan(consoleIO, exitOption);
-        createTwoContacts(conMan);
-        conMan.optionSelected();
+        conMan.menuLoop();
         assertTrue(recordedOutput.toString().contains("1) Priya Patil\n" +
                                                       "2) Sarah Black\n"));
     }
@@ -71,16 +68,10 @@ public class ReadTest {
     @Test
     public void userMustEnterAValidNumberToReadContact() {
         InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream(("1\nPriya\nPatil\n123@gmail.com\n2 Cedar Way\n" +
-                                                                        "2\na\n1\n").getBytes()), out);
+                                                                        "2\na\n1\n5\n").getBytes()), out);
         ConMan conMan = new ConMan(consoleIO, exitOption);
-        conMan.optionSelected();
-        conMan.optionSelected();
+        conMan.menuLoop();
         assertTrue(recordedOutput.toString().contains("Please enter a valid number: "));
-    }
-
-    private void createTwoContacts(ConMan conMan) {
-        conMan.optionSelected();
-        conMan.optionSelected();
     }
 
     private Contact createContact(InputStream inputStream) {

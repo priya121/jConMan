@@ -26,7 +26,7 @@ public class DeleteTest {
     Contact ben = createContact(new ByteArrayInputStream("Ben\nSmith\n234@gmail.com\n2 Rosebury Av\n".getBytes()));
     Contact priya = createContact(new ByteArrayInputStream("Priya\nPatil\n123@gmail.com\n3 Rosebury Av\n".getBytes()));
     ConsoleIO consoleIO = new ConsoleIO(new ByteArrayInputStream(("1\nBen\nSmith\n345@gmail.com\n2 Rosebury Av\n" +
-                                                                  "4\n1\n").getBytes()), out);
+                                                                  "4\n1\n5\n").getBytes()), out);
     Option exitOption = new FakeExit(consoleIO);
     ConMan conMan = new ConMan(consoleIO, exitOption);
 
@@ -40,8 +40,7 @@ public class DeleteTest {
 
     @Test
     public void userEntering4ShowsDeleteAContactTitle() {
-        conMan.optionSelected();
-        conMan.optionSelected();
+        conMan.menuLoop();
         assertTrue(recordedOutput.toString().contains("Delete a contact "));
     }
 
@@ -58,10 +57,9 @@ public class DeleteTest {
     @Test
     public void userMustEnterAValidNumberToDeleteAContact() {
         InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream(("1\nPriya\nPatil\n123@gmail.com\n2 Cedar Way\n" +
-                                                                        "4\na\n1\n").getBytes()), out);
+                                                                        "4\na\n1\n5\n").getBytes()), out);
         ConMan conMan = new ConMan(consoleIO, exitOption);
-        conMan.optionSelected();
-        conMan.optionSelected();
+        conMan.menuLoop();
         assertTrue(recordedOutput.toString().contains("Please enter a valid number: "));
     }
 
