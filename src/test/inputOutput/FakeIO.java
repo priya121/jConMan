@@ -18,8 +18,14 @@ public class FakeIO implements InputOutput {
         return input.pop();
     }
 
+
     @Override
     public String showOutput(String message) {
         return message;
+    }
+
+    @Override
+    public int takeChar() {
+        return input.pop().charAt(0);
     }
 }

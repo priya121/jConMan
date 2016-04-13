@@ -60,7 +60,7 @@ public class ConManTest {
         ConMan conMan = new ConMan(consoleIO, exitOption);
         createTwoContacts(conMan);
         assertEquals("1) Priya Patil\n" +
-                "2) Sarah Smith\n", conMan.listAllNames());
+                     "2) Sarah Smith\n", conMan.listAllNames());
     }
 
     @Test

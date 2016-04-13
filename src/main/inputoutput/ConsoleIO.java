@@ -27,4 +27,13 @@ public class ConsoleIO implements InputOutput {
         }
     }
 
+    public int takeChar() {
+        try {
+            return input.read();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
 }

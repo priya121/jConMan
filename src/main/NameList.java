@@ -27,14 +27,24 @@ public class NameList {
     }
 
     public List<Contact> filter() {
-        Iterator<Contact> contactList = allContacts.iterator();
         List<Contact> filteredList = new ArrayList<>();
-        String filterCharacters = console.takeInput();
-        while (contactList.hasNext()) {
-            Contact contact = contactList.next();
-            if (contact.getName().contains(filterCharacters))
-                filteredList.add(contact);
+        Iterator<Contact> contactList = allContacts.iterator();
+        char letter = 0;
+        while (letter != 'q') {
+            letter = (char) console.takeChar();
+            while (contactList.hasNext()) {
+                Contact contact = contactList.next();
+                filteredList = matchFound(letter, contact);
+            }
         }
+        return filteredList;
+    }
+
+    private List<Contact> matchFound(char letter, Contact contact) {
+        List<Contact> filteredList;
+        filteredList = new ArrayList<>();
+        if (contact.getName().contains("" + letter))
+            filteredList.add(contact);
         return filteredList;
     }
 }

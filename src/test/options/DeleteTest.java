@@ -40,7 +40,6 @@ public class DeleteTest {
 
     @Test
     public void userEntering4ShowsDeleteAContactTitle() {
-        conMan.showGreeting();
         conMan.optionSelected();
         conMan.optionSelected();
         assertTrue(recordedOutput.toString().contains("Delete a contact "));
