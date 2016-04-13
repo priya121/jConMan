@@ -65,8 +65,11 @@ public class ConMan {
     }
 
     public void menuLoop() {
+        showGreeting();
+        showOptionTitles();
         while (userChoice != 4) {
             optionSelected();
+            showOptionTitles();
         }
     }
 }

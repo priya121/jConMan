@@ -45,7 +45,6 @@ public class UpdateTest {
         assertTrue(recordedOutput.toString().contains("Update a contact's details \n"));
     }
 
-
     @Test
     public void userCanUpdateAChosenContactsDetails() {
         InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream(("1\nMaya\nPatil\n123@gmail.com\n1 Cedar Way\n" +
@@ -72,6 +71,19 @@ public class UpdateTest {
         conMan.optionSelected();
         conMan.optionSelected();
         assertTrue(recordedOutput.toString().contains("Please enter a valid number: "));
+    }
+
+    @Test
+    public void userCanReadListOfContactsBeforeDecidingWhichToUpdate() {
+        InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream(("1\nPriya\nPatil\n123@gmail.com\n1 Cedar Way\n" +
+                                                                        "1\nMaya\nPatil\n345@gmail.com\n2 Cedar Way\n" +
+                                                                        "3\n1\nBen\nSmith\n123@gmail.com\n3 Cedar Way\n" +
+                                                                        "5\n").getBytes()), out);
+        Option exitOption = new FakeExit(consoleIO);
+        ConMan conMan = new ConMan(consoleIO, exitOption);
+        conMan.menuLoop();
+        assertTrue(recordedOutput.toString().contains("1) Priya Patil\n" +
+                                                      "2) Maya Patil\n"));
     }
 
     private Contact createContact(InputStream inputStream) {

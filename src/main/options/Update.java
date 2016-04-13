@@ -10,10 +10,12 @@ import java.util.List;
 public class Update implements Option {
     private final List<Contact> allContacts;
     private final InputOutput inputOutput;
+    private final NameList contacts;
 
     public Update(List<Contact> allContacts, InputOutput inputOutput) {
         this.allContacts = allContacts;
         this.inputOutput = inputOutput;
+        this.contacts = new NameList(allContacts, inputOutput);
     }
 
     @Override
@@ -23,7 +25,6 @@ public class Update implements Option {
 
     @Override
     public void perform() {
-        NameList contacts = new NameList(allContacts, inputOutput);
         inputOutput.showOutput(contacts.listNames(allContacts));
         int chosenContact = getValidDigit() - 1;
         allContacts.get(chosenContact).setFields();

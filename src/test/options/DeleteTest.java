@@ -65,6 +65,19 @@ public class DeleteTest {
         assertTrue(recordedOutput.toString().contains("Please enter a valid number: "));
     }
 
+    @Test
+    public void userCanReadListOfContactsBeforeDecidingWhichToDelete() {
+        InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream(("1\nPriya\nPatil\n123@gmail.com\n1 Cedar Way\n" +
+                                                                        "1\nMaya\nPatil\n345@gmail.com\n2 Cedar Way\n" +
+                                                                        "1\nBen\nSmith\n123@gmail.com\n3 Cedar Way\n" +
+                                                                        "4\n1\n5\n").getBytes()), out);
+        ConMan conMan = new ConMan(consoleIO, exitOption);
+        conMan.menuLoop();
+        assertTrue(recordedOutput.toString().contains("1) Priya Patil\n" +
+                                                      "2) Maya Patil\n" +
+                                                      "3) Ben Smith\n"));
+    }
+
     private Contact createContact(InputStream inputStream) {
         ConsoleIO console = new ConsoleIO(inputStream, out);
         return new Contact(console);
