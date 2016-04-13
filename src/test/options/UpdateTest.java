@@ -63,6 +63,17 @@ public class UpdateTest {
                                                       "Home Address: 3 Cedar Way\n"));
     }
 
+    @Test
+    public void userMustEnterAValidNumberWhenChoosingAContact() {
+        InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream(("1\nMaya\nPatil\n123@gmail.com\n1 Cedar Way\n" +
+                                                                        "3\nabc\n1\nSam\nPatil\n789@gmail.com\n3 Cedar Way\n").getBytes()), out);
+        Option exitOption = new FakeExit(consoleIO);
+        ConMan conMan = new ConMan(consoleIO, exitOption);
+        conMan.optionSelected();
+        conMan.optionSelected();
+        assertTrue(recordedOutput.toString().contains("Please enter a valid number: "));
+    }
+
     private Contact createContact(InputStream inputStream) {
         ConsoleIO console = new ConsoleIO(inputStream, out);
         return new Contact(console);

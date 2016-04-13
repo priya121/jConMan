@@ -5,7 +5,7 @@ import main.inputoutput.InputOutput;
 import java.util.Arrays;
 import java.util.List;
 
-public class Contact {
+public class Contact implements Cloneable {
     private final List<Field> fields;
     private final InputOutput inputOutput;
     private FirstName firstName;

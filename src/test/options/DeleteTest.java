@@ -3,6 +3,7 @@ package test.options;
 import main.ConMan;
 import main.contactfields.Contact;
 import main.inputoutput.ConsoleIO;
+import main.inputoutput.InputOutput;
 import main.options.Delete;
 import main.options.Option;
 import org.junit.Test;
@@ -55,7 +56,15 @@ public class DeleteTest {
         assertEquals("Sarah Smith", contacts.get(0).getName());
     }
 
-
+    @Test
+    public void userMustEnterAValidNumberToDeleteAContact() {
+        InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream(("1\nPriya\nPatil\n123@gmail.com\n2 Cedar Way\n" +
+                                                                        "4\na\n1\n").getBytes()), out);
+        ConMan conMan = new ConMan(consoleIO, exitOption);
+        conMan.optionSelected();
+        conMan.optionSelected();
+        assertTrue(recordedOutput.toString().contains("Please enter a valid number: "));
+    }
 
     private Contact createContact(InputStream inputStream) {
         ConsoleIO console = new ConsoleIO(inputStream, out);

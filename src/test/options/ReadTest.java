@@ -68,6 +68,15 @@ public class ReadTest {
                                                       "2) Sarah Black\n"));
     }
 
+    @Test
+    public void userMustEnterAValidNumberToReadContact() {
+        InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream(("1\nPriya\nPatil\n123@gmail.com\n2 Cedar Way\n" +
+                                                                        "2\na\n1\n").getBytes()), out);
+        ConMan conMan = new ConMan(consoleIO, exitOption);
+        conMan.optionSelected();
+        conMan.optionSelected();
+        assertTrue(recordedOutput.toString().contains("Please enter a valid number: "));
+    }
 
     private void createTwoContacts(ConMan conMan) {
         conMan.optionSelected();

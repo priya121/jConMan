@@ -45,19 +45,14 @@ public class ConMan {
     }
 
     public void optionSelected() {
-        getValidDigit();
+        userChoice = getValidDigit() - 1;
         options.get(userChoice).show();
         options.get(userChoice).perform();
     }
 
-    private void getValidDigit() {
-        ValidDigit validDigit = new ValidDigit();
-        String userInput = console.takeInput();
-        while (!validDigit.check(userInput)) {
-            console.showOutput("Please enter a valid number: ");
-            userInput = console.takeInput();
-        }
-        userChoice = Integer.parseInt(userInput) - 1;
+    private int getValidDigit() {
+        ValidDigit validDigit = new ValidDigit(console);
+        return validDigit.getValidDigit();
     }
 
     public String readContact(int contactNumber) {
@@ -65,7 +60,7 @@ public class ConMan {
     }
 
     public String listAllNames() {
-        NameList names = new NameList(allContacts);
-        return names.listAllNames();
+        NameList names = new NameList(allContacts, console);
+        return names.listNames(allContacts);
     }
 }

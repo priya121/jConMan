@@ -1,8 +1,9 @@
 package main.options;
 
-import main.contactfields.Contact;
 import main.NameList;
+import main.contactfields.Contact;
 import main.inputoutput.InputOutput;
+import main.inputoutput.ValidDigit;
 
 import java.util.List;
 
@@ -23,7 +24,7 @@ public class Read implements Option {
     @Override
     public void perform() {
         listAllNames();
-        int chosenNumber = Integer.parseInt(inputOutput.takeInput());
+        int chosenNumber = getValidDigit();
         inputOutput.showOutput(contact(chosenNumber));
     }
 
@@ -33,8 +34,13 @@ public class Read implements Option {
     }
 
     private void listAllNames() {
-        NameList names = new NameList(allContacts);
+        NameList names = new NameList(allContacts, inputOutput);
         inputOutput.showOutput("Select a contact to view: \n");
-        inputOutput.showOutput(names.listAllNames());
+        inputOutput.showOutput(names.listNames(allContacts));
+    }
+
+    private int getValidDigit() {
+        ValidDigit validDigit = new ValidDigit(inputOutput);
+        return validDigit.getValidDigit();
     }
 }

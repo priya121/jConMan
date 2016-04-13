@@ -2,6 +2,7 @@ package main.options;
 
 import main.contactfields.Contact;
 import main.inputoutput.InputOutput;
+import main.inputoutput.ValidDigit;
 
 import java.util.List;
 
@@ -21,7 +22,12 @@ public class Delete implements Option{
 
     @Override
     public void perform() {
-        int chosenContact = Integer.parseInt(inputOutput.takeInput()) - 1;
+        int chosenContact = getValidDigit() - 1;
         allContacts.remove(chosenContact);
+    }
+
+    private int getValidDigit() {
+        ValidDigit validDigit = new ValidDigit(inputOutput);
+        return validDigit.getValidDigit();
     }
 }

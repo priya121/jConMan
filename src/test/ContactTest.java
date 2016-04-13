@@ -27,7 +27,7 @@ public class ContactTest {
     }
 
     @Test
-    public void userCanSetFieldsOfAContact() {
+    public void userCanSetAndShowFieldsOfAContact() {
         InputOutput console = new FakeIO(Arrays.asList("Ben", "Smith", "123@gmail.com", "1 Rosebury Av"));
         Contact ben = new Contact(console);
         List<Contact> contacts = Arrays.asList(ben);
