@@ -3,17 +3,24 @@ package main.contactfields;
 import main.inputoutput.InputOutput;
 
 public class Email implements Field {
-    private final InputOutput inputOutput;
+    private final InputOutput console;
     private String email;
 
-
-    public Email(InputOutput inputOutput) {
-        this.inputOutput = inputOutput;
+    public Email(InputOutput console) {
+        this.console = console;
     }
 
     @Override
     public void set() {
-        email = inputOutput.takeInput();
+        email = console.takeInput();
+    }
+
+    @Override
+    public void update() {
+        String userInput = console.takeInput();
+        if (!userInput.isEmpty()) {
+            email = userInput;
+        }
     }
 
     @Override

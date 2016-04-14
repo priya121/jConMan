@@ -3,16 +3,24 @@ package main.contactfields;
 import main.inputoutput.InputOutput;
 
 public class LastName implements Field {
-    private final InputOutput inputOutput;
+    private final InputOutput console;
     private String lastName;
 
-    public LastName(InputOutput inputOutput) {
-        this.inputOutput = inputOutput;
+    public LastName(InputOutput console) {
+        this.console = console;
     }
 
     @Override
     public void set() {
-        lastName = inputOutput.takeInput();
+        lastName = console.takeInput();
+    }
+
+    @Override
+    public void update() {
+        String userInput = console.takeInput();
+        if (!userInput.isEmpty()) {
+            lastName = userInput;
+        }
     }
 
     @Override

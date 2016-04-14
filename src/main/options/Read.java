@@ -9,23 +9,23 @@ import java.util.List;
 
 public class Read implements Option {
     private final List<Contact> allContacts;
-    private final InputOutput inputOutput;
+    private final InputOutput console;
 
-    public Read(List<Contact> allContacts, InputOutput inputOutput) {
+    public Read(List<Contact> allContacts, InputOutput console) {
         this.allContacts = allContacts;
-        this.inputOutput = inputOutput;
+        this.console = console;
     }
 
     @Override
     public void show() {
-        inputOutput.showOutput("Read a contact's details \n");
+        console.showOutput("Read a contact's details \n");
     }
 
     @Override
     public void perform() {
         listAllNames();
         int chosenNumber = getValidDigit();
-        inputOutput.showOutput(contact(chosenNumber));
+        console.showOutput(contact(chosenNumber));
     }
 
     public String contact(int contactNumber) {
@@ -34,13 +34,13 @@ public class Read implements Option {
     }
 
     private void listAllNames() {
-        NameList names = new NameList(allContacts, inputOutput);
-        inputOutput.showOutput("Select a contact to view: \n");
-        inputOutput.showOutput(names.listNames(allContacts));
+        NameList names = new NameList(allContacts, console);
+        console.showOutput("Select a contact to view: \n");
+        console.showOutput(names.listNames(allContacts));
     }
 
     private int getValidDigit() {
-        ValidDigit validDigit = new ValidDigit(inputOutput);
+        ValidDigit validDigit = new ValidDigit(console);
         return validDigit.getValidDigit();
     }
 }

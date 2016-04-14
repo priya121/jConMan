@@ -9,29 +9,30 @@ import java.util.List;
 
 public class Update implements Option {
     private final List<Contact> allContacts;
-    private final InputOutput inputOutput;
+    private final InputOutput console;
     private final NameList contacts;
 
-    public Update(List<Contact> allContacts, InputOutput inputOutput) {
+    public Update(List<Contact> allContacts, InputOutput console) {
         this.allContacts = allContacts;
-        this.inputOutput = inputOutput;
-        this.contacts = new NameList(allContacts, inputOutput);
+        this.console = console;
+        this.contacts = new NameList(allContacts, console);
     }
 
     @Override
     public void show() {
-        inputOutput.showOutput("Update a contact's details \n");
+        console.showOutput("Update a contact's details \n");
     }
 
     @Override
     public void perform() {
-        inputOutput.showOutput(contacts.listNames(allContacts));
+        console.showOutput(contacts.listNames(allContacts));
         int chosenContact = getValidDigit() - 1;
-        allContacts.get(chosenContact).setFields();
+        console.showOutput("Fill in field to update or leave blank to keep previous value: \n");
+        allContacts.get(chosenContact).updateFields();
     }
 
     private int getValidDigit() {
-        ValidDigit validDigit = new ValidDigit(inputOutput);
+        ValidDigit validDigit = new ValidDigit(console);
         return validDigit.getValidDigit();
     }
 }

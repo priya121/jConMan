@@ -11,7 +11,6 @@ import test.FakeExit;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,12 +20,9 @@ import static org.junit.Assert.assertTrue;
 public class ReadTest {
     ByteArrayOutputStream recordedOutput = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(recordedOutput);
-    Contact priya = createContact(new ByteArrayInputStream("Priya\nPatil\n123@gmail.com\n1 Cedar Way\n".getBytes()));
-    Contact sarah = createContact(new ByteArrayInputStream(("Sarah\nBlack\n234@gmail.com\n2 Cedar Way\n" +
-                                                            "2\n1\n").getBytes()));
     List<Contact> contacts = new ArrayList<>();
-    InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream(("1\nPriya\nPatil\n123@gmail.com\n1 Cedar Way\n" +
-                                                                    "2\n1\n5\n").getBytes()), out);
+    InputOutput consoleIO =  input("1\nPriya\nPatil\n123@gmail.com\n1 Cedar Way\n" +
+                                    "2\n1\n5\n");
     Option exitOption = new FakeExit(consoleIO);
 
     @Test
@@ -45,7 +41,7 @@ public class ReadTest {
 
     @Test
     public void userEntering1ReadsFirstContact() {
-        createContactsList();
+        addContactsToList();
         Read read = new Read(contacts, consoleIO);
         read.perform();
         assertTrue(recordedOutput.toString().contains("First Name: Priya\n" +
@@ -56,9 +52,9 @@ public class ReadTest {
 
     @Test
     public void readFirstDisplaysAListOfNames() {
-        InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream(("1\nPriya\nPatil\n123@gmail.com\n2 Cedar Way\n" +
-                                                                        "1\nSarah\nBlack\n345@gmail.com\n 3 Cedar Way\n" +
-                                                                        "2\n1\n5\n").getBytes()), out);
+        InputOutput consoleIO = input("1\nPriya\nPatil\n123@gmail.com\n2 Cedar Way\n" +
+                                      "1\nSarah\nBlack\n345@gmail.com\n 3 Cedar Way\n" +
+                                      "2\n1\n5\n");
         ConMan conMan = new ConMan(consoleIO, exitOption);
         conMan.menuLoop();
         assertTrue(recordedOutput.toString().contains("1) Priya Patil\n" +
@@ -66,17 +62,21 @@ public class ReadTest {
     }
 
     @Test
-    public void userMustEnterAValidNumberToReadContact() {
-        InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream(("1\nPriya\nPatil\n123@gmail.com\n2 Cedar Way\n" +
-                                                                        "2\na\n1\n5\n").getBytes()), out);
+    public void userMustEnterAValidNumberToReadContactAfterEnteringReadOption() {
+        InputOutput consoleIO = input("1\nPriya\nPatil\n123@gmail.com\n2 Cedar Way\n2\na\n1\n5\n");
         ConMan conMan = new ConMan(consoleIO, exitOption);
         conMan.menuLoop();
         assertTrue(recordedOutput.toString().contains("Please enter a valid number: "));
     }
 
-    private Contact createContact(InputStream inputStream) {
-        ConsoleIO console = new ConsoleIO(inputStream, out);
-        return new Contact(console);
+
+    private void addContactsToList() {
+        Contact priya = createContact("Priya\nPatil\n123@gmail.com\n1 Cedar Way\n");
+        Contact sarah = createContact("Sarah\nBlack\n234@gmail.com\n2 Cedar Way\n" +
+                                      "2\n1\n");
+        contacts.add(priya);
+        contacts.add(sarah);
+        setFields(contacts);
     }
 
     private void setFields(List<Contact> contacts) {
@@ -85,9 +85,12 @@ public class ReadTest {
         }
     }
 
-    private void createContactsList() {
-        contacts.add(priya);
-        contacts.add(sarah);
-        setFields(contacts);
+    private Contact createContact(String input) {
+        ConsoleIO console = new ConsoleIO(new ByteArrayInputStream(input.getBytes()), out);
+        return new Contact(console);
+    }
+
+    private InputOutput input(String input) {
+        return new ConsoleIO(new ByteArrayInputStream(input.getBytes()), out);
     }
 }

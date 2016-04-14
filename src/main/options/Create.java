@@ -7,21 +7,21 @@ import java.util.List;
 
 public class Create implements Option {
     private final List<Contact> allContacts;
-    private final InputOutput inputOutput;
+    private final InputOutput console;
 
-    public Create(List<Contact> allContacts, InputOutput inputOutput) {
+    public Create(List<Contact> allContacts, InputOutput console) {
         this.allContacts = allContacts;
-        this.inputOutput = inputOutput;
+        this.console = console;
     }
 
     @Override
     public void show() {
-        inputOutput.showOutput("Create a contact \n");
+        console.showOutput("Create a contact \n");
     }
 
     @Override
     public void perform() {
-        Contact newContact = new Contact(inputOutput);
+        Contact newContact = new Contact(console);
         newContact.setFields();
         allContacts.add(newContact);
     }

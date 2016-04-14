@@ -3,17 +3,25 @@ package main.contactfields;
 import main.inputoutput.InputOutput;
 
 public class HomeAddress implements Field {
-    private final InputOutput inputOutput;
+    private final InputOutput console;
     private String homeAddress;
 
 
-    public HomeAddress(InputOutput inputOutput) {
-        this.inputOutput = inputOutput;
+    public HomeAddress(InputOutput console) {
+        this.console = console;
     }
 
     @Override
     public void set() {
-        homeAddress = inputOutput.takeInput();
+        homeAddress = console.takeInput();
+    }
+
+    @Override
+    public void update() {
+        String userInput = console.takeInput();
+        if (!userInput.isEmpty()) {
+            homeAddress = userInput;
+        }
     }
 
     @Override
