@@ -1,6 +1,7 @@
 package test.options;
 
 import conMan.ConMan;
+import conMan.ContactList;
 import conMan.contactfields.Contact;
 import conMan.inputoutput.ConsoleIO;
 import conMan.inputoutput.InputOutput;
@@ -12,22 +13,21 @@ import test.FakeExit;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.Assert.assertTrue;
 
 public class ReadTest {
     ByteArrayOutputStream recordedOutput = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(recordedOutput);
-    List<Contact> contacts = new ArrayList<>();
-    InputOutput consoleIO =  input("1\nPriya\nPatil\n123@gmail.com\n1 Cedar Way\n" +
-                                    "2\n1\n5\n");
+    ContactList contactList = new ContactList();
+    InputOutput consoleIO = input("1\nPriya\nPatil\n123@gmail.com\n1 Cedar Way\n" +
+                                  "2\n1\n5\n");
     Option exitOption = new FakeExit(consoleIO);
 
     @Test
     public void readHasAReadTitle() {
-        Read read = new Read(contacts, consoleIO);
+        ContactList list = new ContactList();
+        Read read = new Read(list, consoleIO);
         read.show();
         assertTrue(recordedOutput.toString().contains("Read a contact's details \n"));
     }
@@ -42,7 +42,7 @@ public class ReadTest {
     @Test
     public void userEntering1ReadsFirstContact() {
         addContactsToList();
-        Read read = new Read(contacts, consoleIO);
+        Read read = new Read(contactList, consoleIO);
         read.perform();
         assertTrue(recordedOutput.toString().contains("First Name: Priya\n" +
                                                       "Last Name: Patil\n" +
@@ -69,18 +69,17 @@ public class ReadTest {
         assertTrue(recordedOutput.toString().contains("Please enter a valid number: "));
     }
 
-
     private void addContactsToList() {
         Contact priya = createContact("Priya\nPatil\n123@gmail.com\n1 Cedar Way\n");
         Contact sarah = createContact("Sarah\nBlack\n234@gmail.com\n2 Cedar Way\n" +
                                       "2\n1\n");
-        contacts.add(priya);
-        contacts.add(sarah);
-        setFields(contacts);
+        contactList.addContact(priya);
+        contactList.addContact(sarah);
+        setFields(contactList);
     }
 
-    private void setFields(List<Contact> contacts) {
-        for (Contact contact : contacts) {
+    private void setFields(ContactList list) {
+        for (Contact contact : list.getList()) {
             contact.setFields();
         }
     }

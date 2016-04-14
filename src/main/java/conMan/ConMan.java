@@ -1,16 +1,14 @@
 package conMan;
 
-import conMan.contactfields.Contact;
 import conMan.inputoutput.InputOutput;
 import conMan.inputoutput.ValidDigit;
 import conMan.options.*;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class ConMan {
-    private ArrayList<Contact> allContacts;
+    private ContactList allContacts;
     private InputOutput console;
     private Update update;
     private Create create;
@@ -21,7 +19,7 @@ public class ConMan {
     private int userChoice;
 
     public ConMan(InputOutput console, Option exit) {
-        this.allContacts = new ArrayList<>();
+        this.allContacts = new ContactList();
         this.console = console;
         this.create = new Create(allContacts, console);
         this.read = new Read(allContacts, console);
@@ -61,7 +59,7 @@ public class ConMan {
 
     public String listAllNames() {
         NameList names = new NameList(allContacts, console);
-        return names.listNames(allContacts);
+        return names.listNames(allContacts.getList());
     }
 
     public void menuLoop() {

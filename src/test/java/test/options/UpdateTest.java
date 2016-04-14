@@ -1,6 +1,7 @@
 package test.options;
 
 import conMan.ConMan;
+import conMan.ContactList;
 import conMan.contactfields.Contact;
 import conMan.inputoutput.ConsoleIO;
 import conMan.inputoutput.InputOutput;
@@ -12,7 +13,6 @@ import test.FakeExit;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.util.Arrays;
 
 import static org.junit.Assert.assertTrue;
 
@@ -24,7 +24,10 @@ public class UpdateTest {
     public void updateHasAUpdateTitle() {
         Contact maya = createContact("Maya\nPatil\n123@gmail.com\n5 Rosebury Av\n");
         Contact sarah = createContact("Sarah\nSmith\n234@gmail.com\n6 Rosebury Av\n");
-        Update update = new Update(Arrays.asList(maya, sarah), input("3\n1\n"));
+        ContactList list = new ContactList();
+        list.addContact(maya);
+        list.addContact(sarah);
+        Update update = new Update(list, input("3\n1\n"));
         update.show();
         assertTrue(recordedOutput.toString().contains("Update a contact's details \n"));
     }

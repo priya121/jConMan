@@ -25,8 +25,8 @@ public class ConManTest {
     public void showsInitialGreeting() {
         ConMan conMan = new ConMan(consoleIO, exitOption);
         conMan.showGreeting();
-        assertEquals("Welcome to conMan.ConMan! \n" +
-                     "Please choose from the following conMan.options: \n", recordedOutput.toString());
+        assertEquals("Welcome to ConMan! \n" +
+                     "Please choose from the following options: \n", recordedOutput.toString());
     }
 
     @Test

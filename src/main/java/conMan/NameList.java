@@ -7,10 +7,10 @@ import java.util.Iterator;
 import java.util.List;
 
 public class NameList {
-    private final List<Contact> allContacts;
+    private final ContactList allContacts;
     private final InputOutput console;
 
-    public NameList(List<Contact> allContacts, InputOutput console) {
+    public NameList(ContactList allContacts, InputOutput console) {
         this.allContacts = allContacts;
         this.console = console;
     }
@@ -27,7 +27,7 @@ public class NameList {
 
     public List<Contact> filter() {
         List<Contact> filteredList = new ArrayList<>();
-        Iterator<Contact> contactList = allContacts.iterator();
+        Iterator<Contact> contactList = allContacts.getList().iterator();
         char letter = 0;
         while (letter != 'q') {
             letter = (char) console.takeChar();

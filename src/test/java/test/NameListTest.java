@@ -1,5 +1,6 @@
 package test;
 
+import conMan.ContactList;
 import conMan.NameList;
 import conMan.contactfields.Contact;
 import conMan.inputoutput.ConsoleIO;
@@ -12,7 +13,6 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -23,14 +23,14 @@ public class NameListTest {
     PrintStream out = new PrintStream(recordedOutput);
     Contact Ben = createContact(Arrays.asList("Ben", "Smith", "123@gmail.com", "1 Cedar Way"));
     Contact Sarah = createContact(Arrays.asList("Sarah", "Smith", "234@gmail.com", "2 Cedar Way"));
-    List<Contact> contacts = new ArrayList<>();
+    ContactList list = new ContactList();
 
     @Test
     public void canFilterOutNamesInTheList() throws IOException {
         createContacts();
         InputOutput console = new ConsoleIO(new ByteArrayInputStream("Sar\nq\n".getBytes()), out);
-        NameList list = new NameList(contacts, console);
-        assertEquals("1) Sarah Smith\n", list.listNames(list.filter()));
+        NameList namesList = new NameList(list, console);
+        assertEquals("1) Sarah Smith\n", namesList.listNames(namesList.filter()));
     }
 
     @Ignore
@@ -38,8 +38,8 @@ public class NameListTest {
     public void canFilterOutByCombinationsOfLettersInTheList() {
         createContacts();
         InputOutput console = new ConsoleIO(new ByteArrayInputStream("Be\nn\nq\n".getBytes()), out);
-        NameList list = new NameList(contacts, console);
-        assertEquals("1) Ben Smith\n", list.listNames(list.filter()));
+        NameList namesList = new NameList(list, console);
+        assertEquals("1) Ben Smith\n", namesList.listNames(namesList.filter()));
     }
 
     private Contact createContact(List<String> userInput) {
@@ -47,15 +47,15 @@ public class NameListTest {
         return new Contact(console);
     }
 
-    private void setContactFields(List<Contact> contacts) {
-        for (Contact contact : contacts) {
+    private void setContactFields(ContactList list) {
+        for (Contact contact : list.getList()) {
             contact.setFields();
         }
     }
 
     private void createContacts() {
-        contacts.add(Ben);
-        contacts.add(Sarah);
-        setContactFields(contacts);
+        list.addContact(Ben);
+        list.addContact(Sarah);
+        setContactFields(list);
     }
 }

@@ -1,37 +1,47 @@
 package test.options;
 
 import conMan.ConMan;
+import conMan.ContactList;
 import conMan.contactfields.Contact;
 import conMan.inputoutput.ConsoleIO;
 import conMan.inputoutput.InputOutput;
 import conMan.options.Delete;
-import conMan.options.Option;
+import org.junit.Before;
 import org.junit.Test;
 import test.FakeExit;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class DeleteTest {
+
+    private Contact ben;
+    private Contact priya;
+    private InputOutput consoleIO;
+    private FakeExit exitOption;
+    private ConMan conMan;
+    private ContactList contactList;
+
+    @Before
+    public void setUp() {
+        ben = createContact("Ben\nSmith\n234@gmail.com\n2 Rosebury Av\n");
+        priya = createContact("Priya\nPatil\n123@gmail.com\n3 Rosebury Av\n");
+        consoleIO = input("1\nBen\nSmith\n345@gmail.com\n2 Rosebury Av\n4\n1\n5\n");
+        exitOption = new FakeExit(consoleIO);
+        conMan = new ConMan(consoleIO, exitOption);
+        contactList = new ContactList();
+    }
+
     ByteArrayOutputStream recordedOutput = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(recordedOutput);
-    Contact ben = createContact("Ben\nSmith\n234@gmail.com\n2 Rosebury Av\n");
-    Contact priya = createContact("Priya\nPatil\n123@gmail.com\n3 Rosebury Av\n");
-    InputOutput consoleIO = input("1\nBen\nSmith\n345@gmail.com\n2 Rosebury Av\n4\n1\n5\n");
-    Option exitOption = new FakeExit(consoleIO);
-    ConMan conMan = new ConMan(consoleIO, exitOption);
 
     @Test
     public void deleteHasADeleteTitle() {
-        List<Contact> contacts = Arrays.asList(priya, ben);
-        Delete delete = new Delete(contacts, consoleIO);
+        Delete delete = new Delete(contactList, consoleIO);
         delete.show();
         assertTrue(recordedOutput.toString().contains("Delete a contact "));
     }
@@ -46,8 +56,8 @@ public class DeleteTest {
     public void userAbleToDeleteAContact() {
         InputOutput console = input("Ben\nSmith\n123@gmail.com\n1 Cedar Way\n" +
                                   "Sarah\nSmith\n678@gmail.com\n2 Cedar Way\n1\n");
-        List<Contact> contacts = createContactList(console);
-        Delete delete = new Delete(contacts, console);
+        ContactList contacts = createContactList(console);
+        Delete delete = new Delete(contactList, console);
         delete.perform();
         assertEquals("Sarah Smith", contacts.get(0).getName());
     }
@@ -83,19 +93,18 @@ public class DeleteTest {
         return new Contact(console);
     }
 
-    private void setFields(List<Contact> contacts) {
-        for (Contact contact : contacts) {
+    private void setFields(ContactList contacts) {
+        for (Contact contact : contacts.getList()) {
             contact.setFields();
         }
     }
 
-    private List<Contact> createContactList(InputOutput console) {
-        List<Contact> contacts = new ArrayList<>();
+    private ContactList createContactList(InputOutput console) {
         Contact ben = new Contact(console);
         Contact sarah = new Contact(console);
-        contacts.add(sarah);
-        contacts.add(ben);
-        setFields(contacts);
-        return contacts;
+        contactList.addContact(ben);
+        contactList.addContact(sarah);
+        setFields(contactList);
+        return contactList;
     }
 }

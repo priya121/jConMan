@@ -1,36 +1,44 @@
 package test.options;
 
 import conMan.ConMan;
+import conMan.ContactList;
 import conMan.contactfields.Contact;
 import conMan.inputoutput.ConsoleIO;
 import conMan.inputoutput.InputOutput;
 import conMan.options.Create;
 import conMan.options.Option;
+import org.junit.Before;
 import org.junit.Test;
 import test.FakeExit;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import static junit.framework.TestCase.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class CreateTest {
-    Contact Ben = createContact("Ben\nSmith\n123@gmail.com\n1 Cedar Way\n");
-    Contact Sarah = createContact("Sarah\nSmith\n234@gmail.com\n2 Cedar Way\n");
+    private ContactList contactList;
+    private Contact Ben;
+    private Contact Sarah;
+
+    @Before
+    public void setUp() {
+        contactList = new ContactList();
+        Ben = createContact("Ben\nSmith\n123@gmail.com\n1 Cedar Way\n");
+        Sarah = createContact("Sarah\nSmith\n234@gmail.com\n2 Cedar Way\n");
+        contactList.addContact(Ben);
+        contactList.addContact(Sarah);
+    }
+
     ByteArrayOutputStream recordedOutput = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(recordedOutput);
-
 
     @Test
     public void createChoiceHasACreateTitle() {
         InputOutput consoleIO = input("");
-        List<Contact> contacts = Arrays.asList(Ben, Sarah);
-        Create createOption = new Create(contacts, consoleIO);
+        Create createOption = new Create(contactList, consoleIO);
         createOption.show();
         assertTrue(recordedOutput.toString().contains("Create a contact \n"));
     }
@@ -47,13 +55,12 @@ public class CreateTest {
     @Test
     public void userAbleToCreateAContactByEnteringFields() {
         InputOutput console = input("Maya\nPatil\n789@gmail.com\n2 Rosebury Av\n");
-        List<Contact> contacts = new ArrayList<>();
-        Create create = new Create(contacts, console);
+        Create create = new Create(contactList, console);
         create.perform();
         assertEquals("First Name: Maya\n" +
-                     "Last Name: Patil\n" +
-                     "Email: 789@gmail.com\n" +
-                     "Home Address: 2 Rosebury Av\n", contacts.get(0).showFields());
+                "Last Name: Patil\n" +
+                "Email: 789@gmail.com\n" +
+                "Home Address: 2 Rosebury Av\n", contactList.get(2).showFields());
     }
 
     @Test
@@ -63,9 +70,9 @@ public class CreateTest {
         ConMan conMan = new ConMan(consoleIO, exitOption);
         conMan.optionSelected();
         assertEquals("First Name: Gary\n" +
-                     "Last Name: Paul\n" +
-                     "Email: 345@gmail.com\n" +
-                     "Home Address: 3 Rosebury Av\n", conMan.readContact(1));
+                "Last Name: Paul\n" +
+                "Email: 345@gmail.com\n" +
+                "Home Address: 3 Rosebury Av\n", conMan.readContact(1));
     }
 
     private Contact createContact(String input) {

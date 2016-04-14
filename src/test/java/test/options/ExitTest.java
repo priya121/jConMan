@@ -23,6 +23,6 @@ public class ExitTest {
         Option exitOption = new FakeExit(console);
         ConMan conMan = new ConMan(console, exitOption);
         conMan.optionSelected();
-        assertTrue(recordedOutput.toString().contains("Exiting conMan.ConMan..."));
+        assertTrue(recordedOutput.toString().contains("Exiting ConMan..."));
     }
 }

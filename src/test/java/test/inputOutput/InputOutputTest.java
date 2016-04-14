@@ -23,6 +23,6 @@ public class InputOutputTest {
     public void showsInitialGreetingToRecordedOutput() {
         ConMan conMan = new ConMan(consoleIO, exitOption);
         conMan.showGreeting();
-        assertTrue(recordedOutput.toString().contains("Welcome to conMan.ConMan!"));
+        assertTrue(recordedOutput.toString().contains("Welcome to ConMan!"));
     }
 }

@@ -1,15 +1,14 @@
 package conMan.options;
 
+import conMan.ContactList;
 import conMan.contactfields.Contact;
 import conMan.inputoutput.InputOutput;
 
-import java.util.List;
-
 public class Create implements Option {
-    private final List<Contact> allContacts;
+    private final ContactList allContacts;
     private final InputOutput console;
 
-    public Create(List<Contact> allContacts, InputOutput console) {
+    public Create(ContactList allContacts, InputOutput console) {
         this.allContacts = allContacts;
         this.console = console;
     }
@@ -23,6 +22,6 @@ public class Create implements Option {
     public void perform() {
         Contact newContact = new Contact(console);
         newContact.setFields();
-        allContacts.add(newContact);
+        allContacts.addContact(newContact);
     }
 }
