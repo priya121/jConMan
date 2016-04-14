@@ -11,7 +11,6 @@ import test.FakeExit;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,10 +22,9 @@ import static org.junit.Assert.assertTrue;
 public class DeleteTest {
     ByteArrayOutputStream recordedOutput = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(recordedOutput);
-    Contact ben = createContact(new ByteArrayInputStream("Ben\nSmith\n234@gmail.com\n2 Rosebury Av\n".getBytes()));
-    Contact priya = createContact(new ByteArrayInputStream("Priya\nPatil\n123@gmail.com\n3 Rosebury Av\n".getBytes()));
-    ConsoleIO consoleIO = new ConsoleIO(new ByteArrayInputStream(("1\nBen\nSmith\n345@gmail.com\n2 Rosebury Av\n" +
-                                                                  "4\n1\n5\n").getBytes()), out);
+    Contact ben = createContact("Ben\nSmith\n234@gmail.com\n2 Rosebury Av\n");
+    Contact priya = createContact("Priya\nPatil\n123@gmail.com\n3 Rosebury Av\n");
+    InputOutput consoleIO = input("1\nBen\nSmith\n345@gmail.com\n2 Rosebury Av\n4\n1\n5\n");
     Option exitOption = new FakeExit(consoleIO);
     ConMan conMan = new ConMan(consoleIO, exitOption);
 
@@ -46,8 +44,8 @@ public class DeleteTest {
 
     @Test
     public void userAbleToDeleteAContact() {
-        ConsoleIO console = new ConsoleIO(new ByteArrayInputStream(("Ben\nSmith\n123@gmail.com\n1 Cedar Way\n" +
-                                                                    "Sarah\nSmith\n678@gmail.com\n2 Cedar Way\n1\n").getBytes()), out);
+        InputOutput console = input("Ben\nSmith\n123@gmail.com\n1 Cedar Way\n" +
+                                  "Sarah\nSmith\n678@gmail.com\n2 Cedar Way\n1\n");
         List<Contact> contacts = createContactList(console);
         Delete delete = new Delete(contacts, console);
         delete.perform();
@@ -56,8 +54,8 @@ public class DeleteTest {
 
     @Test
     public void userMustEnterAValidNumberToDeleteAContact() {
-        InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream(("1\nPriya\nPatil\n123@gmail.com\n2 Cedar Way\n" +
-                                                                        "4\na\n1\n5\n").getBytes()), out);
+        InputOutput consoleIO = input("1\nPriya\nPatil\n123@gmail.com\n2 Cedar Way\n" +
+                                      "4\na\n1\n5\n");
         ConMan conMan = new ConMan(consoleIO, exitOption);
         conMan.menuLoop();
         assertTrue(recordedOutput.toString().contains("Please enter a valid number: "));
@@ -65,10 +63,10 @@ public class DeleteTest {
 
     @Test
     public void userCanReadListOfContactsBeforeDecidingWhichToDelete() {
-        InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream(("1\nPriya\nPatil\n123@gmail.com\n1 Cedar Way\n" +
-                                                                        "1\nMaya\nPatil\n345@gmail.com\n2 Cedar Way\n" +
-                                                                        "1\nBen\nSmith\n123@gmail.com\n3 Cedar Way\n" +
-                                                                        "4\n1\n5\n").getBytes()), out);
+        InputOutput consoleIO = input("1\nPriya\nPatil\n123@gmail.com\n1 Cedar Way\n" +
+                                      "1\nMaya\nPatil\n345@gmail.com\n2 Cedar Way\n" +
+                                      "1\nBen\nSmith\n123@gmail.com\n3 Cedar Way\n" +
+                                      "4\n1\n5\n");
         ConMan conMan = new ConMan(consoleIO, exitOption);
         conMan.menuLoop();
         assertTrue(recordedOutput.toString().contains("1) Priya Patil\n" +
@@ -76,8 +74,12 @@ public class DeleteTest {
                                                       "3) Ben Smith\n"));
     }
 
-    private Contact createContact(InputStream inputStream) {
-        ConsoleIO console = new ConsoleIO(inputStream, out);
+    private InputOutput input(String input) {
+        return new ConsoleIO(new ByteArrayInputStream(input.getBytes()), out);
+    }
+
+    private Contact createContact(String input) {
+        ConsoleIO console = new ConsoleIO(new ByteArrayInputStream(input.getBytes()), out);
         return new Contact(console);
     }
 
@@ -87,7 +89,7 @@ public class DeleteTest {
         }
     }
 
-    private List<Contact> createContactList(ConsoleIO console) {
+    private List<Contact> createContactList(InputOutput console) {
         List<Contact> contacts = new ArrayList<>();
         Contact ben = new Contact(console);
         Contact sarah = new Contact(console);
