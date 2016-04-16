@@ -3,9 +3,8 @@ package conMan.contactfields;
 import conMan.inputoutput.InputOutput;
 
 public class FirstName implements Field {
-    private final InputOutput console;
+    private InputOutput console;
     private String firstName;
-    private String userInput;
 
     public FirstName(InputOutput console) {
         this.console = console;
@@ -18,7 +17,7 @@ public class FirstName implements Field {
 
     @Override
     public void update() {
-        userInput = console.takeInput();
+        String userInput = console.takeInput();
         if (!userInput.isEmpty()) {
             firstName = userInput;
         }
@@ -32,4 +31,5 @@ public class FirstName implements Field {
     public String showFieldName() {
         return "First Name: ";
     }
+
 }

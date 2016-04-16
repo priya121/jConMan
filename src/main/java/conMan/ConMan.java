@@ -4,6 +4,7 @@ import conMan.inputoutput.InputOutput;
 import conMan.inputoutput.ValidDigit;
 import conMan.options.*;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 
@@ -17,14 +18,16 @@ public class ConMan {
     private ExitConMan exit;
     private List<Option> options;
     private int userChoice;
+    private File file;
 
-    public ConMan(InputOutput console, Option exit) {
-        this.allContacts = new ContactList();
+    public ConMan(InputOutput console, Option exit, File file, ContactList allContacts) {
+        this.allContacts = allContacts;
+        this.file = file;
         this.console = console;
-        this.create = new Create(allContacts, console);
-        this.read = new Read(allContacts, console);
-        this.update = new Update(allContacts, console);
-        this.delete = new Delete(allContacts, console);
+        this.create = new Create(this.allContacts, console);
+        this.read = new Read(this.allContacts, console);
+        this.update = new Update(this.allContacts, console);
+        this.delete = new Delete(this.allContacts, console);
         this.options = Arrays.asList(create, read, update, delete, exit);
     }
 
@@ -70,4 +73,6 @@ public class ConMan {
             showOptionTitles();
         }
     }
+
+
 }

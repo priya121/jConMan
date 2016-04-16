@@ -1,14 +1,17 @@
 package test;
 
+import conMan.ConMan;
 import conMan.ContactList;
 import conMan.contactfields.Contact;
 import conMan.inputoutput.ConsoleIO;
+import conMan.inputoutput.InputOutput;
+import conMan.options.Option;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TemporaryFolder;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
+import java.io.*;
 
 import static org.junit.Assert.assertEquals;
 
@@ -19,6 +22,9 @@ public class ContactListTest {
     ByteArrayOutputStream recordedOutput = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(recordedOutput);
     private ContactList contactList;
+
+    @Rule
+    public TemporaryFolder temporaryFolder = new TemporaryFolder();
 
     @Before
      public void setUp() {
@@ -40,6 +46,17 @@ public class ContactListTest {
         assertEquals("Sarah Smith", secondContact.getName());
     }
 
+    @Test
+    public void contactWrittenToFileInJSONFormat() throws IOException {
+        File output = temporaryFolder.newFile("output.txt");
+        InputOutput console = input("1\nBen\nSmith\n234@gmail.com\n2 Rosebury Av\n5\nY\n");
+        ContactList allContacts = new ContactList();
+        Option exit = new FakeExit(console, allContacts, output);
+        ConMan conMan = new ConMan(console, exit, output, allContacts);
+        conMan.menuLoop();
+        assertEquals("{\"Last Name: \":\"Smith \",\"Email: \":\"234@gmail.com \",\"Home Address: \":\"2 Rosebury Av \",\"First Name: \":\"Ben \"}\n", readTempFile(output.getPath(), 108));
+    }
+
     private Contact createContact(String input) {
         ConsoleIO console = new ConsoleIO(new ByteArrayInputStream(input.getBytes()), out);
         return new Contact(console);
@@ -56,5 +73,17 @@ public class ContactListTest {
         contactList.addContact(Ben);
         contactList.addContact(Sarah);
         contactList.addContact(Priya);
+    }
+
+    private InputOutput input(String input) {
+        return new ConsoleIO(new ByteArrayInputStream(input.getBytes()), out);
+    }
+
+    public String readTempFile(String inputFilePath, int amountOfBytes) throws IOException {
+        File inputFile = new File(inputFilePath);
+        InputStream input = new FileInputStream(inputFile);
+        byte[] buffer = new byte[amountOfBytes];
+        input.read(buffer);
+        return new String(buffer);
     }
 }

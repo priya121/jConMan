@@ -3,9 +3,8 @@ package conMan.contactfields;
 import conMan.inputoutput.InputOutput;
 
 public class HomeAddress implements Field {
-    private final InputOutput console;
+    private InputOutput console;
     private String homeAddress;
-
 
     public HomeAddress(InputOutput console) {
         this.console = console;
@@ -33,4 +32,6 @@ public class HomeAddress implements Field {
     public String showFieldName() {
         return "Home Address: ";
     }
+
+
 }

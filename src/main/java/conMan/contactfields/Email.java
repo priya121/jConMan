@@ -3,7 +3,7 @@ package conMan.contactfields;
 import conMan.inputoutput.InputOutput;
 
 public class Email implements Field {
-    private final InputOutput console;
+    private InputOutput console;
     private String email;
 
     public Email(InputOutput console) {
@@ -32,4 +32,5 @@ public class Email implements Field {
     public String showFieldName() {
         return "Email: ";
     }
+
 }

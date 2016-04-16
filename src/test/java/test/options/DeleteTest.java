@@ -7,32 +7,35 @@ import conMan.inputoutput.ConsoleIO;
 import conMan.inputoutput.InputOutput;
 import conMan.options.Delete;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TemporaryFolder;
 import test.FakeExit;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
+import java.io.*;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class DeleteTest {
 
-    private Contact ben;
-    private Contact priya;
     private InputOutput consoleIO;
     private FakeExit exitOption;
     private ConMan conMan;
     private ContactList contactList;
+    private File output;
+
+    @Rule
+    public TemporaryFolder temporaryFolder = new TemporaryFolder();
+    private ContactList allContacts;
 
     @Before
-    public void setUp() {
-        ben = createContact("Ben\nSmith\n234@gmail.com\n2 Rosebury Av\n");
-        priya = createContact("Priya\nPatil\n123@gmail.com\n3 Rosebury Av\n");
-        consoleIO = input("1\nBen\nSmith\n345@gmail.com\n2 Rosebury Av\n4\n1\n5\n");
-        exitOption = new FakeExit(consoleIO);
-        conMan = new ConMan(consoleIO, exitOption);
+    public void setUp() throws IOException {
+        consoleIO = input("1\nBen\nSmith\n345@gmail.com\n2 Rosebury Av\n4\n1\nY\n5\n");
+        allContacts = new ContactList();
+        output = temporaryFolder.newFile("output.txt");
+        exitOption = new FakeExit(consoleIO, allContacts, output);
+        conMan = new ConMan(consoleIO, exitOption, output,contactList );
         contactList = new ContactList();
     }
 
@@ -53,9 +56,9 @@ public class DeleteTest {
     }
 
     @Test
-    public void userAbleToDeleteAContact() {
+    public void userAbleToDeleteFirstContact() {
         InputOutput console = input("Ben\nSmith\n123@gmail.com\n1 Cedar Way\n" +
-                                  "Sarah\nSmith\n678@gmail.com\n2 Cedar Way\n1\n");
+                                  "Sarah\nSmith\n678@gmail.com\n2 Cedar Way\n1\nY\n");
         ContactList contacts = createContactList(console);
         Delete delete = new Delete(contactList, console);
         delete.perform();
@@ -65,8 +68,8 @@ public class DeleteTest {
     @Test
     public void userMustEnterAValidNumberToDeleteAContact() {
         InputOutput consoleIO = input("1\nPriya\nPatil\n123@gmail.com\n2 Cedar Way\n" +
-                                      "4\na\n1\n5\n");
-        ConMan conMan = new ConMan(consoleIO, exitOption);
+                                      "4\na\n1\nY\n5\n");
+        ConMan conMan = new ConMan(consoleIO, exitOption, output, contactList);
         conMan.menuLoop();
         assertTrue(recordedOutput.toString().contains("Please enter a valid number: "));
     }
@@ -76,21 +79,34 @@ public class DeleteTest {
         InputOutput consoleIO = input("1\nPriya\nPatil\n123@gmail.com\n1 Cedar Way\n" +
                                       "1\nMaya\nPatil\n345@gmail.com\n2 Cedar Way\n" +
                                       "1\nBen\nSmith\n123@gmail.com\n3 Cedar Way\n" +
-                                      "4\n1\n5\n");
-        ConMan conMan = new ConMan(consoleIO, exitOption);
+                                      "4\n1\nY\n5\n");
+        ConMan conMan = new ConMan(consoleIO, exitOption, output, contactList);
         conMan.menuLoop();
         assertTrue(recordedOutput.toString().contains("1) Priya Patil\n" +
                                                       "2) Maya Patil\n" +
                                                       "3) Ben Smith\n"));
     }
 
-    private InputOutput input(String input) {
-        return new ConsoleIO(new ByteArrayInputStream(input.getBytes()), out);
+    @Test
+    public void userAskedToConfirmBeforeDeletingAContact() {
+        InputOutput consoleIO = input("1\nPriya\nPatil\n123@gmail.com\n1 Cedar Way\n" +
+                                      "4\n1\nY\n5\n");
+        ConMan conMan = new ConMan(consoleIO, exitOption, output, contactList);
+        conMan.menuLoop();
+        assertTrue(recordedOutput.toString().contains("Are you sure you want to delete this contact? (Y/N)"));
     }
 
-    private Contact createContact(String input) {
-        ConsoleIO console = new ConsoleIO(new ByteArrayInputStream(input.getBytes()), out);
-        return new Contact(console);
+    @Test
+    public void doesNotDeleteAContactIfUserEntersN() {
+        InputOutput consoleIO = input("1\nPriya\nPatil\n123@gmail.com\n1 Cedar Way\n" +
+                "4\n1\nN\n5\n");
+        ConMan conMan = new ConMan(consoleIO, exitOption, output, contactList);
+        conMan.menuLoop();
+        assertTrue(recordedOutput.toString().contains("Your contacts have not been changed"));
+    }
+
+    private InputOutput input(String input) {
+        return new ConsoleIO(new ByteArrayInputStream(input.getBytes()), out);
     }
 
     private void setFields(ContactList contacts) {

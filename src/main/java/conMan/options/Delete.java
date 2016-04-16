@@ -25,7 +25,17 @@ public class Delete implements Option{
     public void perform() {
         console.showOutput(nameList.listNames(allContacts.getList()));
         int chosenContact = getValidDigit() - 1;
-        allContacts.getList().remove(chosenContact);
+        console.showOutput("Are you sure you want to delete this contact? (Y/N)");
+        removeIfY(chosenContact);
+    }
+
+    private void removeIfY(int chosenContact) {
+        if (console.takeInput().equals("Y")) {
+            console.showOutput("Deleting Contact...\n");
+            allContacts.getList().remove(chosenContact);
+        } else {
+            console.showOutput("Your contacts have not been changed");
+        }
     }
 
     private int getValidDigit() {

@@ -5,24 +5,34 @@ import conMan.ContactList;
 import conMan.contactfields.Contact;
 import conMan.inputoutput.ConsoleIO;
 import conMan.inputoutput.InputOutput;
-import conMan.options.Option;
 import conMan.options.Read;
+import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TemporaryFolder;
 import test.FakeExit;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
+import java.io.*;
 
 import static org.junit.Assert.assertTrue;
 
 public class ReadTest {
+    @Rule
+    public TemporaryFolder temporaryFolder = new TemporaryFolder();
+
     ByteArrayOutputStream recordedOutput = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(recordedOutput);
+    File output;
+    FakeExit exitOption;
     ContactList contactList = new ContactList();
     InputOutput consoleIO = input("1\nPriya\nPatil\n123@gmail.com\n1 Cedar Way\n" +
                                   "2\n1\n5\n");
-    Option exitOption = new FakeExit(consoleIO);
+
+    @Before
+    public void setUp() throws IOException {
+        output = temporaryFolder.newFile("output.txt");
+        exitOption = new FakeExit(consoleIO, contactList, output);
+    }
 
     @Test
     public void readHasAReadTitle() {
@@ -34,7 +44,7 @@ public class ReadTest {
 
     @Test
     public void userEntering2ShowsReadAContactsDetailsTitle() {
-        ConMan conMan = new ConMan(consoleIO, exitOption);
+        ConMan conMan = new ConMan(consoleIO, exitOption, output, contactList);
         conMan.menuLoop();
         assertTrue(recordedOutput.toString().contains("Read a contact's details \n"));
     }
@@ -55,7 +65,7 @@ public class ReadTest {
         InputOutput consoleIO = input("1\nPriya\nPatil\n123@gmail.com\n2 Cedar Way\n" +
                                       "1\nSarah\nBlack\n345@gmail.com\n 3 Cedar Way\n" +
                                       "2\n1\n5\n");
-        ConMan conMan = new ConMan(consoleIO, exitOption);
+        ConMan conMan = new ConMan(consoleIO, exitOption, output, contactList);
         conMan.menuLoop();
         assertTrue(recordedOutput.toString().contains("1) Priya Patil\n" +
                                                       "2) Sarah Black\n"));
@@ -64,7 +74,7 @@ public class ReadTest {
     @Test
     public void userMustEnterAValidNumberToReadContactAfterEnteringReadOption() {
         InputOutput consoleIO = input("1\nPriya\nPatil\n123@gmail.com\n2 Cedar Way\n2\na\n1\n5\n");
-        ConMan conMan = new ConMan(consoleIO, exitOption);
+        ConMan conMan = new ConMan(consoleIO, exitOption, output, contactList);
         conMan.menuLoop();
         assertTrue(recordedOutput.toString().contains("Please enter a valid number: "));
     }

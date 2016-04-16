@@ -5,8 +5,8 @@ import conMan.inputoutput.InputOutput;
 import java.util.Arrays;
 import java.util.List;
 
-public class Contact implements Cloneable {
-    private List<Field> fields;
+public class Contact {
+    public List<Field> fields;
     private InputOutput console;
     private FirstName firstName;
     private LastName lastName;
@@ -41,7 +41,7 @@ public class Contact implements Cloneable {
         for (Field field : fields) {
             list += field.showFieldName() + field.show() + "\n";
         }
-        return list;
+        return list + "\n" + "\n";
     }
 
     public String getName() {
@@ -51,5 +51,4 @@ public class Contact implements Cloneable {
     public String getEmail() {
         return email.show();
     }
-
 }

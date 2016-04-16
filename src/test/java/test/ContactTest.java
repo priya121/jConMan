@@ -35,6 +35,6 @@ public class ContactTest {
         assertEquals("First Name: Ben\n" +
                 "Last Name: Smith\n" +
                 "Email: 123@gmail.com\n" +
-                "Home Address: 1 Rosebury Av\n", contacts.get(0).showFields());
+                "Home Address: 1 Rosebury Av\n\n\n", contacts.get(0).showFields());
     }
 }

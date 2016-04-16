@@ -3,7 +3,7 @@ package conMan.contactfields;
 import conMan.inputoutput.InputOutput;
 
 public class LastName implements Field {
-    private final InputOutput console;
+    private InputOutput console;
     private String lastName;
 
     public LastName(InputOutput console) {
@@ -31,4 +31,5 @@ public class LastName implements Field {
     public String showFieldName() {
         return "Last Name: ";
     }
+
 }
