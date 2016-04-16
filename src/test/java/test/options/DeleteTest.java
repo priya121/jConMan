@@ -51,6 +51,8 @@ public class DeleteTest {
 
     @Test
     public void userEntering4ShowsDeleteAContactTitle() {
+        exitOption = new FakeExit(consoleIO, allContacts, output);
+        conMan = new ConMan(consoleIO, exitOption, output,contactList );
         conMan.menuLoop();
         assertTrue(recordedOutput.toString().contains("Delete a contact "));
     }

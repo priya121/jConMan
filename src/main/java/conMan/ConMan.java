@@ -24,10 +24,10 @@ public class ConMan {
         this.allContacts = allContacts;
         this.file = file;
         this.console = console;
-        this.create = new Create(this.allContacts, console);
-        this.read = new Read(this.allContacts, console);
-        this.update = new Update(this.allContacts, console);
-        this.delete = new Delete(this.allContacts, console);
+        this.create = new Create(allContacts, console);
+        this.read = new Read(allContacts, console);
+        this.update = new Update(allContacts, console);
+        this.delete = new Delete(allContacts, console);
         this.options = Arrays.asList(create, read, update, delete, exit);
     }
 

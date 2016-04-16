@@ -26,7 +26,6 @@ public class FakeExit implements Option, Exit {
 
     @Override
     public void show() {
-        System.out.println(contactList.get(0).showFields());
         saveContacts();
         inputOutput.showOutput("ExitConMan conMan.ConMan \n");
     }

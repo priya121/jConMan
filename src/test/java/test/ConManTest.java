@@ -19,6 +19,7 @@ public class ConManTest {
     private File output;
     ByteArrayOutputStream recordedOutput = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(recordedOutput);
+    ContactList allContacts = new ContactList();
 
     @Rule
     public TemporaryFolder temporaryFolder = new TemporaryFolder();
@@ -31,7 +32,6 @@ public class ConManTest {
     InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream(("1\nPriya\nPatil\n123@gmail.com\n1 Cedar Way\n" +
                                                                     "1\nSarah\nSmith\n234@gmail.com\n2 Cedar Way\n5\n").getBytes()), out);
 
-    ContactList allContacts = new ContactList();
     Option exitOption = new FakeExit(consoleIO, allContacts, output);
     ConMan conMan = new ConMan(consoleIO, exitOption, output, allContacts);
 
@@ -54,6 +54,7 @@ public class ConManTest {
 
     @Test
     public void formatsTheNamesIntoANumberedList() {
+        Option exitOption = new FakeExit(consoleIO, allContacts, output);
         ConMan conMan = new ConMan(consoleIO, exitOption, output, allContacts);
         conMan.menuLoop();
         assertEquals("1) Priya Patil\n" +
@@ -73,6 +74,7 @@ public class ConManTest {
 
     @Test
     public void canUpdateTheFirstNameOfACreatedContact() {
+        Option exitOption = new FakeExit(consoleIO, allContacts, output);
         InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream(("1\nSarah\nSmith\n234@gmail.com\n1 Cedar Way\n" +
                                                                         "3\n1\nSam\nSmith\n123@gmail.com\n2 Cedar Way\n5\n").getBytes()), out);
         ConMan conMan = new ConMan(consoleIO, exitOption, output,allContacts );
@@ -85,6 +87,7 @@ public class ConManTest {
 
     @Test
     public void canDeleteFirstCreatedContact() {
+        Option exitOption = new FakeExit(consoleIO, allContacts, output);
         InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream(("1\nSarah\nSmith\n234@gmail.com\n1 Cedar Way\n" +
                                                                         "1\nPriya\nPatil\n123@gmail.com\n2 Cedar Way\n" +
                                                                         "4\n1\nY\n5\n").getBytes()), out);
@@ -106,6 +109,7 @@ public class ConManTest {
 
     @Test
     public void conManLoopsThroughOptionsTillUserChoosesToExit() {
+        Option exitOption = new FakeExit(consoleIO, allContacts, output);
         InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream(("1\nSarah\nSmith\n234@gmail.com\n1 Cedar Way\n" +
                                                                         "1\nPriya\nPatil\n123@gmail.com\n2 Cedar Way\n" +
                                                                         "4\n1\nY\n5\n").getBytes()), out);
@@ -115,7 +119,8 @@ public class ConManTest {
     }
 
     @Test
-    public void conManDisplaysPromptsToTheUserDuringTheMenuLoop() {
+    public void conManDisplaysPromptsToTheUserDuringTheMenuLoop() throws IOException {
+        Option exitOption = new FakeExit(consoleIO, allContacts, output);
         InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream(("1\nSarah\nSmith\n234@gmail.com\n1 Cedar Way\n" +
                                                                         "1\nPriya\nPatil\n123@gmail.com\n2 Cedar Way\n5\n").getBytes()), out);
         ConMan conMan = new ConMan(consoleIO, exitOption, output, allContacts);

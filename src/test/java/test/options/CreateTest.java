@@ -72,10 +72,10 @@ public class CreateTest {
 
     @Test
     public void userCanCreateAContactAfterEntering1() throws IOException {
-        InputOutput consoleIO = input("1\nGary\nPaul\n345@gmail.com\n3 Rosebury Av\n");
+        InputOutput consoleIO = input("1\nGary\nPaul\n345@gmail.com\n3 Rosebury Av\n5\nY\n");
         Option exitOption = new FakeExit(consoleIO, allContacts, output);
-        ConMan conMan = new ConMan(consoleIO, exitOption, output, contactList);
-        conMan.optionSelected();
+        ConMan conMan = new ConMan(consoleIO, exitOption, output, allContacts);
+        conMan.menuLoop();
         assertEquals("First Name: Gary\n" +
                      "Last Name: Paul\n" +
                      "Email: 345@gmail.com\n" +
