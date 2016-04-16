@@ -22,6 +22,14 @@ public class Contact {
         this.fields = Arrays.asList(firstName, lastName, email, homeAddress);
     }
 
+    public Contact(String firstName, String lastName, String email, String homeAddress) {
+        this.firstName = new FirstName(firstName);
+        this.lastName = new LastName(lastName);
+        this.email = new Email(email);
+        this.homeAddress = new HomeAddress(homeAddress);
+        this.fields = Arrays.asList(this.firstName, this.lastName, this.email, this.homeAddress);
+    }
+
     public void setFields() {
         for (Field field : fields) {
             console.showOutput(field.showFieldName());
@@ -42,6 +50,12 @@ public class Contact {
             list += field.showFieldName() + field.show() + "\n";
         }
         return list + "\n" + "\n";
+    }
+
+    public void setExisting() {
+        for (Field field : fields) {
+            field.setExisting();
+        }
     }
 
     public String getName() {

@@ -5,9 +5,14 @@ import conMan.inputoutput.InputOutput;
 public class LastName implements Field {
     private InputOutput console;
     private String lastName;
+    private String savedValue;
 
     public LastName(InputOutput console) {
         this.console = console;
+    }
+
+    public LastName(String savedValue) {
+        this.savedValue = savedValue;
     }
 
     @Override
@@ -28,8 +33,12 @@ public class LastName implements Field {
        return lastName;
     }
 
+   @Override
     public String showFieldName() {
         return "Last Name: ";
     }
 
+    public void setExisting() {
+        lastName = savedValue;
+    }
 }

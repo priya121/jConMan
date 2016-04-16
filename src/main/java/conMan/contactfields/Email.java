@@ -5,9 +5,14 @@ import conMan.inputoutput.InputOutput;
 public class Email implements Field {
     private InputOutput console;
     private String email;
+    private String savedValue;
 
     public Email(InputOutput console) {
         this.console = console;
+    }
+
+    public Email(String savedValue) {
+        this.savedValue = savedValue;
     }
 
     @Override
@@ -31,6 +36,10 @@ public class Email implements Field {
     @Override
     public String showFieldName() {
         return "Email: ";
+    }
+
+    public void setExisting() {
+        email = savedValue;
     }
 
 }

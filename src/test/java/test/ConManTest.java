@@ -130,6 +130,5 @@ public class ConManTest {
                                                       "3) Update a contact's details \n" +
                                                       "4) Delete a contact \n" +
                                                       "5) ExitConMan conMan.ConMan \n"));
-
     }
 }

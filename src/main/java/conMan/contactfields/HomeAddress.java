@@ -5,12 +5,17 @@ import conMan.inputoutput.InputOutput;
 public class HomeAddress implements Field {
     private InputOutput console;
     private String homeAddress;
+    private String savedValue;
 
     public HomeAddress(InputOutput console) {
         this.console = console;
     }
 
-    @Override
+    public HomeAddress(String savedValue) {
+        this.savedValue = savedValue;
+    }
+
+        @Override
     public void set() {
         homeAddress = console.takeInput();
     }
@@ -33,5 +38,7 @@ public class HomeAddress implements Field {
         return "Home Address: ";
     }
 
-
+    public void setExisting() {
+        homeAddress = savedValue;
+    }
 }

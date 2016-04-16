@@ -1,10 +1,17 @@
 package conMan;
 
+import conMan.contactfields.Contact;
 import conMan.inputoutput.InputOutput;
 import conMan.inputoutput.ValidDigit;
 import conMan.options.*;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -21,19 +28,46 @@ public class ConMan {
     private File file;
 
     public ConMan(InputOutput console, Option exit, File file, ContactList allContacts) {
-        this.allContacts = allContacts;
         this.file = file;
         this.console = console;
-        this.create = new Create(allContacts, console);
-        this.read = new Read(allContacts, console);
-        this.update = new Update(allContacts, console);
-        this.delete = new Delete(allContacts, console);
+        this.allContacts = allContacts;
+        this.create = new Create(this.allContacts, console);
+        this.read = new Read(this.allContacts, console);
+        this.update = new Update(this.allContacts, console);
+        this.delete = new Delete(this.allContacts, console);
         this.options = Arrays.asList(create, read, update, delete, exit);
     }
 
     public void showGreeting() {
         console.showOutput("Welcome to ConMan! \n" +
                 "Please choose from the following options: \n");
+    }
+    private void importContacts() {
+        JSONParser parser = new JSONParser();
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(file));
+            createContacts(parser, reader);
+        } catch (IOException | org.json.simple.parser.ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void createContacts(JSONParser parser, BufferedReader reader) throws IOException, ParseException {
+        String currentLine;
+        while ((currentLine = reader.readLine()) != null) {
+            JSONObject obj = (JSONObject) parser.parse(currentLine);
+            String firstName = (String) obj.get("First Name: ");
+            String lastName = (String) obj.get("Last Name: ");
+            String email = (String) obj.get("Email: ");
+            String homeAddress = (String) obj.get("Home Address: ");
+            addContactsToList(firstName, lastName, email, homeAddress, console);
+        }
+    }
+
+    private void addContactsToList(String firstName, String lastName, String email, String homeAddress, InputOutput console) {
+        Contact contact = new Contact(firstName, lastName, email, homeAddress);
+        contact.setExisting();
+        allContacts.addContact(contact);
     }
 
     public void showOptionTitles() {
@@ -66,6 +100,7 @@ public class ConMan {
     }
 
     public void menuLoop() {
+        importContacts();
         showGreeting();
         showOptionTitles();
         while (userChoice != 4) {
@@ -73,6 +108,4 @@ public class ConMan {
             showOptionTitles();
         }
     }
-
-
 }

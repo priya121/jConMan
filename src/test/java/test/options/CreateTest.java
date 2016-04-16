@@ -54,7 +54,7 @@ public class CreateTest {
     public void userEntering1ShowsCreateAContactTitle() {
         InputOutput consoleIO = input("1\n");
         Option exitOption = new FakeExit(consoleIO, allContacts, output);
-        ConMan conMan = new ConMan(consoleIO, exitOption, output, contactList);
+        ConMan conMan = new ConMan(consoleIO, exitOption, output, allContacts);
         conMan.optionSelected();
         assertTrue(recordedOutput.toString().contains("Create a contact \n"));
     }
