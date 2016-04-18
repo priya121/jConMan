@@ -21,14 +21,14 @@ public class JSONFile implements FileType {
 
     @Override
     public void importContacts() {
-            JSONParser parser = new JSONParser();
-            try {
-                BufferedReader reader = new BufferedReader(new FileReader(file));
-                createContacts(parser, reader);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        JSONParser parser = new JSONParser();
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(file));
+            createContacts(parser, reader);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+    }
 
     @Override
     public File getFile() {
@@ -36,20 +36,20 @@ public class JSONFile implements FileType {
     }
 
     private void createContacts(JSONParser parser, BufferedReader reader) {
-            String currentLine;
-            try {
-                while ((currentLine = reader.readLine()) != null) {
-                    JSONObject obj = (JSONObject) parser.parse(currentLine);
-                    String firstName = (String) obj.get("First Name: ");
-                    String lastName = (String) obj.get("Last Name: ");
-                    String email = (String) obj.get("Email: ");
-                    String homeAddress = (String) obj.get("Home Address: ");
-                    addContactsToList(firstName, lastName, email, homeAddress, console);
-                }
-            } catch (IOException | org.json.simple.parser.ParseException e) {
-                e.printStackTrace();
+        String currentLine;
+        try {
+            while ((currentLine = reader.readLine()) != null) {
+                JSONObject obj = (JSONObject) parser.parse(currentLine);
+                String firstName = (String) obj.get("First Name: ");
+                String lastName = (String) obj.get("Last Name: ");
+                String email = (String) obj.get("Email: ");
+                String homeAddress = (String) obj.get("Home Address: ");
+                addContactsToList(firstName, lastName, email, homeAddress, console);
             }
+        } catch (IOException | org.json.simple.parser.ParseException e) {
+            e.printStackTrace();
         }
+    }
 
     private void addContactsToList(String firstName, String lastName, String email, String homeAddress, InputOutput console) {
         Contact contact = new Contact(firstName, lastName, email, homeAddress, console);
@@ -59,20 +59,39 @@ public class JSONFile implements FileType {
 
     @Override
     public void saveContacts() {
-        for (Contact contact : allContacts.getList()) {
-            JSONObject jsonObject = new JSONObject();
-            for (Field field : contact.fields) {
-                jsonObject.put(field.showFieldName(), field.show() + " ");
-            }
-            try {
+        clearFileContents();
+        try {
+            for (Contact contact : allContacts.getList()) {
                 FileWriter fileWriter = new FileWriter(file, true);
-                fileWriter.write(jsonObject.toString() + "\n");
-                fileWriter.flush();
-                fileWriter.close();
-            } catch (IOException e) {
-                e.printStackTrace();
+                JSONObject jsonObject = contactToJSON(contact);
+                writeToFile(fileWriter, jsonObject);
             }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+    }
 
+    private JSONObject contactToJSON(Contact contact) {
+        JSONObject jsonObject = new JSONObject();
+        for (Field field : contact.fields) {
+            jsonObject.put(field.showFieldName(), field.show() + " ");
+        }
+        return jsonObject;
+    }
+
+    private void writeToFile(FileWriter fileWriter, JSONObject jsonObject) throws IOException {
+        fileWriter.write(jsonObject.toString() + "\n");
+        fileWriter.flush();
+        fileWriter.close();
+    }
+
+    private void clearFileContents() {
+        try {
+            PrintWriter writer = new PrintWriter(file);
+            writer.print("");
+            writer.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 }

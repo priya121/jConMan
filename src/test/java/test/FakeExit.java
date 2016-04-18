@@ -20,12 +20,12 @@ public class FakeExit implements Option, Exit {
 
     @Override
     public void show() {
-        saveContacts();
         inputOutput.showOutput("ExitConMan conMan.ConMan \n");
     }
 
     @Override
     public void perform() {
+        saveContacts();
         inputOutput.showOutput("Exiting ConMan...");
     }
 

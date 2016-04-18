@@ -34,7 +34,7 @@ public class Delete implements Option{
             console.showOutput("Deleting Contact...\n");
             allContacts.getList().remove(chosenContact);
         } else {
-            console.showOutput("Your contacts have not been changed");
+            console.showOutput("Your contacts have not been changed\n");
         }
     }
 

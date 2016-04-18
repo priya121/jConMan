@@ -62,7 +62,7 @@ public class ContactListTest {
         conMan.menuLoop();
         assertEquals("{\"Last Name: \":\"Smith \",\"Email: \":\"234@gmail.com \"" +
                      ",\"Home Address: \":\"2 Rosebury Av \"," +
-                      "\"First Name: \":\"Ben \"}\n", readTempFile(output.getPath(), 108));
+                      "\"First Name: \":\"Ben \"}", readTempFile(output.getPath(), 107));
     }
 
     @Test
@@ -76,6 +76,16 @@ public class ContactListTest {
                 "Last Name: Patil\n" +
                 "Email: 123@gmail.com\n" +
                 "Home Address: 3 Rosebury Av\n\n\n", contactList.get(2).showFields());
+    }
+
+    @Test
+    public void contactsSavedToFileOnExit() {
+        InputOutput console = input("1\nGeorge\nBlack\n678@gmail.com\n3 Rosebury Av\n2\n1\n5\nY\n");
+        FakeFile fakeFile = new FakeFile(console, contactList, importedContacts);
+        Option exit = new FakeExit(console, contactList, fakeFile);
+        ConMan conMan = new ConMan(console, exit, fakeFile, contactList);
+        conMan.menuLoop();
+        assertEquals(4, fakeFile.savedContacts.size());
     }
 
     private Contact createContact(String input) {

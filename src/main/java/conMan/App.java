@@ -14,7 +14,7 @@ public class App {
         ContactList list = new ContactList();
         File file = new File("/Users/priyapatil/Work/conMan.json");
         FileType jsonFile = new JSONFile(file, io, list);
-        Option exit = new ExitConMan(io, list, file);
+        Option exit = new ExitConMan(io, list, jsonFile);
         ConMan conMan = new ConMan(io, exit, jsonFile, list);
         conMan.menuLoop();
     }
