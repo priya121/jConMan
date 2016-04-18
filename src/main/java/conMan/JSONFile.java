@@ -74,7 +74,7 @@ public class JSONFile implements FileType {
     private JSONObject contactToJSON(Contact contact) {
         JSONObject jsonObject = new JSONObject();
         for (Field field : contact.fields) {
-            jsonObject.put(field.showFieldName(), field.show() + " ");
+            jsonObject.put(field.showFieldName(), field.show());
         }
         return jsonObject;
     }

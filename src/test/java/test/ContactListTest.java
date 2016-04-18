@@ -60,14 +60,14 @@ public class ContactListTest {
         Option exit = new FakeExit(console, allContacts, jsonFile);
         ConMan conMan = new ConMan(console, exit, jsonFile, allContacts);
         conMan.menuLoop();
-        assertEquals("{\"Last Name: \":\"Smith \",\"Email: \":\"234@gmail.com \"" +
-                     ",\"Home Address: \":\"2 Rosebury Av \"," +
-                      "\"First Name: \":\"Ben \"}", readTempFile(output.getPath(), 107));
+        assertEquals("{\"Last Name: \":\"Smith\",\"Email: \":\"234@gmail.com\"" +
+                     ",\"Home Address: \":\"2 Rosebury Av\"," +
+                      "\"First Name: \":\"Ben\"}", readTempFile(output.getPath(), 103));
     }
 
     @Test
     public void contactCanBeImportedFromAFile() throws IOException {
-        InputOutput console = input("2\n1\n5\nY\n");
+        InputOutput console = input("2\nN\n1\n5\nY\n");
         FileType fakeFile = new FakeFile(console, contactList, importedContacts);
         Option exit = new FakeExit(console, contactList, fakeFile);
         ConMan conMan = new ConMan(console, exit, fakeFile, contactList);
@@ -80,7 +80,7 @@ public class ContactListTest {
 
     @Test
     public void contactsSavedToFileOnExit() {
-        InputOutput console = input("1\nGeorge\nBlack\n678@gmail.com\n3 Rosebury Av\n2\n1\n5\nY\n");
+        InputOutput console = input("1\nGeorge\nBlack\n678@gmail.com\n3 Rosebury Av\n2\nN\n1\n5\nY\n");
         FakeFile fakeFile = new FakeFile(console, contactList, importedContacts);
         Option exit = new FakeExit(console, contactList, fakeFile);
         ConMan conMan = new ConMan(console, exit, fakeFile, contactList);

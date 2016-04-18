@@ -54,7 +54,7 @@ public class UpdateTest {
     public void userCanUpdateAChosenContactsDetails() {
         InputOutput consoleIO = input("1\nMaya\nPatil\n123@gmail.com\n1 Cedar Way\n" +
                                       "3\n1\nSam\nPatil\n789@gmail.com\n3 Cedar Way\n" +
-                                      "2\n1\n5\n");
+                                      "2\nN\n1\n5\n");
         FileType fakeFile = new FakeFile(consoleIO, contactList, contactList);
         Option exitOption = new FakeExit(consoleIO, contactList, fakeFile);
         ConMan conMan = new ConMan(consoleIO, exitOption, fakeFile, contactList);
@@ -106,7 +106,7 @@ public class UpdateTest {
     public void ifUserLeavesFieldBlankPreviousValueRemains() {
         InputOutput consoleIO = input("1\nPriya\nPatil\n123@gmail.com\n1 Cedar Way\n" +
                                       "3\n1\n\n\n\n3 Cedar Way\n" +
-                                      "2\n1\n" +
+                                      "2\nN\n1\n" +
                                       "5\n");
         FileType fakeFile = new FakeFile(consoleIO, contactList, contactList);
         Option exitOption = new FakeExit(consoleIO, contactList, fakeFile);
@@ -123,7 +123,7 @@ public class UpdateTest {
         ContactList importedContact = new ContactList();
         InputOutput console = new ConsoleIO(new ByteArrayInputStream(("Maya\nPatil\n123@gmail.com\n5 Rosebury Av\n" +
                                                                       "3\n1\nPriya\n\n\n3 Cedar Way\n" +
-                                                                      "2\n1\n2\n1\n5\nY\n").getBytes()), out);
+                                                                      "2\nN\n1\n2\nN\n1\n5\nY\n").getBytes()), out);
         createImportedContact(importedContact, console);
         FileType fakeFile = new FakeFile(console, contactList, importedContact);
         Option exitOption = new FakeExit(console, contactList, fakeFile);

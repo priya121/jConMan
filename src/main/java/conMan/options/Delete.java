@@ -23,7 +23,7 @@ public class Delete implements Option{
 
     @Override
     public void perform() {
-        console.showOutput(nameList.listNames(allContacts.getList()));
+        console.showOutput(nameList.formatNames(allContacts.getList()));
         int chosenContact = getValidDigit() - 1;
         console.showOutput("Are you sure you want to delete this contact? (Y/N)");
         removeIfY(chosenContact);

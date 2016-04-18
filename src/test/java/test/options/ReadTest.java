@@ -25,7 +25,7 @@ public class ReadTest {
     ContactList imported = new ContactList();
     ContactList contactList = new ContactList();
     InputOutput consoleIO = input("1\nPriya\nPatil\n123@gmail.com\n1 Cedar Way\n" +
-                                  "2\n1\n5\n");
+                                  "2\nN\n1\n5\n");
 
     @Test
     public void readHasAReadTitle() {
@@ -45,8 +45,9 @@ public class ReadTest {
 
     @Test
     public void userEntering1ReadsFirstContact() {
-        addContactsToList();
+        InputOutput consoleIO = input("2\nN\n1\n5\n");
         Read read = new Read(imported, consoleIO);
+        addContactsToList();
         read.perform();
         assertTrue(recordedOutput.toString().contains("First Name: Priya\n" +
                                                       "Last Name: Patil\n" +
@@ -56,9 +57,7 @@ public class ReadTest {
 
     @Test
     public void readFirstDisplaysAListOfNames() {
-        InputOutput consoleIO = input("1\nPriya\nPatil\n123@gmail.com\n2 Cedar Way\n" +
-                                      "1\nSarah\nBlack\n345@gmail.com\n 3 Cedar Way\n" +
-                                      "2\n1\n5\n");
+        InputOutput consoleIO = input("2\nN\n1\n5\n");
         addContactsToList();
         FileType fakeFile = new FakeFile(consoleIO, contactList, imported);
         Option exitOption = new FakeExit(consoleIO, contactList, fakeFile);
@@ -70,13 +69,24 @@ public class ReadTest {
 
     @Test
     public void userMustEnterAValidNumberToReadContactAfterEnteringReadOption() {
-        InputOutput consoleIO = input("1\nPriya\nPatil\n123@gmail.com\n2 Cedar Way\n2\na\n1\n5\n");
+        InputOutput consoleIO = input("2\nN\na\n1\n5\n");
         addContactsToList();
         FileType fakeFile = new FakeFile(consoleIO, contactList, imported);
         Option exitOption = new FakeExit(consoleIO, contactList, fakeFile);
         ConMan conMan = new ConMan(consoleIO, exitOption, fakeFile, contactList);
         conMan.menuLoop();
         assertTrue(recordedOutput.toString().contains("Please enter a valid number: "));
+    }
+
+    @Test
+    public void userCanFilterNamesBeforeSelecting() {
+        InputOutput consoleIO = input("2\nY\nSarah\n1\n5\n");
+        addContactsToList();
+        FileType fakeFile = new FakeFile(consoleIO, contactList, imported);
+        Option exitOption = new FakeExit(consoleIO, contactList, fakeFile);
+        ConMan conMan = new ConMan(consoleIO, exitOption, fakeFile, contactList);
+        conMan.menuLoop();
+        assertTrue(recordedOutput.toString().contains("Enter a name to filter: \n"));
     }
 
     private void addContactsToList() {

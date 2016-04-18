@@ -6,6 +6,8 @@ import conMan.contactfields.Contact;
 import conMan.inputoutput.InputOutput;
 import conMan.inputoutput.ValidDigit;
 
+import java.util.List;
+
 public class Read implements Option {
     private final ContactList allContacts;
     private final InputOutput console;
@@ -22,20 +24,27 @@ public class Read implements Option {
 
     @Override
     public void perform() {
-        listAllNames();
-        int chosenNumber = getValidDigit();
-        console.showOutput(contact(chosenNumber));
-    }
-
-    public String contact(int contactNumber) {
-        Contact selected = allContacts.get(contactNumber - 1);
-        return selected.showFields();
-    }
-
-    private void listAllNames() {
         NameList names = new NameList(allContacts, console);
-        console.showOutput("Select a contact to view: \n");
-        console.showOutput(names.listNames(allContacts.getList()));
+        showAllNames(names);
+        List<Contact> filteredContacts = filter(names);
+        console.showOutput(names.formatNames(filteredContacts));
+        Contact selected = filteredContacts.get(getValidDigit() - 1);
+        console.showOutput(selected.showFields());
+    }
+
+    private void showAllNames(NameList names) {
+        console.showOutput("Showing " + allContacts.getList().size() + " contacts" + "\n");
+        console.showOutput(names.formatNames(allContacts.getList()));
+    }
+
+    private List<Contact> filter(NameList names) {
+        console.showOutput("Would you like to filter contacts by name? (Y/N) \n");
+        if (console.takeInput().contains("Y")) {
+            console.showOutput("Enter a name to filter: \n");
+            return names.filter();
+        } else {
+            return allContacts.getList();
+        }
     }
 
     private int getValidDigit() {

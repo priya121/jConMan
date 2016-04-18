@@ -29,7 +29,7 @@ public class NameListTest {
         createContacts();
         InputOutput console = new ConsoleIO(new ByteArrayInputStream("Sarah\n".getBytes()), out);
         NameList namesList = new NameList(list, console);
-        assertEquals("1) Sarah Smith\n", namesList.listNames(namesList.filter()));
+        assertEquals("1) Sarah Smith\n", namesList.formatNames(namesList.filter()));
     }
 
     @Test
@@ -37,7 +37,7 @@ public class NameListTest {
         createContacts();
         InputOutput console = new ConsoleIO(new ByteArrayInputStream("Ben\n".getBytes()), out);
         NameList namesList = new NameList(list, console);
-        assertEquals("1) Ben Smith\n", namesList.listNames(namesList.filter()));
+        assertEquals("1) Ben Smith\n", namesList.formatNames(namesList.filter()));
     }
 
     private Contact createContact(List<String> userInput) {

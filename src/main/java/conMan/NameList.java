@@ -15,7 +15,7 @@ public class NameList {
         this.console = console;
     }
 
-    public String listNames(List<Contact> contacts) {
+    public String formatNames(List<Contact> contacts) {
         String listOfContacts = "";
         int number = 1;
         for (Contact contact : contacts) {

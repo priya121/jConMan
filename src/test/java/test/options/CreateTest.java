@@ -65,7 +65,7 @@ public class CreateTest {
 
     @Test
     public void userCanCreateANewContactAfterEntering1() throws IOException {
-        InputOutput consoleIO = input("1\nGary\nPaul\n345@gmail.com\n3 Rosebury Av\n2\n3\n5\nY\n");
+        InputOutput consoleIO = input("1\nGary\nPaul\n345@gmail.com\n3 Rosebury Av\n2\nN\n3\n5\nY\n");
         FileType fakeFile = new FakeFile(consoleIO, contactList, imported);
         exitOption = new FakeExit(consoleIO, contactList, fakeFile);
         ConMan conMan = new ConMan(consoleIO, exitOption, fakeFile, contactList);

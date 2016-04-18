@@ -35,7 +35,7 @@ public class ConManTest {
         contactList = new ContactList();
         consoleIO = new ConsoleIO(new ByteArrayInputStream(("1\nMaya\nPatil\n123@gmail.com\n1 Cedar Way\n" +
                                                             "1\nSam\nSmith\n234@gmail.com\n2 Cedar Way\n" +
-                                                            "2\n4\n5\n").getBytes()), out);
+                                                            "2\nN\n4\n5\n").getBytes()), out);
         fakeFile = new FakeFile(consoleIO, contactList, importedContacts);
         exitOption = new FakeExit(consoleIO, contactList, fakeFile);
         conMan = new ConMan(consoleIO, exitOption, fakeFile, contactList);
@@ -70,7 +70,7 @@ public class ConManTest {
 
     @Test
     public void canReadDetailsOfFirstContactInListByEntering2() {
-        InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream("2\n1\n5\nY\n".getBytes()), out);
+        InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream("2\nN\n1\n5\nY\n".getBytes()), out);
         ConMan conMan = new ConMan(consoleIO, exitOption, fakeFile, contactList);
         conMan.menuLoop();
         assertTrue(recordedOutput.toString().contains("First Name: Priya\n" +
@@ -83,7 +83,7 @@ public class ConManTest {
     public void canUpdateTheFirstNameOfACreatedContactByEntering3() {
         InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream(("1\nMaya\nPatil\n123@gmail.com\n1 Cedar Way\n" +
                                                                         "1\nSam\nSmith\n234@gmail.com\n2 Cedar Way\n" +
-                                                                        "3\n4\nBeth\n\n\n\n2\n4\n5\n").getBytes()), out);
+                                                                        "3\n4\nBeth\n\n\n\n2\nN\n4\n5\n").getBytes()), out);
         ConMan conMan = new ConMan(consoleIO, exitOption, fakeFile, contactList);
         conMan.menuLoop();
         assertTrue(recordedOutput.toString().contains("First Name: Beth\n" +
@@ -94,7 +94,7 @@ public class ConManTest {
 
     @Test
     public void canDeleteFirstCreatedContactByEntering4() {
-        InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream(("4\n1\nY\n2\n1\n5\n").getBytes()), out);
+        InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream(("4\n1\nY\n2\nN\n1\n5\n").getBytes()), out);
         ConMan conMan = new ConMan(consoleIO, exitOption, fakeFile, contactList);
         conMan.menuLoop();
         assertTrue(recordedOutput.toString().contains("Deleting Contact..."));

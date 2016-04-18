@@ -23,7 +23,7 @@ public class Update implements Option {
 
     @Override
     public void perform() {
-        console.showOutput(contacts.listNames(allContacts.getList()));
+        console.showOutput(contacts.formatNames(allContacts.getList()));
         int chosenContact = getValidDigit() - 1;
         console.showOutput("Fill in field to update or leave blank to keep previous value: \n");
         allContacts.get(chosenContact).updateFields();
