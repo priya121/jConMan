@@ -36,7 +36,7 @@ public class Phone implements Field {
     }
 
     @Override
-    public String show() {
+    public String get() {
         return phone;
     }
 

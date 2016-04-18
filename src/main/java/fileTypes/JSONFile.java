@@ -31,11 +31,6 @@ public class JSONFile implements FileType {
         }
     }
 
-    @Override
-    public File getFile() {
-        return file;
-    }
-
     private void createContacts(JSONParser parser, BufferedReader reader) {
         String currentLine;
         try {
@@ -76,7 +71,7 @@ public class JSONFile implements FileType {
     private JSONObject contactToJSON(Contact contact) {
         JSONObject jsonObject = new JSONObject();
         for (Field field : contact.fields) {
-            jsonObject.put(field.showFieldName(), field.show());
+            jsonObject.put(field.showFieldName(), field.get());
         }
         return jsonObject;
     }

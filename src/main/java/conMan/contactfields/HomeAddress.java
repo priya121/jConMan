@@ -30,7 +30,7 @@ public class HomeAddress implements Field {
     }
 
     @Override
-    public String show() {
+    public String get() {
         return homeAddress;
     }
 

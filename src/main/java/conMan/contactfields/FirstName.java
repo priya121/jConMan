@@ -30,7 +30,7 @@ public class FirstName implements Field {
     }
 
     @Override
-    public String show() {
+    public String get() {
         return firstName;
     }
 

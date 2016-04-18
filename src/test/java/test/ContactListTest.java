@@ -75,8 +75,8 @@ public class ContactListTest {
         Option exit = new FakeExit(console, allContacts, CSVfile);
         ConMan conMan = new ConMan(console, exit, CSVfile, allContacts);
         conMan.menuLoop();
-        assertEquals("Ben, Smith, 234@gmail.com, 2 Rosebury Av, 123, \n" +
-                     "Sarah, Smith, 456@gmail.com, 6 Forlease Road, 345, \n", readTempFile(output.getPath(), 100));
+        assertEquals("Ben,Smith,234@gmail.com,2 Rosebury Av,123,\n" +
+                     "Sarah,Smith,456@gmail.com,6 Forlease Road,345,\n", readTempFile(output.getPath(), 90));
     }
 
     @Test

@@ -51,7 +51,7 @@ public class Contact {
     public String showFields() {
         String list = "";
         for (Field field : fields) {
-            list += field.showFieldName() + field.show() + "\n";
+            list += field.showFieldName() + field.get() + "\n";
         }
         return list + "\n" + "\n";
     }
@@ -63,6 +63,6 @@ public class Contact {
     }
 
     public String getName() {
-        return firstName.show() + " " + lastName.show();
+        return firstName.get() + " " + lastName.get();
     }
 }

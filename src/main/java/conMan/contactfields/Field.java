@@ -4,7 +4,7 @@ public interface Field {
     void set();
     void update();
     void setExisting();
-    String show();
+    String get();
     String showFieldName();
 
 }

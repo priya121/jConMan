@@ -30,7 +30,7 @@ public class Email implements Field {
     }
 
     @Override
-    public String show() {
+    public String get() {
         return email;
     }
 
