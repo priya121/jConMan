@@ -5,7 +5,6 @@ import conMan.NameList;
 import conMan.contactfields.Contact;
 import conMan.inputoutput.ConsoleIO;
 import conMan.inputoutput.InputOutput;
-import org.junit.Ignore;
 import org.junit.Test;
 import test.inputOutput.FakeIO;
 
@@ -28,16 +27,15 @@ public class NameListTest {
     @Test
     public void canFilterOutNamesInTheList() throws IOException {
         createContacts();
-        InputOutput console = new ConsoleIO(new ByteArrayInputStream("Sar\nq\n".getBytes()), out);
+        InputOutput console = new ConsoleIO(new ByteArrayInputStream("Sarah\n".getBytes()), out);
         NameList namesList = new NameList(list, console);
         assertEquals("1) Sarah Smith\n", namesList.listNames(namesList.filter()));
     }
 
-    @Ignore
     @Test
     public void canFilterOutByCombinationsOfLettersInTheList() {
         createContacts();
-        InputOutput console = new ConsoleIO(new ByteArrayInputStream("Be\nn\nq\n".getBytes()), out);
+        InputOutput console = new ConsoleIO(new ByteArrayInputStream("Ben\n".getBytes()), out);
         NameList namesList = new NameList(list, console);
         assertEquals("1) Ben Smith\n", namesList.listNames(namesList.filter()));
     }

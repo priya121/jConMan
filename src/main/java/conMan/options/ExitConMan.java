@@ -22,11 +22,7 @@ public class ExitConMan implements Option, Exit {
 
     @Override
     public void perform() {
-        saveContacts();
-        System.exit(0);
-    }
-
-    public void saveContacts() {
         file.saveContacts();
+        System.exit(0);
     }
 }

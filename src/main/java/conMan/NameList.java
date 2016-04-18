@@ -28,22 +28,17 @@ public class NameList {
     public List<Contact> filter() {
         List<Contact> filteredList = new ArrayList<>();
         Iterator<Contact> contactList = allContacts.getList().iterator();
-        char letter = 0;
-        while (letter != 'q') {
-            letter = (char) console.takeChar();
+        String letters = console.takeInput();
             while (contactList.hasNext()) {
                 Contact contact = contactList.next();
-                filteredList = matchFound(letter, contact);
+                if (matchFound(letters, contact)) {
+                    filteredList.add(contact);
+                }
             }
-        }
         return filteredList;
     }
 
-    private List<Contact> matchFound(char letter, Contact contact) {
-        List<Contact> filteredList;
-        filteredList = new ArrayList<>();
-        if (contact.getName().contains("" + letter))
-            filteredList.add(contact);
-        return filteredList;
+    private boolean matchFound(String letters, Contact contact) {
+        return contact.getName().contains(letters);
     }
 }

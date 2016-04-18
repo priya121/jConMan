@@ -20,4 +20,3 @@ public class ContactList {
         return allContacts;
     }
 }
-
