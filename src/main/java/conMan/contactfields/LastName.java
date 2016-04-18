@@ -11,8 +11,9 @@ public class LastName implements Field {
         this.console = console;
     }
 
-    public LastName(String savedValue) {
+    public LastName(String savedValue, InputOutput console) {
         this.savedValue = savedValue;
+        this.console = console;
     }
 
     @Override

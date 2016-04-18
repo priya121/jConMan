@@ -11,8 +11,9 @@ public class HomeAddress implements Field {
         this.console = console;
     }
 
-    public HomeAddress(String savedValue) {
+    public HomeAddress(String savedValue, InputOutput console) {
         this.savedValue = savedValue;
+        this.console = console;
     }
 
         @Override

@@ -11,8 +11,9 @@ public class FirstName implements Field {
         this.console = console;
     }
 
-    public FirstName(String savedValue) {
+    public FirstName(String savedValue, InputOutput console) {
         this.savedValue = savedValue;
+        this.console = console;
     }
 
     @Override
@@ -22,7 +23,7 @@ public class FirstName implements Field {
 
     @Override
     public void update() {
-        String userInput = console.takeInput();
+        String userInput = this.console.takeInput();
         if (!userInput.isEmpty()) {
             firstName = userInput;
         }

@@ -1,24 +1,18 @@
 package test;
 
 import conMan.ContactList;
-import conMan.contactfields.Contact;
-import conMan.contactfields.Field;
+import conMan.FileType;
 import conMan.inputoutput.InputOutput;
 import conMan.options.Exit;
 import conMan.options.Option;
-import org.json.simple.JSONObject;
-
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 
 public class FakeExit implements Option, Exit {
     private final ContactList contactList;
-    private final File file;
+    private final FileType file;
     private InputOutput inputOutput;
 
 
-    public FakeExit(InputOutput inputOutput, ContactList contactList, File file) {
+    public FakeExit(InputOutput inputOutput, ContactList contactList, FileType file) {
         this.inputOutput = inputOutput;
         this.contactList = contactList;
         this.file = file;
@@ -36,19 +30,6 @@ public class FakeExit implements Option, Exit {
     }
 
     public void saveContacts() {
-        for (Contact contact : contactList.getList()) {
-            JSONObject jsonObject = new JSONObject();
-            for (Field field : contact.fields) {
-                jsonObject.put(field.showFieldName(), field.show() + " ");
-            }
-            try {
-                FileWriter fileWriter = new FileWriter(file, true);
-                fileWriter.write(jsonObject.toString() + "\n");
-                fileWriter.flush();
-                fileWriter.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+        file.saveContacts();
     }
 }

@@ -22,11 +22,12 @@ public class Contact {
         this.fields = Arrays.asList(firstName, lastName, email, homeAddress);
     }
 
-    public Contact(String firstName, String lastName, String email, String homeAddress) {
-        this.firstName = new FirstName(firstName);
-        this.lastName = new LastName(lastName);
-        this.email = new Email(email);
-        this.homeAddress = new HomeAddress(homeAddress);
+    public Contact(String firstName, String lastName, String email, String homeAddress, InputOutput console) {
+        this.console = console;
+        this.firstName = new FirstName(firstName, this.console);
+        this.lastName = new LastName(lastName, this.console);
+        this.email = new Email(email, this.console);
+        this.homeAddress = new HomeAddress(homeAddress, this.console);
         this.fields = Arrays.asList(this.firstName, this.lastName, this.email, this.homeAddress);
     }
 

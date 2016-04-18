@@ -11,8 +11,9 @@ public class Email implements Field {
         this.console = console;
     }
 
-    public Email(String savedValue) {
+    public Email(String savedValue, InputOutput console) {
         this.savedValue = savedValue;
+        this.console = console;
     }
 
     @Override

@@ -2,50 +2,42 @@ package test.options;
 
 import conMan.ConMan;
 import conMan.ContactList;
+import conMan.FileType;
 import conMan.contactfields.Contact;
 import conMan.inputoutput.ConsoleIO;
 import conMan.inputoutput.InputOutput;
 import conMan.options.Create;
-import conMan.options.Option;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.TemporaryFolder;
 import test.FakeExit;
+import test.FakeFile;
 
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.PrintStream;
 
 import static junit.framework.TestCase.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class CreateTest {
-    private ContactList contactList;
-    private Contact Ben;
-    private Contact Sarah;
-    private File output;
-    private ContactList allContacts;
+    ByteArrayOutputStream recordedOutput = new ByteArrayOutputStream();
+    PrintStream out = new PrintStream(recordedOutput);
 
-    @Rule
-    public TemporaryFolder temporaryFolder = new TemporaryFolder();
+    private ContactList imported;
+    private ContactList contactList;
+    private FakeExit exitOption;
 
     @Before
     public void setUp() throws IOException {
+        getImportedContacts();
         contactList = new ContactList();
-        Ben = createContact("Ben\nSmith\n123@gmail.com\n1 Cedar Way\n");
-        Sarah = createContact("Sarah\nSmith\n234@gmail.com\n2 Cedar Way\n");
-        contactList.addContact(Ben);
-        contactList.addContact(Sarah);
-        output = temporaryFolder.newFile("output.txt");
-        allContacts = new ContactList();
     }
-
-    ByteArrayOutputStream recordedOutput = new ByteArrayOutputStream();
-    PrintStream out = new PrintStream(recordedOutput);
 
     @Test
     public void createChoiceHasACreateTitle() throws IOException {
         InputOutput consoleIO = input("");
-        Create createOption = new Create(contactList, consoleIO);
+        Create createOption = new Create(imported, consoleIO);
         createOption.show();
         assertTrue(recordedOutput.toString().contains("Create a contact \n"));
     }
@@ -53,9 +45,10 @@ public class CreateTest {
     @Test
     public void userEntering1ShowsCreateAContactTitle() {
         InputOutput consoleIO = input("1\n");
-        Option exitOption = new FakeExit(consoleIO, allContacts, output);
-        ConMan conMan = new ConMan(consoleIO, exitOption, output, allContacts);
-        conMan.optionSelected();
+        FileType fakeFile = new FakeFile(consoleIO, contactList, imported);
+        exitOption = new FakeExit(consoleIO, contactList, fakeFile);
+        ConMan conMan = new ConMan(consoleIO, exitOption, fakeFile, contactList);
+        conMan.menuChoice();
         assertTrue(recordedOutput.toString().contains("Create a contact \n"));
     }
 
@@ -67,24 +60,33 @@ public class CreateTest {
         assertEquals("First Name: Maya\n" +
                      "Last Name: Patil\n" +
                      "Email: 789@gmail.com\n" +
-                     "Home Address: 2 Rosebury Av\n\n\n", contactList.get(2).showFields());
+                     "Home Address: 2 Rosebury Av\n\n\n", contactList.get(0).showFields());
     }
 
     @Test
-    public void userCanCreateAContactAfterEntering1() throws IOException {
-        InputOutput consoleIO = input("1\nGary\nPaul\n345@gmail.com\n3 Rosebury Av\n5\nY\n");
-        Option exitOption = new FakeExit(consoleIO, allContacts, output);
-        ConMan conMan = new ConMan(consoleIO, exitOption, output, allContacts);
+    public void userCanCreateANewContactAfterEntering1() throws IOException {
+        InputOutput consoleIO = input("1\nGary\nPaul\n345@gmail.com\n3 Rosebury Av\n2\n3\n5\nY\n");
+        FileType fakeFile = new FakeFile(consoleIO, contactList, imported);
+        exitOption = new FakeExit(consoleIO, contactList, fakeFile);
+        ConMan conMan = new ConMan(consoleIO, exitOption, fakeFile, contactList);
         conMan.menuLoop();
-        assertEquals("First Name: Gary\n" +
+        assertTrue(recordedOutput.toString().contains("First Name: Gary\n" +
                      "Last Name: Paul\n" +
                      "Email: 345@gmail.com\n" +
-                     "Home Address: 3 Rosebury Av\n\n\n", conMan.readContact(1));
+                     "Home Address: 3 Rosebury Av\n\n\n"));
     }
 
     private Contact createContact(String input) {
         ConsoleIO console = new ConsoleIO(new ByteArrayInputStream(input.getBytes()), out);
         return new Contact(console);
+    }
+
+    private void getImportedContacts() {
+        imported = new ContactList();
+        Contact ben = createContact("Ben\nSmith\n123@gmail.com\n1 Cedar Way\n");
+        Contact sarah = createContact("Sarah\nSmith\n234@gmail.com\n2 Cedar Way\n");
+        imported.addContact(ben);
+        imported.addContact(sarah);
     }
 
     private InputOutput input(String input) {

@@ -13,8 +13,9 @@ public class App {
         InputOutput io = new ConsoleIO(System.in, System.out);
         ContactList list = new ContactList();
         File file = new File("/Users/priyapatil/Work/conMan.json");
+        FileType jsonFile = new JSONFile(file, io, list);
         Option exit = new ExitConMan(io, list, file);
-        ConMan conMan = new ConMan(io, exit, file, list);
+        ConMan conMan = new ConMan(io, exit, jsonFile, list);
         conMan.menuLoop();
     }
 }

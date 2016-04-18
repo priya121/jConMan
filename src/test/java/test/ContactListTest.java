@@ -2,6 +2,8 @@ package test;
 
 import conMan.ConMan;
 import conMan.ContactList;
+import conMan.FileType;
+import conMan.JSONFile;
 import conMan.contactfields.Contact;
 import conMan.inputoutput.ConsoleIO;
 import conMan.inputoutput.InputOutput;
@@ -21,11 +23,11 @@ public class ContactListTest {
     private Contact Priya;
     ByteArrayOutputStream recordedOutput = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(recordedOutput);
-    private ContactList contactList;
+    private ContactList importedContacts;
 
     @Rule
     public TemporaryFolder temporaryFolder = new TemporaryFolder();
-    private ContactList allContacts;
+    private ContactList contactList;
     private File output;
 
     @Before
@@ -35,18 +37,18 @@ public class ContactListTest {
         Priya = createContact("Priya\nPatil\n123@gmail.com\n3 Rosebury Av\n");
         setContactFields();
         addContactsToList();
-        allContacts = new ContactList();
+        contactList = new ContactList();
         output = temporaryFolder.newFile("output.txt");
     }
 
     @Test
     public void contactsSavedToContactListEverTimeNewContactCreated() {
-        assertEquals(3, contactList.getList().size());
+        assertEquals(3, importedContacts.getList().size());
     }
 
     @Test
     public void contactsSavedInOrderCreated() {
-        Contact secondContact = contactList.get(1);
+        Contact secondContact = importedContacts.get(1);
         assertEquals("Sarah Smith", secondContact.getName());
     }
 
@@ -54,8 +56,9 @@ public class ContactListTest {
     public void contactWrittenToFileInJSONFormat() throws IOException {
         InputOutput console = input("1\nBen\nSmith\n234@gmail.com\n2 Rosebury Av\n5\nY\n");
         ContactList allContacts = new ContactList();
-        Option exit = new FakeExit(console, allContacts, output);
-        ConMan conMan = new ConMan(console, exit, output, allContacts);
+        FileType jsonFile = new JSONFile(output, console, allContacts);
+        Option exit = new FakeExit(console, allContacts, jsonFile);
+        ConMan conMan = new ConMan(console, exit, jsonFile, allContacts);
         conMan.menuLoop();
         assertEquals("{\"Last Name: \":\"Smith \",\"Email: \":\"234@gmail.com \"" +
                      ",\"Home Address: \":\"2 Rosebury Av \"," +
@@ -63,16 +66,16 @@ public class ContactListTest {
     }
 
     @Test
-    public void contactsCanBeImportedFromAJSONFile() throws IOException {
-        File input = new File("/Users/priyapatil/Work/conMan.json");
+    public void contactCanBeImportedFromAFile() throws IOException {
         InputOutput console = input("2\n1\n5\nY\n");
-        Option exit = new FakeExit(console, allContacts, input);
-        ConMan conMan = new ConMan(console, exit, input, allContacts);
+        FileType fakeFile = new FakeFile(console, contactList, importedContacts);
+        Option exit = new FakeExit(console, contactList, fakeFile);
+        ConMan conMan = new ConMan(console, exit, fakeFile, contactList);
         conMan.menuLoop();
-        assertEquals("First Name: Priya \n" +
-                "Last Name: Patil \n" +
-                "Email: 123@gmail.com \n" +
-                "Home Address: 12 Cedar Way \n\n\n", conMan.readContact(1));
+        assertEquals("First Name: Priya\n" +
+                "Last Name: Patil\n" +
+                "Email: 123@gmail.com\n" +
+                "Home Address: 3 Rosebury Av\n\n\n", contactList.get(2).showFields());
     }
 
     private Contact createContact(String input) {
@@ -87,10 +90,10 @@ public class ContactListTest {
     }
 
     private void addContactsToList() {
-        contactList = new ContactList();
-        contactList.addContact(Ben);
-        contactList.addContact(Sarah);
-        contactList.addContact(Priya);
+        importedContacts = new ContactList();
+        importedContacts.addContact(Ben);
+        importedContacts.addContact(Sarah);
+        importedContacts.addContact(Priya);
     }
 
     private InputOutput input(String input) {

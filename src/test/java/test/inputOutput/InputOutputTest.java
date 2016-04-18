@@ -2,6 +2,7 @@ package test.inputOutput;
 
 import conMan.ConMan;
 import conMan.ContactList;
+import conMan.FileType;
 import conMan.inputoutput.ConsoleIO;
 import conMan.inputoutput.InputOutput;
 import conMan.options.Option;
@@ -9,8 +10,12 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 import test.FakeExit;
+import test.FakeFile;
 
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.PrintStream;
 
 import static org.junit.Assert.assertTrue;
 
@@ -25,9 +30,10 @@ public class InputOutputTest {
 
     @Test
     public void showsInitialGreetingToRecordedOutput() throws IOException {
-        File output = temporaryFolder.newFile("output.txt");
-        Option exitOption = new FakeExit(consoleIO, allContacts, output);
-        ConMan conMan = new ConMan(consoleIO, exitOption, output, allContacts);
+        ContactList contactList = new ContactList();
+        FileType fakeFile = new FakeFile(consoleIO, allContacts, contactList);
+        Option exitOption = new FakeExit(consoleIO, allContacts, fakeFile);
+        ConMan conMan = new ConMan(consoleIO, exitOption, fakeFile, allContacts);
         conMan.showGreeting();
         assertTrue(recordedOutput.toString().contains("Welcome to ConMan!"));
     }

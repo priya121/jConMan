@@ -33,8 +33,8 @@ public class ContactTest {
         List<Contact> contacts = Arrays.asList(ben);
         ben.setFields();
         assertEquals("First Name: Ben\n" +
-                "Last Name: Smith\n" +
-                "Email: 123@gmail.com\n" +
-                "Home Address: 1 Rosebury Av\n\n\n", contacts.get(0).showFields());
+                     "Last Name: Smith\n" +
+                     "Email: 123@gmail.com\n" +
+                     "Home Address: 1 Rosebury Av\n\n\n", contacts.get(0).showFields());
     }
 }
