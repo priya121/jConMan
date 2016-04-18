@@ -24,7 +24,7 @@ public class ReadTest {
 
     ContactList imported = new ContactList();
     ContactList contactList = new ContactList();
-    InputOutput consoleIO = input("1\nPriya\nPatil\n123@gmail.com\n1 Cedar Way\n" +
+    InputOutput consoleIO = input("1\nPriya\nPatil\n123@gmail.com\n1 Cedar Way\n123\n" +
                                   "2\nN\n1\n5\n");
 
     @Test
@@ -52,7 +52,8 @@ public class ReadTest {
         assertTrue(recordedOutput.toString().contains("First Name: Priya\n" +
                                                       "Last Name: Patil\n" +
                                                       "Email: 123@gmail.com\n" +
-                                                      "Home Address: 1 Cedar Way\n"));
+                                                      "Home Address: 1 Cedar Way\n" +
+                                                      "Phone Number: 123\n\n\n"));
     }
 
     @Test
@@ -90,8 +91,8 @@ public class ReadTest {
     }
 
     private void addContactsToList() {
-        Contact priya = createContact("Priya\nPatil\n123@gmail.com\n1 Cedar Way\n");
-        Contact sarah = createContact("Sarah\nBlack\n234@gmail.com\n2 Cedar Way\n" +
+        Contact priya = createContact("Priya\nPatil\n123@gmail.com\n1 Cedar Way\n123\n");
+        Contact sarah = createContact("Sarah\nBlack\n234@gmail.com\n2 Cedar Way\n123\n" +
                                       "2\n1\n");
         imported.addContact(priya);
         imported.addContact(sarah);

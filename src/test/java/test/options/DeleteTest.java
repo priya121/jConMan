@@ -31,8 +31,8 @@ public class DeleteTest {
     @Before
     public void setUp() throws IOException {
         allContacts = new ContactList();
-        console = input("Ben\nSmith\n123@gmail.com\n1 Cedar Way\n" +
-                        "Sarah\nSmith\n678@gmail.com\n2 Cedar Way\n1\nY\n5\nY\n");
+        console = input("Ben\nSmith\n123@gmail.com\n1 Cedar Way\n123\n" +
+                        "Sarah\nSmith\n678@gmail.com\n2 Cedar Way\n123\n4\n1\nY\n5\nY\n");
         newList = new ContactList();
         contactList = createContactList(console);
     }
@@ -50,7 +50,7 @@ public class DeleteTest {
 
     @Test
     public void userEntering4ShowsDeleteAContactTitle() {
-        InputOutput consoleIO = input("1\nBen\nSmith\n345@gmail.com\n2 Rosebury Av\n4\n1\nY\n5\n");
+        InputOutput consoleIO = input("1\nBen\nSmith\n345@gmail.com\n2 Rosebury Av\n123\n4\n1\nY\n5\n");
         FileType fakeFile = new FakeFile(consoleIO, allContacts, contactList);
         exitOption = new FakeExit(consoleIO, allContacts, fakeFile);
         conMan = new ConMan(consoleIO, exitOption, fakeFile, allContacts);
@@ -60,8 +60,9 @@ public class DeleteTest {
 
     @Test
     public void userAbleToDeleteFirstContact() {
-        console = input("Ben\nSmith\n123@gmail.com\n1 Cedar Way\n" +
-                        "Sarah\nSmith\n678@gmail.com\n2 Cedar Way\n1\nY\nY\n5\nY\n");
+        InputOutput console = input("Ben\nSmith\n123@gmail.com\n1 Cedar Way\n123\n" +
+                                    "Sarah\nSmith\n678@gmail.com\n2 Cedar Way\n123\n1\nY\n5\nY\n");
+        contactList = createContactList(console);
         Delete delete = new Delete(contactList, console);
         delete.perform();
         assertEquals("Sarah Smith", contactList.get(0).getName());
@@ -69,7 +70,7 @@ public class DeleteTest {
 
     @Test
     public void userMustEnterAValidNumberToDeleteAContact() {
-        InputOutput consoleIO = input("1\nPriya\nPatil\n123@gmail.com\n2 Cedar Way\n" +
+        InputOutput consoleIO = input("1\nPriya\nPatil\n123@gmail.com\n2 Cedar Way\n123\n" +
                 "4\na\n1\nY\n5\n");
         FileType fakeFile = new FakeFile(consoleIO, allContacts, contactList);
         exitOption = new FakeExit(consoleIO, allContacts, fakeFile);
@@ -80,8 +81,8 @@ public class DeleteTest {
 
     @Test
     public void userCanReadListOfContactsBeforeDecidingWhichToDelete() {
-        InputOutput consoleIO = input("1\nPriya\nPatil\n123@gmail.com\n1 Cedar Way\n" +
-                                      "1\nMaya\nPatil\n345@gmail.com\n2 Cedar Way\n" +
+        InputOutput consoleIO = input("1\nPriya\nPatil\n123@gmail.com\n1 Cedar Way\n123\n" +
+                                      "1\nMaya\nPatil\n345@gmail.com\n2 Cedar Way\n123\n" +
                                       "4\n1\nY\n5\n");
         FileType fakeFile = new FakeFile(consoleIO, allContacts, contactList);
         exitOption = new FakeExit(consoleIO, allContacts, fakeFile);
@@ -95,7 +96,7 @@ public class DeleteTest {
 
     @Test
     public void userAskedToConfirmBeforeDeletingAContact() {
-        InputOutput consoleIO = input("1\nPriya\nPatil\n123@gmail.com\n1 Cedar Way\n" +
+        InputOutput consoleIO = input("1\nPriya\nPatil\n123@gmail.com\n1 Cedar Way\n123\n" +
                                       "4\n1\nY\n5\n");
         FileType fakeFile = new FakeFile(consoleIO, allContacts, contactList);
         exitOption = new FakeExit(consoleIO, allContacts, fakeFile);
@@ -106,7 +107,7 @@ public class DeleteTest {
 
     @Test
     public void doesNotDeleteAContactIfUserEntersN() {
-        InputOutput consoleIO = input("1\nPriya\nPatil\n123@gmail.com\n1 Cedar Way\n" +
+        InputOutput consoleIO = input("1\nPriya\nPatil\n123@gmail.com\n1 Cedar Way\n123\n" +
                 "4\n1\nN\n5\n");
         FileType fakeFile = new FakeFile(consoleIO, allContacts, contactList);
         exitOption = new FakeExit(consoleIO, allContacts, fakeFile);

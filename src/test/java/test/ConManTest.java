@@ -33,8 +33,8 @@ public class ConManTest {
     public void setUp() {
         importedContacts = createdImportedContacts();
         contactList = new ContactList();
-        consoleIO = new ConsoleIO(new ByteArrayInputStream(("1\nMaya\nPatil\n123@gmail.com\n1 Cedar Way\n" +
-                                                            "1\nSam\nSmith\n234@gmail.com\n2 Cedar Way\n" +
+        consoleIO = new ConsoleIO(new ByteArrayInputStream(("1\nMaya\nPatil\n123@gmail.com\n1 Cedar Way\n123\n" +
+                                                            "1\nSam\nSmith\n234@gmail.com\n2 Cedar Way\n123\n" +
                                                             "2\nN\n4\n5\n").getBytes()), out);
         fakeFile = new FakeFile(consoleIO, contactList, importedContacts);
         exitOption = new FakeExit(consoleIO, contactList, fakeFile);
@@ -76,20 +76,22 @@ public class ConManTest {
         assertTrue(recordedOutput.toString().contains("First Name: Priya\n" +
                                                       "Last Name: Patil\n" +
                                                       "Email: 123@gmail.com\n" +
-                                                      "Home Address: 2 Cedar Way\n\n\n"));
+                                                      "Home Address: 2 Cedar Way\n" +
+                                                      "Phone Number: 123\n\n\n"));
     }
 
     @Test
     public void canUpdateTheFirstNameOfACreatedContactByEntering3() {
-        InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream(("1\nMaya\nPatil\n123@gmail.com\n1 Cedar Way\n" +
-                                                                        "1\nSam\nSmith\n234@gmail.com\n2 Cedar Way\n" +
-                                                                        "3\n4\nBeth\n\n\n\n2\nN\n4\n5\n").getBytes()), out);
+        InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream(("1\nMaya\nPatil\n123@gmail.com\n1 Cedar Way\n123\n" +
+                                                                        "1\nSam\nSmith\n234@gmail.com\n2 Cedar Way\n123\n" +
+                                                                        "3\n4\nBeth\n\n\n\n\n2\nN\n4\n5\n").getBytes()), out);
         ConMan conMan = new ConMan(consoleIO, exitOption, fakeFile, contactList);
         conMan.menuLoop();
         assertTrue(recordedOutput.toString().contains("First Name: Beth\n" +
                                                       "Last Name: Smith\n" +
                                                       "Email: 234@gmail.com\n" +
-                                                      "Home Address: 2 Cedar Way\n\n\n"));
+                                                      "Home Address: 2 Cedar Way\n" +
+                                                      "Phone Number: 123\n\n\n"));
     }
 
     @Test
@@ -112,8 +114,8 @@ public class ConManTest {
     public void conManLoopsThroughOptionsTillUserChoosesToExit() {
         FileType fakeFile = new FakeFile(consoleIO, contactList, importedContacts);
         Option exitOption = new FakeExit(consoleIO, contactList, fakeFile);
-        InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream(("1\nSarah\nSmith\n234@gmail.com\n1 Cedar Way\n" +
-                                                                        "1\nPriya\nPatil\n123@gmail.com\n2 Cedar Way\n" +
+        InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream(("1\nSarah\nSmith\n234@gmail.com\n1 Cedar Way\n120-123-123\n" +
+                                                                        "1\nPriya\nPatil\n123@gmail.com\n2 Cedar Way\n789-123-123\n" +
                                                                         "4\n1\nY\n5\n").getBytes()), out);
         ConMan conMan = new ConMan(consoleIO, exitOption, fakeFile, contactList);
         conMan.menuLoop();
@@ -133,8 +135,8 @@ public class ConManTest {
 
     private ContactList createdImportedContacts() {
         ContactList newList = new ContactList();
-        Contact priya = new Contact("Priya", "Patil", "123@gmail.com", "2 Cedar Way", consoleIO);
-        Contact sarah = new Contact("Sarah", "Smith", "234@gmail.com", "3 Cedar Way", consoleIO);
+        Contact priya = new Contact("Priya", "Patil", "123@gmail.com", "2 Cedar Way", "123", consoleIO);
+        Contact sarah = new Contact("Sarah", "Smith", "234@gmail.com", "3 Cedar Way", "123", consoleIO);
         priya.setExisting();
         sarah.setExisting();
         newList.addContact(priya);

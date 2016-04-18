@@ -32,9 +32,9 @@ public class ContactListTest {
 
     @Before
      public void setUp() throws IOException {
-        Ben = createContact("Ben\nSmith\n234@gmail.com\n2 Rosebury Av\n");
-        Sarah = createContact("Sarah\nSmith\n234@gmail.com\n2 Cedar Way\n");
-        Priya = createContact("Priya\nPatil\n123@gmail.com\n3 Rosebury Av\n");
+        Ben = createContact("Ben\nSmith\n234@gmail.com\n2 Rosebury Av\n123\n");
+        Sarah = createContact("Sarah\nSmith\n234@gmail.com\n2 Cedar Way\n234\n");
+        Priya = createContact("Priya\nPatil\n123@gmail.com\n3 Rosebury Av\n567\n");
         setContactFields();
         addContactsToList();
         contactList = new ContactList();
@@ -54,7 +54,7 @@ public class ContactListTest {
 
     @Test
     public void contactWrittenToFileInJSONFormat() throws IOException {
-        InputOutput console = input("1\nBen\nSmith\n234@gmail.com\n2 Rosebury Av\n5\nY\n");
+        InputOutput console = input("1\nBen\nSmith\n234@gmail.com\n2 Rosebury Av\n123\n5\nY\n");
         ContactList allContacts = new ContactList();
         FileType jsonFile = new JSONFile(output, console, allContacts);
         Option exit = new FakeExit(console, allContacts, jsonFile);
@@ -62,7 +62,7 @@ public class ContactListTest {
         conMan.menuLoop();
         assertEquals("{\"Last Name: \":\"Smith\",\"Email: \":\"234@gmail.com\"" +
                      ",\"Home Address: \":\"2 Rosebury Av\"," +
-                      "\"First Name: \":\"Ben\"}", readTempFile(output.getPath(), 103));
+                      "\"First Name: \":\"Ben\",\"Phone Number: \":\"123\"}", readTempFile(output.getPath(), 126));
     }
 
     @Test
@@ -75,12 +75,13 @@ public class ContactListTest {
         assertEquals("First Name: Priya\n" +
                 "Last Name: Patil\n" +
                 "Email: 123@gmail.com\n" +
-                "Home Address: 3 Rosebury Av\n\n\n", contactList.get(2).showFields());
+                "Home Address: 3 Rosebury Av\n" +
+                "Phone Number: 567\n\n\n", contactList.get(2).showFields());
     }
 
     @Test
     public void contactsSavedToFileOnExit() {
-        InputOutput console = input("1\nGeorge\nBlack\n678@gmail.com\n3 Rosebury Av\n2\nN\n1\n5\nY\n");
+        InputOutput console = input("1\nGeorge\nBlack\n678@gmail.com\n3 Rosebury Av\n123\n2\nN\n1\n5\nY\n");
         FakeFile fakeFile = new FakeFile(console, contactList, importedContacts);
         Option exit = new FakeExit(console, contactList, fakeFile);
         ConMan conMan = new ConMan(console, exit, fakeFile, contactList);

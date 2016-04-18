@@ -11,7 +11,7 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 
 public class ContactTest {
-    private InputOutput console = new FakeIO(Arrays.asList("Priya", "Patil", "123@gmail.com", "2 Rosebury Av"));
+    private InputOutput console = new FakeIO(Arrays.asList("Priya", "Patil", "123@gmail.com", "2 Rosebury Av", "123"));
     Contact contact = new Contact(console);
 
     @Test
@@ -21,20 +21,15 @@ public class ContactTest {
     }
 
     @Test
-    public void contactHasAnEmailAddress() {
-        contact.setFields();
-        assertEquals("123@gmail.com", contact.getEmail());
-    }
-
-    @Test
     public void userCanSetAndShowFieldsOfAContact() {
-        InputOutput console = new FakeIO(Arrays.asList("Ben", "Smith", "123@gmail.com", "1 Rosebury Av"));
+        InputOutput console = new FakeIO(Arrays.asList("Ben", "Smith", "123@gmail.com", "1 Rosebury Av", "123"));
         Contact ben = new Contact(console);
         List<Contact> contacts = Arrays.asList(ben);
         ben.setFields();
         assertEquals("First Name: Ben\n" +
                      "Last Name: Smith\n" +
                      "Email: 123@gmail.com\n" +
-                     "Home Address: 1 Rosebury Av\n\n\n", contacts.get(0).showFields());
+                     "Home Address: 1 Rosebury Av\n" +
+                     "Phone Number: 123\n\n\n", contacts.get(0).showFields());
     }
 }
