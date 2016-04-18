@@ -2,7 +2,7 @@ package test.options;
 
 import conMan.ConMan;
 import conMan.ContactList;
-import conMan.FileType;
+import fileTypes.FileType;
 import conMan.contactfields.Contact;
 import conMan.inputoutput.ConsoleIO;
 import conMan.inputoutput.InputOutput;

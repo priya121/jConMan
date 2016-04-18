@@ -3,6 +3,7 @@ package conMan;
 import conMan.inputoutput.InputOutput;
 import conMan.inputoutput.ValidDigit;
 import conMan.options.*;
+import fileTypes.FileType;
 
 import java.util.Arrays;
 import java.util.List;

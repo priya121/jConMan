@@ -1,5 +1,6 @@
-package conMan;
+package fileTypes;
 
+import conMan.ContactList;
 import conMan.contactfields.Contact;
 import conMan.contactfields.Field;
 import conMan.inputoutput.InputOutput;

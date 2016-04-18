@@ -1,7 +1,7 @@
 package test;
 
 import conMan.ContactList;
-import conMan.FileType;
+import fileTypes.FileType;
 import conMan.inputoutput.InputOutput;
 import conMan.options.Exit;
 import conMan.options.Option;

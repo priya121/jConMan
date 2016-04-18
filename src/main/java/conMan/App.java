@@ -4,6 +4,8 @@ import conMan.inputoutput.ConsoleIO;
 import conMan.inputoutput.InputOutput;
 import conMan.options.ExitConMan;
 import conMan.options.Option;
+import fileTypes.FileType;
+import fileTypes.JSONFile;
 
 import java.io.File;
 

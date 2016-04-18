@@ -1,4 +1,4 @@
-package conMan;
+package fileTypes;
 
 import java.io.File;
 

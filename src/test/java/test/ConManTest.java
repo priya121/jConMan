@@ -2,7 +2,7 @@ package test;
 
 import conMan.ConMan;
 import conMan.ContactList;
-import conMan.FileType;
+import fileTypes.FileType;
 import conMan.contactfields.Contact;
 import conMan.inputoutput.ConsoleIO;
 import conMan.inputoutput.InputOutput;
@@ -74,10 +74,10 @@ public class ConManTest {
         ConMan conMan = new ConMan(consoleIO, exitOption, fakeFile, contactList);
         conMan.menuLoop();
         assertTrue(recordedOutput.toString().contains("First Name: Priya\n" +
-                                                      "Last Name: Patil\n" +
-                                                      "Email: 123@gmail.com\n" +
-                                                      "Home Address: 2 Cedar Way\n" +
-                                                      "Phone Number: 123\n\n\n"));
+                "Last Name: Patil\n" +
+                "Email: 123@gmail.com\n" +
+                "Home Address: 2 Cedar Way\n" +
+                "Phone Number: 123\n\n\n"));
     }
 
     @Test

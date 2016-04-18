@@ -2,8 +2,9 @@ package test;
 
 import conMan.ConMan;
 import conMan.ContactList;
-import conMan.FileType;
-import conMan.JSONFile;
+import fileTypes.CSV;
+import fileTypes.FileType;
+import fileTypes.JSONFile;
 import conMan.contactfields.Contact;
 import conMan.inputoutput.ConsoleIO;
 import conMan.inputoutput.InputOutput;
@@ -63,6 +64,19 @@ public class ContactListTest {
         assertEquals("{\"Last Name: \":\"Smith\",\"Email: \":\"234@gmail.com\"" +
                      ",\"Home Address: \":\"2 Rosebury Av\"," +
                       "\"First Name: \":\"Ben\",\"Phone Number: \":\"123\"}", readTempFile(output.getPath(), 126));
+    }
+
+    @Test
+    public void contactWrittenToFileInCSVFormat() throws IOException {
+        InputOutput console = input("1\nBen\nSmith\n234@gmail.com\n2 Rosebury Av\n123\n" +
+                                    "1\nSarah\nSmith\n456@gmail.com\n6 Forlease Road\n345\n5\nY\n");
+        ContactList allContacts = new ContactList();
+        FileType CSVfile = new CSV(output, console, allContacts);
+        Option exit = new FakeExit(console, allContacts, CSVfile);
+        ConMan conMan = new ConMan(console, exit, CSVfile, allContacts);
+        conMan.menuLoop();
+        assertEquals("Ben, Smith, 234@gmail.com, 2 Rosebury Av, 123, \n" +
+                     "Sarah, Smith, 456@gmail.com, 6 Forlease Road, 345, \n", readTempFile(output.getPath(), 100));
     }
 
     @Test

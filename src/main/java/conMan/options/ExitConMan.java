@@ -1,7 +1,7 @@
 package conMan.options;
 
 import conMan.ContactList;
-import conMan.FileType;
+import fileTypes.FileType;
 import conMan.inputoutput.InputOutput;
 
 public class ExitConMan implements Option, Exit {
