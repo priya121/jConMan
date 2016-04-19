@@ -34,7 +34,7 @@ public class ExitTest {
     public void userEntering5ExitsConMan() throws IOException {
         InputOutput console = new ConsoleIO(new ByteArrayInputStream("5\n".getBytes()), out);
         FileType fakeFile = new FakeFile(console, allContacts, contactList);
-        FakeExit exitOption = new FakeExit(console, allContacts, fakeFile);
+        FakeExit exitOption = new FakeExit(console, fakeFile);
         ConMan conMan = new ConMan(console, exitOption, fakeFile, allContacts);
         conMan.menuChoice();
         assertTrue(recordedOutput.toString().contains("Exiting ConMan..."));

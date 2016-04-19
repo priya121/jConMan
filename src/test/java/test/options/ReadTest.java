@@ -37,7 +37,7 @@ public class ReadTest {
     @Test
     public void userEntering2ShowsReadAContactsDetailsTitle() {
         FileType fakeFile = new FakeFile(consoleIO, contactList, imported);
-        Option exitOption = new FakeExit(consoleIO, contactList, fakeFile);
+        Option exitOption = new FakeExit(consoleIO, fakeFile);
         ConMan conMan = new ConMan(consoleIO, exitOption, fakeFile, contactList);
         conMan.menuLoop();
         assertTrue(recordedOutput.toString().contains("Read a contact's details \n"));
@@ -61,7 +61,7 @@ public class ReadTest {
         InputOutput consoleIO = input("2\nN\n1\n5\n");
         addContactsToList();
         FileType fakeFile = new FakeFile(consoleIO, contactList, imported);
-        Option exitOption = new FakeExit(consoleIO, contactList, fakeFile);
+        Option exitOption = new FakeExit(consoleIO,  fakeFile);
         ConMan conMan = new ConMan(consoleIO, exitOption, fakeFile, contactList);
         conMan.menuLoop();
         assertTrue(recordedOutput.toString().contains("1) Priya Patil\n" +
@@ -73,7 +73,7 @@ public class ReadTest {
         InputOutput consoleIO = input("2\nN\na\n1\n5\n");
         addContactsToList();
         FileType fakeFile = new FakeFile(consoleIO, contactList, imported);
-        Option exitOption = new FakeExit(consoleIO, contactList, fakeFile);
+        Option exitOption = new FakeExit(consoleIO, fakeFile);
         ConMan conMan = new ConMan(consoleIO, exitOption, fakeFile, contactList);
         conMan.menuLoop();
         assertTrue(recordedOutput.toString().contains("Please enter a valid number: "));
@@ -84,7 +84,7 @@ public class ReadTest {
         InputOutput consoleIO = input("2\nY\nSarah\n1\n5\n");
         addContactsToList();
         FileType fakeFile = new FakeFile(consoleIO, contactList, imported);
-        Option exitOption = new FakeExit(consoleIO, contactList, fakeFile);
+        Option exitOption = new FakeExit(consoleIO, fakeFile);
         ConMan conMan = new ConMan(consoleIO, exitOption, fakeFile, contactList);
         conMan.menuLoop();
         assertTrue(recordedOutput.toString().contains("Enter a name to filter: \n"));

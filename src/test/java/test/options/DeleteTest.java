@@ -52,7 +52,7 @@ public class DeleteTest {
     public void userEntering4ShowsDeleteAContactTitle() {
         InputOutput consoleIO = input("1\nBen\nSmith\n345@gmail.com\n2 Rosebury Av\n123\n4\nN\n1\nY\n5\n");
         FileType fakeFile = new FakeFile(consoleIO, allContacts, contactList);
-        exitOption = new FakeExit(consoleIO, allContacts, fakeFile);
+        exitOption = new FakeExit(consoleIO, fakeFile);
         conMan = new ConMan(consoleIO, exitOption, fakeFile, allContacts);
         conMan.menuLoop();
         assertTrue(recordedOutput.toString().contains("Delete a contact "));
@@ -73,7 +73,7 @@ public class DeleteTest {
         InputOutput consoleIO = input("1\nPriya\nPatil\n123@gmail.com\n2 Cedar Way\n123\n" +
                 "4\nN\na\n1\nY\n5\n");
         FileType fakeFile = new FakeFile(consoleIO, allContacts, contactList);
-        exitOption = new FakeExit(consoleIO, allContacts, fakeFile);
+        exitOption = new FakeExit(consoleIO, fakeFile);
         conMan = new ConMan(consoleIO, exitOption, fakeFile, allContacts);
         conMan.menuLoop();
         assertTrue(recordedOutput.toString().contains("Please enter a valid number: "));
@@ -85,7 +85,7 @@ public class DeleteTest {
                                       "1\nMaya\nPatil\n345@gmail.com\n2 Cedar Way\n123\n" +
                                       "4\nN\n1\nY\n5\n");
         FileType fakeFile = new FakeFile(consoleIO, allContacts, contactList);
-        exitOption = new FakeExit(consoleIO, allContacts, fakeFile);
+        exitOption = new FakeExit(consoleIO, fakeFile);
         conMan = new ConMan(consoleIO, exitOption, fakeFile, allContacts);
         conMan.menuLoop();
         assertTrue(recordedOutput.toString().contains("1) Ben Smith\n" +
@@ -99,7 +99,7 @@ public class DeleteTest {
         InputOutput consoleIO = input("1\nPriya\nPatil\n123@gmail.com\n1 Cedar Way\n123\n" +
                                       "4\nN\n1\nY\n5\n");
         FileType fakeFile = new FakeFile(consoleIO, allContacts, contactList);
-        exitOption = new FakeExit(consoleIO, allContacts, fakeFile);
+        exitOption = new FakeExit(consoleIO, fakeFile);
         conMan = new ConMan(consoleIO, exitOption, fakeFile, allContacts);
         conMan.menuLoop();
         assertTrue(recordedOutput.toString().contains("Are you sure you want to delete this contact? (Y/N)"));
@@ -110,7 +110,7 @@ public class DeleteTest {
         InputOutput consoleIO = input("1\nPriya\nPatil\n123@gmail.com\n1 Cedar Way\n123\n" +
                                       "4\nN\n1\nN\n5\n");
         FileType fakeFile = new FakeFile(consoleIO, allContacts, contactList);
-        exitOption = new FakeExit(consoleIO, allContacts, fakeFile);
+        exitOption = new FakeExit(consoleIO, fakeFile);
         conMan = new ConMan(consoleIO, exitOption, fakeFile, allContacts);
         conMan.menuLoop();
         assertTrue(recordedOutput.toString().contains("Your contacts have not been changed"));

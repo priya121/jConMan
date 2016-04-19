@@ -46,7 +46,7 @@ public class CreateTest {
     public void userEntering1ShowsCreateAContactTitle() {
         InputOutput consoleIO = input("1\n");
         FileType fakeFile = new FakeFile(consoleIO, contactList, imported);
-        exitOption = new FakeExit(consoleIO, contactList, fakeFile);
+        exitOption = new FakeExit(consoleIO, fakeFile);
         ConMan conMan = new ConMan(consoleIO, exitOption, fakeFile, contactList);
         conMan.menuChoice();
         assertTrue(recordedOutput.toString().contains("Create a contact \n"));
@@ -68,7 +68,7 @@ public class CreateTest {
     public void userCanCreateANewContactAfterEntering1() throws IOException {
         InputOutput consoleIO = input("1\nGary\nPaul\n345@gmail.com\n3 Rosebury Av\n123\n2\nN\n3\n5\nY\n");
         FileType fakeFile = new FakeFile(consoleIO, contactList, imported);
-        exitOption = new FakeExit(consoleIO, contactList, fakeFile);
+        exitOption = new FakeExit(consoleIO, fakeFile);
         ConMan conMan = new ConMan(consoleIO, exitOption, fakeFile, contactList);
         conMan.menuLoop();
         assertTrue(recordedOutput.toString().contains("First Name: Gary\n" +

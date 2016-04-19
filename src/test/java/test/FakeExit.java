@@ -1,20 +1,17 @@
 package test;
 
-import conMan.ContactList;
-import fileTypes.FileType;
 import conMan.inputoutput.InputOutput;
 import conMan.options.Exit;
 import conMan.options.Option;
+import fileTypes.FileType;
 
 public class FakeExit implements Option, Exit {
-    private final ContactList contactList;
     private final FileType file;
     private InputOutput inputOutput;
 
 
-    public FakeExit(InputOutput inputOutput, ContactList contactList, FileType file) {
+    public FakeExit(InputOutput inputOutput, FileType file) {
         this.inputOutput = inputOutput;
-        this.contactList = contactList;
         this.file = file;
     }
 

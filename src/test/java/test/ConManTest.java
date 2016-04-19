@@ -37,7 +37,7 @@ public class ConManTest {
                                                             "1\nSam\nSmith\n234@gmail.com\n2 Cedar Way\n123\n" +
                                                             "2\nN\n4\n5\n").getBytes()), out);
         fakeFile = new FakeFile(consoleIO, contactList, importedContacts);
-        exitOption = new FakeExit(consoleIO, contactList, fakeFile);
+        exitOption = new FakeExit(consoleIO, fakeFile);
         conMan = new ConMan(consoleIO, exitOption, fakeFile, contactList);
     }
 
@@ -113,7 +113,7 @@ public class ConManTest {
     @Test
     public void conManLoopsThroughOptionsTillUserChoosesToExit() {
         FileType fakeFile = new FakeFile(consoleIO, contactList, importedContacts);
-        Option exitOption = new FakeExit(consoleIO, contactList, fakeFile);
+        Option exitOption = new FakeExit(consoleIO, fakeFile);
         InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream(("1\nSarah\nSmith\n234@gmail.com\n1 Cedar Way\n120-123-123\n" +
                                                                         "1\nPriya\nPatil\n123@gmail.com\n2 Cedar Way\n789-123-123\n" +
                                                                         "4\nN\n1\nY\n5\n").getBytes()), out);
@@ -136,7 +136,7 @@ public class ConManTest {
     @Test
     public void conManClearsScreenInBetweenOptions() {
         FileType fakeFile = new FakeFile(consoleIO, contactList, importedContacts);
-        Option exitOption = new FakeExit(consoleIO, contactList, fakeFile);
+        Option exitOption = new FakeExit(consoleIO, fakeFile);
         InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream(("1\nSarah\nSmith\n234@gmail.com\n1 Cedar Way\n120-123-123\n" +
                                                                         "1\nPriya\nPatil\n123@gmail.com\n2 Cedar Way\n789-123-123\n" +
                                                                         "4\nN\n1\nY\n5\n").getBytes()), out);

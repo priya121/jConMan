@@ -58,7 +58,7 @@ public class ContactListTest {
         InputOutput console = input("1\nBen\nSmith\n234@gmail.com\n2 Rosebury Av\n123\n5\nY\n");
         ContactList allContacts = new ContactList();
         FileType jsonFile = new JSONFile(output, console, allContacts);
-        Option exit = new FakeExit(console, allContacts, jsonFile);
+        Option exit = new FakeExit(console, jsonFile);
         ConMan conMan = new ConMan(console, exit, jsonFile, allContacts);
         conMan.menuLoop();
         assertEquals("{\"Last Name: \":\"Smith\",\"Email: \":\"234@gmail.com\"" +
@@ -72,7 +72,7 @@ public class ContactListTest {
                                     "1\nSarah\nSmith\n456@gmail.com\n6 Forlease Road\n345\n5\nY\n");
         ContactList allContacts = new ContactList();
         FileType CSVfile = new CSVFile(output, console, allContacts);
-        Option exit = new FakeExit(console, allContacts, CSVfile);
+        Option exit = new FakeExit(console, CSVfile);
         ConMan conMan = new ConMan(console, exit, CSVfile, allContacts);
         conMan.menuLoop();
         assertEquals("Ben,Smith,234@gmail.com,2 Rosebury Av,123,\n" +
@@ -83,7 +83,7 @@ public class ContactListTest {
     public void contactCanBeImportedFromAFile() throws IOException {
         InputOutput console = input("2\nN\n1\n5\nY\n");
         FileType fakeFile = new FakeFile(console, contactList, importedContacts);
-        Option exit = new FakeExit(console, contactList, fakeFile);
+        Option exit = new FakeExit(console, fakeFile);
         ConMan conMan = new ConMan(console, exit, fakeFile, contactList);
         conMan.menuLoop();
         assertEquals("First Name: Priya\n" +
@@ -98,7 +98,7 @@ public class ContactListTest {
         InputOutput console = input("1\nGeorge\nBlack\n678@gmail.com\n3 Rosebury Av\n123\n" +
                                     "2\nN\n1\n5\nY\n");
         FakeFile fakeFile = new FakeFile(console, contactList, importedContacts);
-        Option exit = new FakeExit(console, contactList, fakeFile);
+        Option exit = new FakeExit(console, fakeFile);
         ConMan conMan = new ConMan(console, exit, fakeFile, contactList);
         conMan.menuLoop();
         assertEquals(4, fakeFile.savedContacts.size());

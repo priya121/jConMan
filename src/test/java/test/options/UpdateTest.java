@@ -44,7 +44,7 @@ public class UpdateTest {
                                       "3\n1\nSarah\nSmith\n234@gmail.com\n2 Cedar Way\n123\n" +
                                       "5\n");
         FileType fakeFile = new FakeFile(consoleIO, contactList, contactList);
-        Option exitOption = new FakeExit(consoleIO, contactList, fakeFile);
+        Option exitOption = new FakeExit(consoleIO, fakeFile);
         ConMan conMan = new ConMan(consoleIO, exitOption, fakeFile, contactList);
         conMan.menuLoop();
         assertTrue(recordedOutput.toString().contains("Update a contact's details \n"));
@@ -56,7 +56,7 @@ public class UpdateTest {
                                       "3\n1\nSam\nPatil\n789@gmail.com\n3 Cedar Way\n123\n" +
                                       "2\nN\n1\n5\n");
         FileType fakeFile = new FakeFile(consoleIO, contactList, contactList);
-        Option exitOption = new FakeExit(consoleIO, contactList, fakeFile);
+        Option exitOption = new FakeExit(consoleIO, fakeFile);
         ConMan conMan = new ConMan(consoleIO, exitOption, fakeFile, contactList);
         conMan.menuLoop();
         assertTrue(recordedOutput.toString().contains("First Name: Sam\n" +
@@ -70,7 +70,7 @@ public class UpdateTest {
         InputOutput consoleIO = input("1\nMaya\nPatil\n123@gmail.com\n1 Cedar Way\n123\n" +
                                       "3\nabc\n1\nSam\nPatil\n789@gmail.com\n3 Cedar Way\n\n5\n");
         FileType fakeFile = new FakeFile(consoleIO, contactList, contactList);
-        Option exitOption = new FakeExit(consoleIO, contactList, fakeFile);
+        Option exitOption = new FakeExit(consoleIO, fakeFile);
         ConMan conMan = new ConMan(consoleIO, exitOption, fakeFile, contactList);
         conMan.menuLoop();
         assertTrue(recordedOutput.toString().contains("Please enter a valid number: "));
@@ -83,7 +83,7 @@ public class UpdateTest {
                                       "3\n1\nBen\nSmith\n123@gmail.com\n3 Cedar Way\n\n" +
                                       "5\n");
         FileType fakeFile = new FakeFile(consoleIO, contactList, contactList);
-        Option exitOption = new FakeExit(consoleIO, contactList, fakeFile);
+        Option exitOption = new FakeExit(consoleIO, fakeFile);
         ConMan conMan = new ConMan(consoleIO, exitOption, fakeFile, contactList);
         conMan.menuLoop();
         assertTrue(recordedOutput.toString().contains("1) Priya Patil\n" +
@@ -96,7 +96,7 @@ public class UpdateTest {
                                       "3\n1\nSarah\nSmith\n234@gmail.com\n2 Cedar Way\n123\n" +
                                       "5\n");
         FileType fakeFile = new FakeFile(consoleIO, contactList, contactList);
-        Option exitOption = new FakeExit(consoleIO, contactList, fakeFile);
+        Option exitOption = new FakeExit(consoleIO, fakeFile);
         ConMan conMan = new ConMan(consoleIO, exitOption, fakeFile, contactList);
         conMan.menuLoop();
         assertTrue(recordedOutput.toString().contains("Fill in field to update or leave blank to keep previous value: \n"));
@@ -109,7 +109,7 @@ public class UpdateTest {
                                       "2\nN\n1\n" +
                                       "5\n");
         FileType fakeFile = new FakeFile(consoleIO, contactList, contactList);
-        Option exitOption = new FakeExit(consoleIO, contactList, fakeFile);
+        Option exitOption = new FakeExit(consoleIO, fakeFile);
         ConMan conMan = new ConMan(consoleIO, exitOption, fakeFile, contactList);
         conMan.menuLoop();
         assertTrue(recordedOutput.toString().contains("First Name: Priya\n" +
@@ -127,7 +127,7 @@ public class UpdateTest {
                                                                       "2\nN\n1\n2\nN\n1\n5\nY\n").getBytes()), out);
         createImportedContact(importedContact, console);
         FileType fakeFile = new FakeFile(console, contactList, importedContact);
-        Option exitOption = new FakeExit(console, contactList, fakeFile);
+        Option exitOption = new FakeExit(console, fakeFile);
         ConMan conMan = new ConMan(console, exitOption, fakeFile, contactList);
         conMan.menuLoop();
         assertEquals("First Name: Priya\n" +
