@@ -65,6 +65,18 @@ public class NameList {
         }
     }
 
+    public void filterNames(List<Contact> filtered) {
+        console.clearScreen();
+        console.showOutput("Choose a contact by number: \n");
+        console.showOutput(formatNames(filtered));
+    }
+
+    public void mainMenu() {
+        console.showOutput("Hit any key to go back to the main menu.");
+        console.takeInput();
+        console.clearScreen();
+    }
+
     private boolean matchFound(String letters, Contact contact) {
         return contact.getName().contains(letters);
     }

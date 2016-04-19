@@ -33,7 +33,7 @@ public class ExitTest {
     @Test
     public void userEntering5ExitsConMan() throws IOException {
         InputOutput console = new ConsoleIO(new ByteArrayInputStream("5\n".getBytes()), out);
-        FileType fakeFile = new FakeFile(console, allContacts, contactList);
+        FileType fakeFile = new FakeFile(allContacts, contactList);
         FakeExit exitOption = new FakeExit(console, fakeFile);
         ConMan conMan = new ConMan(console, exitOption, fakeFile, allContacts);
         conMan.menuChoice();

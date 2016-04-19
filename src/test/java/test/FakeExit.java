@@ -7,23 +7,23 @@ import fileTypes.FileType;
 
 public class FakeExit implements Option, Exit {
     private final FileType file;
-    private InputOutput inputOutput;
+    private InputOutput console;
 
 
-    public FakeExit(InputOutput inputOutput, FileType file) {
-        this.inputOutput = inputOutput;
+    public FakeExit(InputOutput console, FileType file) {
+        this.console = console;
         this.file = file;
     }
 
     @Override
     public void show() {
-        inputOutput.showOutput("ExitConMan conMan.ConMan \n");
+        console.showOutput("ExitConMan conMan.ConMan \n");
     }
 
     @Override
     public void perform() {
         saveContacts();
-        inputOutput.showOutput("Exiting ConMan...");
+        console.showOutput("Exiting ConMan...");
     }
 
     @Override

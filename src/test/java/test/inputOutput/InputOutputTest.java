@@ -31,7 +31,7 @@ public class InputOutputTest {
     @Test
     public void showsInitialGreetingToRecordedOutput() throws IOException {
         ContactList contactList = new ContactList();
-        FileType fakeFile = new FakeFile(consoleIO, allContacts, contactList);
+        FileType fakeFile = new FakeFile(allContacts, contactList);
         Option exitOption = new FakeExit(consoleIO, fakeFile);
         ConMan conMan = new ConMan(consoleIO, exitOption, fakeFile, allContacts);
         conMan.showGreeting();

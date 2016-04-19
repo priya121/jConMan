@@ -30,32 +30,22 @@ public class Update implements Option {
     public void perform() {
         if (contactsExist() && contactsNecessary()) {
             showAllNames(namesList);
-            filterNames();
+            List<Contact> filtered = namesList.filterCheck();
+            namesList.filterNames(filtered);
             int chosenContact = getValidDigit() - 1;
             console.clearScreen();
-            updateDetails(chosenContact);
+            updateDetails(filtered, chosenContact);
         } else {
             console.showOutput("There are no contacts to update.\n\n");
         }
-        mainMenu();
+        namesList.mainMenu();
     }
 
-    private void filterNames() {
-        List<Contact> filtered = namesList.filterCheck();
-        console.showOutput(namesList.formatNames(filtered));
-    }
-
-    private void mainMenu() {
-        console.showOutput("Hit any key to go back to the main menu.");
-        console.takeInput();
-        console.clearScreen();
-    }
-
-    private void updateDetails(int chosenContact) {
+    private void updateDetails(List<Contact> filtered, int chosenContact) {
         console.showOutput("Fill in field to update or leave blank to keep previous value: \n");
-        allContacts.getContact(chosenContact).updateFields();
+        filtered.get(chosenContact).updateFields();
         console.clearScreen();
-        console.showOutput(allContacts.getContact(chosenContact).showFields());
+        console.showOutput(filtered.get(chosenContact).showFields());
     }
 
     @Override

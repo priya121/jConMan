@@ -31,18 +31,18 @@ public class Read implements Option {
         if (contactsExist() && contactsNecessary()) {
             showAllNames(namesList);
             List<Contact> filtered = namesList.filterCheck();
-            console.showOutput(namesList.formatNames(filtered));
-            showSelectedContact(filtered);
+            filterNames(filtered);
         } else {
             console.showOutput("There are no contacts to display.\n\n");
         }
-        mainMenu();
+        namesList.mainMenu();
     }
 
-    private void mainMenu() {
-        console.showOutput("Hit any key to go back to the main menu.");
-        console.takeInput();
+    private void filterNames(List<Contact> filtered) {
         console.clearScreen();
+        console.showOutput("Choose a contact by number: \n");
+        console.showOutput(namesList.formatNames(filtered));
+        showSelectedContact(filtered);
     }
 
     @Override

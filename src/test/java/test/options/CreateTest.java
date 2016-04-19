@@ -6,7 +6,6 @@ import conMan.contactfields.Contact;
 import conMan.inputoutput.ConsoleIO;
 import conMan.inputoutput.InputOutput;
 import conMan.options.Create;
-import fileTypes.FileType;
 import org.junit.Before;
 import org.junit.Test;
 import test.FakeExit;
@@ -27,11 +26,13 @@ public class CreateTest {
     private ContactList imported;
     private ContactList contactList;
     private FakeExit exitOption;
+    private FakeFile fakeFile;
 
     @Before
     public void setUp() throws IOException {
         getImportedContacts();
         contactList = new ContactList();
+        fakeFile = new FakeFile(contactList, imported);
     }
 
     @Test
@@ -45,7 +46,6 @@ public class CreateTest {
     @Test
     public void userEntering1ShowsCreateAContactTitle() {
         InputOutput consoleIO = input("1\n");
-        FileType fakeFile = new FakeFile(consoleIO, contactList, imported);
         exitOption = new FakeExit(consoleIO, fakeFile);
         ConMan conMan = new ConMan(consoleIO, exitOption, fakeFile, contactList);
         conMan.menuChoice();
@@ -69,7 +69,6 @@ public class CreateTest {
     public void userCanCreateANewContactAfterEntering1() throws IOException {
         InputOutput consoleIO = input("1\nGary\nPaul\n345@gmail.com\n3 Rosebury Av\n123\nwww\n\n" +
                                       "2\nN\n3\n\n5\nY\n");
-        FileType fakeFile = new FakeFile(consoleIO, contactList, imported);
         exitOption = new FakeExit(consoleIO, fakeFile);
         ConMan conMan = new ConMan(consoleIO, exitOption, fakeFile, contactList);
         conMan.menuLoop();
@@ -85,7 +84,6 @@ public class CreateTest {
     public void asksUserToHitEnterKeyToGoBackToMainMenuAfterCreatingContact() {
         InputOutput consoleIO = input("1\nGary\nPaul\n345@gmail.com\n3 Rosebury Av\n123\nwww\n\n" +
                                       "5\nY\n");
-        FileType fakeFile = new FakeFile(consoleIO, contactList, imported);
         exitOption = new FakeExit(consoleIO, fakeFile);
         ConMan conMan = new ConMan(consoleIO, exitOption, fakeFile, contactList);
         conMan.menuLoop();

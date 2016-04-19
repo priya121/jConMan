@@ -2,20 +2,17 @@ package test;
 
 import conMan.ContactList;
 import conMan.contactfields.Contact;
-import conMan.inputoutput.InputOutput;
 import fileTypes.FileType;
 
 import java.util.ArrayList;
 
 public class FakeFile implements FileType {
 
-    private final InputOutput console;
     private final ContactList allContacts;
     private final ContactList contactsToImport;
     public final ArrayList<Contact> savedContacts;
 
-    public FakeFile(InputOutput console, ContactList allContacts, ContactList contactsToImport) {
-        this.console = console;
+    public FakeFile(ContactList allContacts, ContactList contactsToImport) {
         this.allContacts = allContacts;
         this.contactsToImport = contactsToImport;
         this.savedContacts = new ArrayList<>();

@@ -30,6 +30,7 @@ public class ContactListTest {
     public TemporaryFolder temporaryFolder = new TemporaryFolder();
     private ContactList contactList;
     private File output;
+    private FakeFile fakeFile;
 
     @Before
      public void setUp() throws IOException {
@@ -40,6 +41,7 @@ public class ContactListTest {
         addContactsToList();
         contactList = new ContactList();
         output = temporaryFolder.newFile("output.txt");
+        fakeFile = new FakeFile(contactList, importedContacts);
     }
 
     @Test
@@ -82,7 +84,6 @@ public class ContactListTest {
     @Test
     public void contactCanBeImportedFromAFile() throws IOException {
         InputOutput console = input("2\nN\n1\n\n5\nY\n");
-        FileType fakeFile = new FakeFile(console, contactList, importedContacts);
         Option exit = new FakeExit(console, fakeFile);
         ConMan conMan = new ConMan(console, exit, fakeFile, contactList);
         conMan.menuLoop();
@@ -98,7 +99,6 @@ public class ContactListTest {
     public void contactsSavedToFileOnExit() {
         InputOutput console = input("1\nGeorge\nBlack\n678@gmail.com\n3 Rosebury Av\n123\nwww\n\n" +
                                     "2\nN\n1\n\n5\nY\n");
-        FakeFile fakeFile = new FakeFile(console, contactList, importedContacts);
         Option exit = new FakeExit(console, fakeFile);
         ConMan conMan = new ConMan(console, exit, fakeFile, contactList);
         conMan.menuLoop();

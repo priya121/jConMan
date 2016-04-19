@@ -2,7 +2,6 @@ package test.options;
 
 import conMan.ConMan;
 import conMan.ContactList;
-import fileTypes.FileType;
 import conMan.contactfields.Contact;
 import conMan.inputoutput.ConsoleIO;
 import conMan.inputoutput.InputOutput;
@@ -27,6 +26,7 @@ public class DeleteTest {
     private ContactList allContacts;
     private ContactList newList;
     private ContactList emptyList;
+    private FakeFile fakeFile;
 
     @Before
     public void setUp() throws IOException {
@@ -37,6 +37,7 @@ public class DeleteTest {
         newList = new ContactList();
         contactList = createContactList(console);
         emptyList = new ContactList();
+        fakeFile = new FakeFile(allContacts, contactList);
     }
 
     ByteArrayOutputStream recordedOutput = new ByteArrayOutputStream();
@@ -54,7 +55,6 @@ public class DeleteTest {
     public void userEntering4ShowsDeleteAContactTitle() {
         InputOutput consoleIO = input("1\nBen\nSmith\n345@gmail.com\n2 Rosebury Av\n123\nwww\n\n" +
                                       "4\nN\n1\nY\n\n5\n");
-        FileType fakeFile = new FakeFile(consoleIO, allContacts, contactList);
         exitOption = new FakeExit(consoleIO, fakeFile);
         conMan = new ConMan(consoleIO, exitOption, fakeFile, allContacts);
         conMan.menuLoop();
@@ -76,7 +76,6 @@ public class DeleteTest {
     public void userMustEnterAValidNumberToDeleteAContact() {
         InputOutput consoleIO = input("1\nPriya\nPatil\n123@gmail.com\n2 Cedar Way\n123\nwww\n\n" +
                                       "4\nN\na\n1\nY\n\n5\n");
-        FileType fakeFile = new FakeFile(consoleIO, allContacts, contactList);
         exitOption = new FakeExit(consoleIO, fakeFile);
         conMan = new ConMan(consoleIO, exitOption, fakeFile, allContacts);
         conMan.menuLoop();
@@ -88,7 +87,6 @@ public class DeleteTest {
         InputOutput consoleIO = input("1\nPriya\nPatil\n123@gmail.com\n1 Cedar Way\n123\nwww\n\n" +
                                       "1\nMaya\nPatil\n345@gmail.com\n2 Cedar Way\n123\nwww\n\n" +
                                       "4\nN\n1\nY\n\n5\n");
-        FileType fakeFile = new FakeFile(consoleIO, allContacts, contactList);
         exitOption = new FakeExit(consoleIO, fakeFile);
         conMan = new ConMan(consoleIO, exitOption, fakeFile, allContacts);
         conMan.menuLoop();
@@ -102,7 +100,6 @@ public class DeleteTest {
     public void userAskedToConfirmBeforeDeletingAContact() {
         InputOutput consoleIO = input("1\nPriya\nPatil\n123@gmail.com\n1 Cedar Way\n123\nwww\n\n" +
                                       "4\nN\n1\nY\n\n5\n");
-        FileType fakeFile = new FakeFile(consoleIO, allContacts, contactList);
         exitOption = new FakeExit(consoleIO, fakeFile);
         conMan = new ConMan(consoleIO, exitOption, fakeFile, allContacts);
         conMan.menuLoop();
@@ -119,7 +116,6 @@ public class DeleteTest {
     public void doesNotDeleteAContactIfUserEntersN() {
         InputOutput consoleIO = input("1\nPriya\nPatil\n123@gmail.com\n1 Cedar Way\n123\nwww\n\n" +
                                       "4\nN\n1\nN\n\n5\n");
-        FileType fakeFile = new FakeFile(consoleIO, allContacts, contactList);
         exitOption = new FakeExit(consoleIO, fakeFile);
         conMan = new ConMan(consoleIO, exitOption, fakeFile, allContacts);
         conMan.menuLoop();
@@ -129,7 +125,6 @@ public class DeleteTest {
     @Test
     public void doesNotAllowUserToDeleteAContactIfNoContactsExist() {
         InputOutput consoleIO = input("4\n\n5\n");
-        FileType fakeFile = new FakeFile(consoleIO, emptyList, emptyList);
         exitOption = new FakeExit(consoleIO, fakeFile);
         conMan = new ConMan(consoleIO, exitOption, fakeFile, emptyList);
         conMan.menuLoop();
@@ -139,7 +134,6 @@ public class DeleteTest {
     @Test
     public void asksUserToHitEnterKeyToGoBackToMainMenuAfterDeleteOptionSelected() {
         InputOutput consoleIO = input("4\n\n5\n");
-        FileType fakeFile = new FakeFile(consoleIO, emptyList, emptyList);
         exitOption = new FakeExit(consoleIO, fakeFile);
         ConMan conMan = new ConMan(consoleIO, exitOption, fakeFile, emptyList);
         conMan.menuLoop();

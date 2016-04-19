@@ -1,16 +1,19 @@
 package conMan.options;
 
 import conMan.ContactList;
+import conMan.NameList;
 import conMan.contactfields.Contact;
 import conMan.inputoutput.InputOutput;
 
 public class Create implements Option {
     private final ContactList allContacts;
     private final InputOutput console;
+    private final NameList namesList;
 
     public Create(ContactList allContacts, InputOutput console) {
         this.allContacts = allContacts;
         this.console = console;
+        this.namesList = new NameList(allContacts, console);
     }
 
     @Override
@@ -25,9 +28,7 @@ public class Create implements Option {
             newContact.setFields();
             allContacts.addContact(newContact);
         }
-        console.showOutput("Hit any key to go back to the main menu.");
-        console.takeInput();
-        console.clearScreen();
+        namesList.mainMenu();
     }
 
     @Override
