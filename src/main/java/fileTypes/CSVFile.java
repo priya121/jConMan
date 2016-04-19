@@ -52,7 +52,7 @@ public class CSVFile implements FileType {
     public void saveContacts() {
         clearFileContents();
         try {
-            for (Contact contact : allContacts.getList()) {
+            for (Contact contact : allContacts.get()) {
                 FileWriter fileWriter = new FileWriter(file, true);
                 for (Field field : contact.fields) {
                     fileWriter.write(field.get() + ",");

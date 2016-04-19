@@ -22,4 +22,14 @@ public class ExitConMan implements Option, Exit {
         file.saveContacts();
         System.exit(0);
     }
+
+    @Override
+    public boolean contactsNecessary() {
+        return false;
+    }
+
+    @Override
+    public boolean contactsExist() {
+        return false;
+    }
 }

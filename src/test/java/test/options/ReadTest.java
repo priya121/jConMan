@@ -122,7 +122,7 @@ public class ReadTest {
     }
 
     private void setFields(ContactList list) {
-        for (Contact contact : list.getList()) {
+        for (Contact contact : list.get()) {
             contact.setFields();
         }
     }

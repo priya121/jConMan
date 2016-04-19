@@ -20,8 +20,20 @@ public class Create implements Option {
 
     @Override
     public void perform() {
-        Contact newContact = new Contact(console);
-        newContact.setFields();
-        allContacts.addContact(newContact);
+        if (!contactsNecessary() && !contactsNecessary()) {
+            Contact newContact = new Contact(console);
+            newContact.setFields();
+            allContacts.addContact(newContact);
+        }
+    }
+
+    @Override
+    public boolean contactsNecessary() {
+        return false;
+    }
+
+    @Override
+    public boolean contactsExist() {
+        return false;
     }
 }

@@ -26,6 +26,16 @@ public class FakeExit implements Option, Exit {
         inputOutput.showOutput("Exiting ConMan...");
     }
 
+    @Override
+    public boolean contactsNecessary() {
+        return false;
+    }
+
+    @Override
+    public boolean contactsExist() {
+        return false;
+    }
+
     public void saveContacts() {
         file.saveContacts();
     }

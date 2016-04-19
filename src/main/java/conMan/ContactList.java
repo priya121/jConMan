@@ -12,11 +12,11 @@ public class ContactList {
         allContacts.add(contact);
     }
 
-    public Contact get(int contactNumber) {
+    public Contact getContact(int contactNumber) {
         return allContacts.get(contactNumber);
     }
 
-    public List<Contact> getList() {
+    public List<Contact> get() {
         return allContacts;
     }
 }

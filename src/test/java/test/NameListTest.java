@@ -64,7 +64,7 @@ public class NameListTest {
     }
 
     private void setContactFields(ContactList list) {
-        for (Contact contact : list.getList()) {
+        for (Contact contact : list.get()) {
             contact.setFields();
         }
     }

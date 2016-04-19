@@ -55,7 +55,7 @@ public class ExitTest {
     }
 
     private void setFields(ContactList contacts) {
-        for (Contact contact : contacts.getList()) {
+        for (Contact contact : contacts.get()) {
             contact.setFields();
         }
     }

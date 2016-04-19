@@ -62,12 +62,13 @@ public class CreateTest {
                      "Email: 789@gmail.com\n" +
                      "Home Address: 2 Rosebury Av\n" +
                      "Phone Number: 123\n" +
-                     "Website: www\n\n\n", contactList.get(0).showFields());
+                     "Website: www\n\n\n", contactList.getContact(0).showFields());
     }
 
     @Test
     public void userCanCreateANewContactAfterEntering1() throws IOException {
-        InputOutput consoleIO = input("1\nGary\nPaul\n345@gmail.com\n3 Rosebury Av\n123\nwww\n2\nN\n3\n5\nY\n");
+        InputOutput consoleIO = input("1\nGary\nPaul\n345@gmail.com\n3 Rosebury Av\n123\nwww\n" +
+                                      "2\nN\n3\n5\nY\n");
         FileType fakeFile = new FakeFile(consoleIO, contactList, imported);
         exitOption = new FakeExit(consoleIO, fakeFile);
         ConMan conMan = new ConMan(consoleIO, exitOption, fakeFile, contactList);

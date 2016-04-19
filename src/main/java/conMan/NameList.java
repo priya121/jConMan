@@ -33,12 +33,12 @@ public class NameList {
             List<Contact> filtered = filter();
             if (contactFound(filtered)) return filtered;
         }
-        return allContacts.getList();
+        return allContacts.get();
     }
 
     public List<Contact> filter() {
         List<Contact> filteredList = new ArrayList<>();
-        Iterator<Contact> contactList = allContacts.getList().iterator();
+        Iterator<Contact> contactList = allContacts.get().iterator();
         String letters = console.takeInput();
         checkContacts(filteredList, contactList, letters);
         return filteredList;

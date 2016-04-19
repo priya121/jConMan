@@ -26,12 +26,26 @@ public class Delete implements Option{
 
     @Override
     public void perform() {
-        showAllNames(namesList);
-        filterNames();
-        int chosenContact = getValidDigit() - 1;
-        console.showOutput("Are you sure you want to delete this contact? (Y/N)\n");
-        console.showOutput(allContacts.get(chosenContact).showFields());
-        removeIfY(chosenContact);
+        if (contactsExist()) {
+            showAllNames(namesList);
+            filterNames();
+            int chosenContact = getValidDigit() - 1;
+            console.showOutput("Are you sure you want to delete this contact? (Y/N)\n");
+            console.showOutput(allContacts.getContact(chosenContact).showFields());
+            removeIfY(chosenContact);
+        } else {
+            console.showOutput("There are no contacts to delete.\n\n");
+        }
+    }
+
+    @Override
+    public boolean contactsNecessary() {
+        return true;
+    }
+
+    @Override
+    public boolean contactsExist() {
+        return allContacts.get().size() > 0;
     }
 
     private void filterNames() {
@@ -40,14 +54,14 @@ public class Delete implements Option{
     }
 
     private void showAllNames(NameList names) {
-        console.showOutput("Showing " + allContacts.getList().size() + " contacts" + "\n");
-        console.showOutput(names.formatNames(allContacts.getList()));
+        console.showOutput("Showing " + allContacts.get().size() + " contacts" + "\n");
+        console.showOutput(names.formatNames(allContacts.get()));
     }
 
     private void removeIfY(int chosenContact) {
         if (console.takeInput().equals("Y")) {
             console.showOutput("Deleting Contact...\n");
-            allContacts.getList().remove(chosenContact);
+            allContacts.get().remove(chosenContact);
         } else {
             console.showOutput("Your contacts have not been changed\n");
         }
@@ -55,6 +69,6 @@ public class Delete implements Option{
 
     private int getValidDigit() {
         ValidDigit validDigit = new ValidDigit(console);
-        return validDigit.get(allContacts.getList().size());
+        return validDigit.get(allContacts.get().size());
     }
 }

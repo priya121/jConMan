@@ -23,14 +23,14 @@ public class FakeFile implements FileType {
 
     @Override
     public void importContacts() {
-        for (Contact contact :contactsToImport.getList()) {
+        for (Contact contact :contactsToImport.get()) {
             allContacts.addContact(contact);
         }
     }
 
     @Override
     public void saveContacts() {
-        for (Contact contact : allContacts.getList()) {
+        for (Contact contact : allContacts.get()) {
             savedContacts.add(contact);
         }
     }

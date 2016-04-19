@@ -23,14 +23,28 @@ public class Update implements Option {
 
     @Override
     public void perform() {
-        console.showOutput(contacts.formatNames(allContacts.getList()));
-        int chosenContact = getValidDigit() - 1;
-        console.showOutput("Fill in field to update or leave blank to keep previous value: \n");
-        allContacts.get(chosenContact).updateFields();
+        if (contactsExist() && contactsNecessary()) {
+            console.showOutput(contacts.formatNames(allContacts.get()));
+            int chosenContact = getValidDigit() - 1;
+            console.showOutput("Fill in field to update or leave blank to keep previous value: \n");
+            allContacts.getContact(chosenContact).updateFields();
+        } else {
+            console.showOutput("There are no contacts to update.\n\n");
+        }
+    }
+
+    @Override
+    public boolean contactsExist() {
+        return allContacts.get().size() > 0;
+    }
+
+    @Override
+    public boolean contactsNecessary() {
+        return true;
     }
 
     private int getValidDigit() {
         ValidDigit validDigit = new ValidDigit(console);
-        return validDigit.get(allContacts.getList().size());
+        return validDigit.get(allContacts.get().size());
     }
 }

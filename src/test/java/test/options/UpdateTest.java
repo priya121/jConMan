@@ -25,10 +25,12 @@ public class UpdateTest {
     ByteArrayOutputStream recordedOutput = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(recordedOutput);
     ContactList contactList;
+    ContactList imported;
 
     @Before
     public void setUp() throws IOException {
         contactList = new ContactList();
+        imported = new ContactList();
     }
 
     @Test
@@ -43,7 +45,7 @@ public class UpdateTest {
         InputOutput consoleIO = input("1\nMaya\nPatil\n123@gmail.com\n1 Cedar Way\n123\nwww\n" +
                                       "3\n1\nSarah\nSmith\n234@gmail.com\n2 Cedar Way\n123\nwww\n" +
                                       "5\n");
-        FileType fakeFile = new FakeFile(consoleIO, contactList, contactList);
+        FileType fakeFile = new FakeFile(consoleIO, contactList, imported);
         Option exitOption = new FakeExit(consoleIO, fakeFile);
         ConMan conMan = new ConMan(consoleIO, exitOption, fakeFile, contactList);
         conMan.menuLoop();
@@ -55,7 +57,7 @@ public class UpdateTest {
         InputOutput consoleIO = input("1\nMaya\nPatil\n123@gmail.com\n1 Cedar Way\n123\nwww\n" +
                                       "3\n1\nSam\nPatil\n789@gmail.com\n3 Cedar Way\n123\nwww\n" +
                                       "2\nN\n1\n5\n");
-        FileType fakeFile = new FakeFile(consoleIO, contactList, contactList);
+        FileType fakeFile = new FakeFile(consoleIO, contactList, imported);
         Option exitOption = new FakeExit(consoleIO, fakeFile);
         ConMan conMan = new ConMan(consoleIO, exitOption, fakeFile, contactList);
         conMan.menuLoop();
@@ -69,7 +71,7 @@ public class UpdateTest {
     public void userMustEnterAValidNumberWhenChoosingAContact() {
         InputOutput consoleIO = input("1\nMaya\nPatil\n123@gmail.com\n1 Cedar Way\n123\nwww\n" +
                                       "3\nabc\n1\nSam\nPatil\n789@gmail.com\n3 Cedar Way\n\nwww\n5\n");
-        FileType fakeFile = new FakeFile(consoleIO, contactList, contactList);
+        FileType fakeFile = new FakeFile(consoleIO, contactList, imported);
         Option exitOption = new FakeExit(consoleIO, fakeFile);
         ConMan conMan = new ConMan(consoleIO, exitOption, fakeFile, contactList);
         conMan.menuLoop();
@@ -82,7 +84,7 @@ public class UpdateTest {
                                       "1\nMaya\nPatil\n345@gmail.com\n2 Cedar Way\n123\nwww\n" +
                                       "3\n1\nBen\nSmith\n123@gmail.com\n3 Cedar Way\n\nwww\n" +
                                       "5\n");
-        FileType fakeFile = new FakeFile(consoleIO, contactList, contactList);
+        FileType fakeFile = new FakeFile(consoleIO, contactList, imported);
         Option exitOption = new FakeExit(consoleIO, fakeFile);
         ConMan conMan = new ConMan(consoleIO, exitOption, fakeFile, contactList);
         conMan.menuLoop();
@@ -95,7 +97,7 @@ public class UpdateTest {
         InputOutput consoleIO = input("1\nMaya\nPatil\n123@gmail.com\n1 Cedar Way\n123\nwww\n" +
                                       "3\n1\nSarah\nSmith\n234@gmail.com\n2 Cedar Way\n123\nwww\n" +
                                       "5\n");
-        FileType fakeFile = new FakeFile(consoleIO, contactList, contactList);
+        FileType fakeFile = new FakeFile(consoleIO, contactList, imported);
         Option exitOption = new FakeExit(consoleIO, fakeFile);
         ConMan conMan = new ConMan(consoleIO, exitOption, fakeFile, contactList);
         conMan.menuLoop();
@@ -108,7 +110,7 @@ public class UpdateTest {
                                       "3\n1\n\n\n\n3 Cedar Way\n\n\n" +
                                       "2\nN\n1\n" +
                                       "5\n");
-        FileType fakeFile = new FakeFile(consoleIO, contactList, contactList);
+        FileType fakeFile = new FakeFile(consoleIO, contactList, imported);
         Option exitOption = new FakeExit(consoleIO, fakeFile);
         ConMan conMan = new ConMan(consoleIO, exitOption, fakeFile, contactList);
         conMan.menuLoop();
@@ -122,12 +124,11 @@ public class UpdateTest {
 
     @Test
     public void canUpdateAContactImportedFromAFile() {
-        ContactList importedContact = new ContactList();
         InputOutput console = input("Maya\nPatil\n123@gmail.com\n5 Rosebury Av\n123\nwww\n" +
                                     "3\n1\nPriya\n\n\n3 Cedar Way\n\n\n" +
                                     "2\nN\n1\n2\nN\n1\n5\nY\n");
-        createImportedContact(importedContact, console);
-        FileType fakeFile = new FakeFile(console, contactList, importedContact);
+        createImportedContact(console);
+        FileType fakeFile = new FakeFile(console, contactList, imported);
         Option exitOption = new FakeExit(console, fakeFile);
         ConMan conMan = new ConMan(console, exitOption, fakeFile, contactList);
         conMan.menuLoop();
@@ -136,13 +137,23 @@ public class UpdateTest {
                 "Email: 123@gmail.com\n" +
                 "Home Address: 3 Cedar Way\n" +
                 "Phone Number: 123\n" +
-                "Website: www\n\n\n", contactList.get(0).showFields());
+                "Website: www\n\n\n", contactList.getContact(0).showFields());
     }
 
-    private void createImportedContact(ContactList importedContact, InputOutput console) {
+    @Test
+    public void DoesNotAllowUserToUpdateIfNoContactsExist() {
+        InputOutput consoleIO = input("3\n5\n");
+        FileType fakeFile = new FakeFile(consoleIO, contactList, imported);
+        Option exitOption = new FakeExit(consoleIO, fakeFile);
+        ConMan conMan = new ConMan(consoleIO, exitOption, fakeFile, contactList);
+        conMan.menuLoop();
+        assertTrue(recordedOutput.toString().contains("There are no contacts to update.\n\n"));
+    }
+
+    private void createImportedContact(InputOutput console) {
         Contact maya = new Contact(console);
         maya.setFields();
-        importedContact.addContact(maya);
+        imported.addContact(maya);
     }
 
     private InputOutput input(String input) {

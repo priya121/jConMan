@@ -28,7 +28,7 @@ public class Read implements Option {
 
     @Override
     public void perform() {
-        if (allContacts.getList().size() > 0) {
+        if (contactsExist() && contactsNecessary()) {
             showAllNames(namesList);
             List<Contact> filtered = namesList.filterCheck();
             console.showOutput(namesList.formatNames(filtered));
@@ -38,6 +38,16 @@ public class Read implements Option {
         }
     }
 
+    @Override
+    public boolean contactsNecessary() {
+        return true;
+    }
+
+    @Override
+    public boolean contactsExist() {
+        return allContacts.get().size() > 0;
+    }
+
     private void showSelectedContact(List<Contact> filteredContacts) {
         int userDigit = validDigit.get(filteredContacts.size());
         Contact selected = filteredContacts.get(userDigit - 1);
@@ -45,7 +55,7 @@ public class Read implements Option {
     }
 
     private void showAllNames(NameList names) {
-        console.showOutput("Showing " + allContacts.getList().size() + " contacts" + "\n");
-        console.showOutput(names.formatNames(allContacts.getList()));
+        console.showOutput("Showing " + allContacts.get().size() + " contacts" + "\n");
+        console.showOutput(names.formatNames(allContacts.get()));
     }
 }

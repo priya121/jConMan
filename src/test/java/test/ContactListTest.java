@@ -44,12 +44,12 @@ public class ContactListTest {
 
     @Test
     public void contactsSavedToContactListEverTimeNewContactCreated() {
-        assertEquals(3, importedContacts.getList().size());
+        assertEquals(3, importedContacts.get().size());
     }
 
     @Test
     public void contactsSavedInOrderCreated() {
-        Contact secondContact = importedContacts.get(1);
+        Contact secondContact = importedContacts.getContact(1);
         assertEquals("Sarah Smith", secondContact.getName());
     }
 
@@ -91,7 +91,7 @@ public class ContactListTest {
                      "Email: 123@gmail.com\n" +
                      "Home Address: 3 Rosebury Av\n" +
                      "Phone Number: 567\n" +
-                     "Website: www\n\n\n", contactList.get(2).showFields());
+                     "Website: www\n\n\n", contactList.getContact(2).showFields());
     }
 
     @Test

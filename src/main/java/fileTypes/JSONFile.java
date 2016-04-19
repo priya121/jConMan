@@ -59,7 +59,7 @@ public class JSONFile implements FileType {
     public void saveContacts() {
         clearFileContents();
         try {
-            for (Contact contact : allContacts.getList()) {
+            for (Contact contact : allContacts.get()) {
                 FileWriter fileWriter = new FileWriter(file, true);
                 JSONObject jsonObject = contactToJSON(contact);
                 writeToFile(fileWriter, jsonObject);

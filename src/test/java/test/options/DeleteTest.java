@@ -65,7 +65,7 @@ public class DeleteTest {
         contactList = createContactList(console);
         Delete delete = new Delete(contactList, console);
         delete.perform();
-        assertEquals("Sarah Smith", contactList.get(0).getName());
+        assertEquals("Sarah Smith", contactList.getContact(0).getName());
     }
 
     @Test
@@ -122,12 +122,24 @@ public class DeleteTest {
         assertTrue(recordedOutput.toString().contains("Your contacts have not been changed"));
     }
 
+    @Test
+    public void doesNotAllowUserToDeleteAContactIfNoContactsExist() {
+        InputOutput consoleIO = input("4\n5\n");
+        ContactList allContacts = new ContactList();
+        ContactList contactList = new ContactList();
+        FileType fakeFile = new FakeFile(consoleIO, allContacts, contactList);
+        exitOption = new FakeExit(consoleIO, fakeFile);
+        conMan = new ConMan(consoleIO, exitOption, fakeFile, allContacts);
+        conMan.menuLoop();
+        assertTrue(recordedOutput.toString().contains("There are no contacts to delete.\n\n"));
+    }
+
     private InputOutput input(String input) {
         return new ConsoleIO(new ByteArrayInputStream(input.getBytes()), out);
     }
 
     private void setFields(ContactList contacts) {
-        for (Contact contact : contacts.getList()) {
+        for (Contact contact : contacts.get()) {
             contact.setFields();
         }
     }

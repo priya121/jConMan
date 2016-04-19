@@ -57,7 +57,7 @@ public class ConMan {
 
     public String listAllNames() {
         NameList names = new NameList(allContacts, console);
-        return names.formatNames(allContacts.getList());
+        return names.formatNames(allContacts.get());
     }
 
     public void menuLoop() {
