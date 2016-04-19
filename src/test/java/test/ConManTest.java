@@ -96,7 +96,7 @@ public class ConManTest {
 
     @Test
     public void canDeleteFirstCreatedContactByEntering4() {
-        InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream(("4\n1\nY\n2\nN\n1\n5\n").getBytes()), out);
+        InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream(("4\nN\n1\nY\n2\nN\n1\n5\n").getBytes()), out);
         ConMan conMan = new ConMan(consoleIO, exitOption, fakeFile, contactList);
         conMan.menuLoop();
         assertTrue(recordedOutput.toString().contains("Deleting Contact..."));
@@ -116,7 +116,7 @@ public class ConManTest {
         Option exitOption = new FakeExit(consoleIO, contactList, fakeFile);
         InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream(("1\nSarah\nSmith\n234@gmail.com\n1 Cedar Way\n120-123-123\n" +
                                                                         "1\nPriya\nPatil\n123@gmail.com\n2 Cedar Way\n789-123-123\n" +
-                                                                        "4\n1\nY\n5\n").getBytes()), out);
+                                                                        "4\nN\n1\nY\n5\n").getBytes()), out);
         ConMan conMan = new ConMan(consoleIO, exitOption, fakeFile, contactList);
         conMan.menuLoop();
         assertTrue(recordedOutput.toString().contains("Delete a contact \n"));
@@ -131,6 +131,18 @@ public class ConManTest {
                                                       "3) Update a contact's details \n" +
                                                       "4) Delete a contact \n" +
                                                       "5) ExitConMan conMan.ConMan \n"));
+    }
+    
+    @Test
+    public void conManClearsScreenInBetweenOptions() {
+        FileType fakeFile = new FakeFile(consoleIO, contactList, importedContacts);
+        Option exitOption = new FakeExit(consoleIO, contactList, fakeFile);
+        InputOutput consoleIO = new ConsoleIO(new ByteArrayInputStream(("1\nSarah\nSmith\n234@gmail.com\n1 Cedar Way\n120-123-123\n" +
+                                                                        "1\nPriya\nPatil\n123@gmail.com\n2 Cedar Way\n789-123-123\n" +
+                                                                        "4\nN\n1\nY\n5\n").getBytes()), out);
+        ConMan conMan = new ConMan(consoleIO, exitOption, fakeFile, contactList);
+        conMan.menuLoop();
+        assertTrue(recordedOutput.toString().contains("\033[2J\033[1;1H"));
     }
 
     private ContactList createdImportedContacts() {

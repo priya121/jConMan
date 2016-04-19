@@ -2,7 +2,7 @@ package test;
 
 import conMan.ConMan;
 import conMan.ContactList;
-import fileTypes.CSV;
+import fileTypes.CSVFile;
 import fileTypes.FileType;
 import fileTypes.JSONFile;
 import conMan.contactfields.Contact;
@@ -71,7 +71,7 @@ public class ContactListTest {
         InputOutput console = input("1\nBen\nSmith\n234@gmail.com\n2 Rosebury Av\n123\n" +
                                     "1\nSarah\nSmith\n456@gmail.com\n6 Forlease Road\n345\n5\nY\n");
         ContactList allContacts = new ContactList();
-        FileType CSVfile = new CSV(output, console, allContacts);
+        FileType CSVfile = new CSVFile(output, console, allContacts);
         Option exit = new FakeExit(console, allContacts, CSVfile);
         ConMan conMan = new ConMan(console, exit, CSVfile, allContacts);
         conMan.menuLoop();
@@ -87,15 +87,16 @@ public class ContactListTest {
         ConMan conMan = new ConMan(console, exit, fakeFile, contactList);
         conMan.menuLoop();
         assertEquals("First Name: Priya\n" +
-                "Last Name: Patil\n" +
-                "Email: 123@gmail.com\n" +
-                "Home Address: 3 Rosebury Av\n" +
-                "Phone Number: 567\n\n\n", contactList.get(2).showFields());
+                     "Last Name: Patil\n" +
+                     "Email: 123@gmail.com\n" +
+                     "Home Address: 3 Rosebury Av\n" +
+                     "Phone Number: 567\n\n\n", contactList.get(2).showFields());
     }
 
     @Test
     public void contactsSavedToFileOnExit() {
-        InputOutput console = input("1\nGeorge\nBlack\n678@gmail.com\n3 Rosebury Av\n123\n2\nN\n1\n5\nY\n");
+        InputOutput console = input("1\nGeorge\nBlack\n678@gmail.com\n3 Rosebury Av\n123\n" +
+                                    "2\nN\n1\n5\nY\n");
         FakeFile fakeFile = new FakeFile(console, contactList, importedContacts);
         Option exit = new FakeExit(console, contactList, fakeFile);
         ConMan conMan = new ConMan(console, exit, fakeFile, contactList);

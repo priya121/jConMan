@@ -7,13 +7,13 @@ import conMan.inputoutput.InputOutput;
 
 import java.io.*;
 
-public class CSV implements FileType {
+public class CSVFile implements FileType {
 
     private final File file;
     private final InputOutput console;
     private final ContactList allContacts;
 
-    public CSV(File file, InputOutput console, ContactList allContacts) {
+    public CSVFile(File file, InputOutput console, ContactList allContacts) {
         this.file = file;
         this.console = console;
         this.allContacts = allContacts;

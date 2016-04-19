@@ -25,7 +25,6 @@ public class FakeIO implements InputOutput {
     }
 
     @Override
-    public int takeChar() {
-        return input.pop().charAt(0);
+    public void clearScreen() {
     }
 }

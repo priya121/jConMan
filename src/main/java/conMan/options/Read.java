@@ -11,10 +11,12 @@ import java.util.List;
 public class Read implements Option {
     private final ContactList allContacts;
     private final InputOutput console;
+    private final NameList namesList;
 
     public Read(ContactList allContacts, InputOutput console) {
         this.allContacts = allContacts;
         this.console = console;
+        this.namesList = new NameList(allContacts, console);
     }
 
     @Override
@@ -24,10 +26,9 @@ public class Read implements Option {
 
     @Override
     public void perform() {
-        NameList names = new NameList(allContacts, console);
-        showAllNames(names);
-        List<Contact> filteredContacts = filter(names);
-        console.showOutput(names.formatNames(filteredContacts));
+        showAllNames(namesList);
+        List<Contact> filteredContacts = namesList.filterCheck();
+        console.showOutput(namesList.formatNames(filteredContacts));
         Contact selected = filteredContacts.get(getValidDigit() - 1);
         console.showOutput(selected.showFields());
     }
@@ -35,16 +36,6 @@ public class Read implements Option {
     private void showAllNames(NameList names) {
         console.showOutput("Showing " + allContacts.getList().size() + " contacts" + "\n");
         console.showOutput(names.formatNames(allContacts.getList()));
-    }
-
-    private List<Contact> filter(NameList names) {
-        console.showOutput("Would you like to filter contacts by name? (Y/N) \n");
-        if (console.takeInput().contains("Y")) {
-            console.showOutput("Enter a name to filter: \n");
-            return names.filter();
-        } else {
-            return allContacts.getList();
-        }
     }
 
     private int getValidDigit() {

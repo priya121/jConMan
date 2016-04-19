@@ -2,18 +2,21 @@ package conMan.options;
 
 import conMan.ContactList;
 import conMan.NameList;
+import conMan.contactfields.Contact;
 import conMan.inputoutput.InputOutput;
 import conMan.inputoutput.ValidDigit;
+
+import java.util.List;
 
 public class Delete implements Option{
     private final ContactList allContacts;
     private final InputOutput console;
-    private final NameList nameList;
+    private final NameList namesList;
 
     public Delete(ContactList allContacts, InputOutput console) {
         this.allContacts = allContacts;
         this.console = console;
-        this.nameList = new NameList(allContacts, console);
+        this.namesList = new NameList(allContacts, console);
     }
 
     @Override
@@ -23,10 +26,17 @@ public class Delete implements Option{
 
     @Override
     public void perform() {
-        console.showOutput(nameList.formatNames(allContacts.getList()));
+        showAllNames(namesList);
+        List<Contact> filteredContacts = namesList.filterCheck();
+        console.showOutput(namesList.formatNames(filteredContacts));
         int chosenContact = getValidDigit() - 1;
         console.showOutput("Are you sure you want to delete this contact? (Y/N)");
         removeIfY(chosenContact);
+    }
+
+    private void showAllNames(NameList names) {
+        console.showOutput("Showing " + allContacts.getList().size() + " contacts" + "\n");
+        console.showOutput(names.formatNames(allContacts.getList()));
     }
 
     private void removeIfY(int chosenContact) {

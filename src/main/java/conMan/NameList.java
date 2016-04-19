@@ -28,7 +28,7 @@ public class NameList {
     public List<Contact> filter() {
         List<Contact> filteredList = new ArrayList<>();
         Iterator<Contact> contactList = allContacts.getList().iterator();
-        String letters = console.takeInput();
+            String letters = console.takeInput();
             while (contactList.hasNext()) {
                 Contact contact = contactList.next();
                 if (matchFound(letters, contact)) {
@@ -36,6 +36,16 @@ public class NameList {
                 }
             }
         return filteredList;
+    }
+
+    public List<Contact> filterCheck() {
+        console.showOutput("\nWould you like to filter contacts by name? (Y/N) \n");
+        if (console.takeInput().contains("Y")) {
+            console.showOutput("Enter a name to filter: \n");
+            return filter();
+        } else {
+            return allContacts.getList();
+        }
     }
 
     private boolean matchFound(String letters, Contact contact) {

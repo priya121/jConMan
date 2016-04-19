@@ -45,6 +45,7 @@ public class ConMan {
 
     public void menuChoice() {
         userChoice = getValidDigit() - 1;
+        console.clearScreen();
         options.get(userChoice).show();
         options.get(userChoice).perform();
     }

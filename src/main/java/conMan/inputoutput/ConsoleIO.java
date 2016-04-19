@@ -27,13 +27,7 @@ public class ConsoleIO implements InputOutput {
         }
     }
 
-    public int takeChar() {
-        try {
-            return input.read();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return 0;
+    public void clearScreen() {
+        output.print("\033[2J\033[1;1H");
     }
-
 }
