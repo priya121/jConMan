@@ -1,4 +1,5 @@
 package conMan;
+
 import conMan.contactfields.Contact;
 import conMan.inputoutput.InputOutput;
 
@@ -25,26 +26,40 @@ public class NameList {
         return listOfContacts;
     }
 
-    public List<Contact> filter() {
-        List<Contact> filteredList = new ArrayList<>();
-        Iterator<Contact> contactList = allContacts.getList().iterator();
-            String letters = console.takeInput();
-            while (contactList.hasNext()) {
-                Contact contact = contactList.next();
-                if (matchFound(letters, contact)) {
-                    filteredList.add(contact);
-                }
-            }
-        return filteredList;
-    }
-
     public List<Contact> filterCheck() {
         console.showOutput("\nWould you like to filter contacts by name? (Y/N) \n");
         if (console.takeInput().contains("Y")) {
             console.showOutput("Enter a name to filter: \n");
-            return filter();
+            List<Contact> filtered = filter();
+            if (filteredContactFound(filtered)) return filtered;
+        }
+        return allContacts.getList();
+    }
+
+    private boolean filteredContactFound(List<Contact> filtered) {
+        if (filtered.size() > 0) {
+            return true;
         } else {
-            return allContacts.getList();
+            console.showOutput("There are no contacts with that name\n");
+            filterCheck();
+        }
+        return false;
+    }
+
+    public List<Contact> filter() {
+        List<Contact> filteredList = new ArrayList<>();
+        Iterator<Contact> contactList = allContacts.getList().iterator();
+        String letters = console.takeInput();
+        checkContacts(filteredList, contactList, letters);
+        return filteredList;
+    }
+
+    private void checkContacts(List<Contact> filteredList, Iterator<Contact> contactList, String letters) {
+        while (contactList.hasNext()) {
+            Contact contact = contactList.next();
+            if (matchFound(letters, contact)) {
+                filteredList.add(contact);
+            }
         }
     }
 

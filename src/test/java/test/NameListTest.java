@@ -16,6 +16,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class NameListTest {
     ByteArrayOutputStream recordedOutput = new ByteArrayOutputStream();
@@ -38,6 +39,23 @@ public class NameListTest {
         InputOutput console = new ConsoleIO(new ByteArrayInputStream("Ben\n".getBytes()), out);
         NameList namesList = new NameList(list, console);
         assertEquals("1) Ben Smith\n", namesList.formatNames(namesList.filter()));
+    }
+
+    @Test
+    public void asksUserToFilterAgainIfNoMatchingContactsFound() {
+        createContacts();
+        InputOutput console = new ConsoleIO(new ByteArrayInputStream("Y\nBn\nN\n1\n".getBytes()), out);
+        NameList namesList = new NameList(list, console);
+        namesList.filterCheck();
+        assertTrue(recordedOutput.toString().contains("There are no contacts with that name\n"));
+    }
+
+    @Test
+    public void returnsContactIfFoundOnSecondAttempt() {
+        createContacts();
+        InputOutput console = new ConsoleIO(new ByteArrayInputStream("Y\nBn\nY\nBen\n".getBytes()), out);
+        NameList namesList = new NameList(list, console);
+        assertEquals("Ben Smith", namesList.filterCheck().get(0).getName());
     }
 
     private Contact createContact(List<String> userInput) {

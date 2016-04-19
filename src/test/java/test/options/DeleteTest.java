@@ -26,13 +26,12 @@ public class DeleteTest {
     private ContactList contactList;
     private ContactList allContacts;
     private ContactList newList;
-    private InputOutput console;
 
     @Before
     public void setUp() throws IOException {
         allContacts = new ContactList();
-        console = input("Ben\nSmith\n123@gmail.com\n1 Cedar Way\n123\nwww\n" +
-                        "Sarah\nSmith\n678@gmail.com\n2 Cedar Way\n123\nwww\n4\n1\nY\n5\nY\n");
+        InputOutput console = input("Ben\nSmith\n123@gmail.com\n1 Cedar Way\n123\nwww\n" +
+                                    "Sarah\nSmith\n678@gmail.com\n2 Cedar Way\n123\nwww\n4\n1\nY\n5\nY\n");
         newList = new ContactList();
         contactList = createContactList(console);
     }
