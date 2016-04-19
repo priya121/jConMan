@@ -31,6 +31,6 @@ public class Update implements Option {
 
     private int getValidDigit() {
         ValidDigit validDigit = new ValidDigit(console);
-        return validDigit.getValidDigit();
+        return validDigit.get(allContacts.getList().size());
     }
 }

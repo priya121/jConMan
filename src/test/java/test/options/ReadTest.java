@@ -2,12 +2,12 @@ package test.options;
 
 import conMan.ConMan;
 import conMan.ContactList;
-import fileTypes.FileType;
 import conMan.contactfields.Contact;
 import conMan.inputoutput.ConsoleIO;
 import conMan.inputoutput.InputOutput;
 import conMan.options.Option;
 import conMan.options.Read;
+import fileTypes.FileType;
 import org.junit.Test;
 import test.FakeExit;
 import test.FakeFile;
@@ -89,6 +89,27 @@ public class ReadTest {
         ConMan conMan = new ConMan(consoleIO, exitOption, fakeFile, contactList);
         conMan.menuLoop();
         assertTrue(recordedOutput.toString().contains("Enter a name to filter: \n"));
+    }
+
+    @Test
+    public void asksUserToEnterAnotherNumberIfContactNumberTooHigh() {
+        InputOutput consoleIO = input("2\nY\nSarah\n8\n1\n5\n");
+        addContactsToList();
+        FileType fakeFile = new FakeFile(consoleIO, contactList, imported);
+        Option exitOption = new FakeExit(consoleIO, fakeFile);
+        ConMan conMan = new ConMan(consoleIO, exitOption, fakeFile, contactList);
+        conMan.menuLoop();
+        assertTrue(recordedOutput.toString().contains("Please enter a valid number: "));
+    }
+
+    @Test
+    public void tellsUserNoContactsToDisplayIfContactsDontExist() {
+        InputOutput consoleIO = input("2\n5\n");
+        FileType fakeFile = new FakeFile(consoleIO, contactList, imported);
+        Option exitOption = new FakeExit(consoleIO, fakeFile);
+        ConMan conMan = new ConMan(consoleIO, exitOption, fakeFile, contactList);
+        conMan.menuLoop();
+        assertTrue(recordedOutput.toString().contains("There are no contacts to display.\n"));
     }
 
     private void addContactsToList() {

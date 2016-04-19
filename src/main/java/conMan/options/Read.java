@@ -12,11 +12,13 @@ public class Read implements Option {
     private final ContactList allContacts;
     private final InputOutput console;
     private final NameList namesList;
+    private final ValidDigit validDigit;
 
     public Read(ContactList allContacts, InputOutput console) {
         this.allContacts = allContacts;
         this.console = console;
         this.namesList = new NameList(allContacts, console);
+        validDigit = new ValidDigit(console);
     }
 
     @Override
@@ -26,20 +28,24 @@ public class Read implements Option {
 
     @Override
     public void perform() {
-        showAllNames(namesList);
-        List<Contact> filteredContacts = namesList.filterCheck();
-        console.showOutput(namesList.formatNames(filteredContacts));
-        Contact selected = filteredContacts.get(getValidDigit() - 1);
+        if (allContacts.getList().size() > 0) {
+            showAllNames(namesList);
+            List<Contact> filtered = namesList.filterCheck();
+            console.showOutput(namesList.formatNames(filtered));
+            showSelectedContact(filtered);
+        } else {
+            console.showOutput("There are no contacts to display.\n\n");
+        }
+    }
+
+    private void showSelectedContact(List<Contact> filteredContacts) {
+        int userDigit = validDigit.get(filteredContacts.size());
+        Contact selected = filteredContacts.get(userDigit - 1);
         console.showOutput(selected.showFields());
     }
 
     private void showAllNames(NameList names) {
         console.showOutput("Showing " + allContacts.getList().size() + " contacts" + "\n");
         console.showOutput(names.formatNames(allContacts.getList()));
-    }
-
-    private int getValidDigit() {
-        ValidDigit validDigit = new ValidDigit(console);
-        return validDigit.getValidDigit();
     }
 }

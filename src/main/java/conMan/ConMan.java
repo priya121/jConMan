@@ -52,7 +52,7 @@ public class ConMan {
 
     private int getValidDigit() {
         ValidDigit validDigit = new ValidDigit(console);
-        return validDigit.getValidDigit();
+        return validDigit.get(options.size());
     }
 
     public String listAllNames() {

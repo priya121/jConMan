@@ -16,12 +16,16 @@ public class ValidDigit {
         }
     }
 
-    public int getValidDigit() {
+    public int get(int size) {
         String userInput = console.takeInput();
-        while (!check(userInput)) {
-            console.showOutput("Please enter a valid number: ");
+        while (!check(userInput) || !choiceExists(userInput, size)) {
+            console.showOutput("Please enter a valid number: \n");
             userInput = console.takeInput();
         }
         return Integer.parseInt(userInput);
+    }
+
+    private boolean choiceExists(String userInput, int size) {
+        return Integer.parseInt(userInput) <= size;
     }
 }

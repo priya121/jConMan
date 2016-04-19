@@ -31,19 +31,9 @@ public class NameList {
         if (console.takeInput().contains("Y")) {
             console.showOutput("Enter a name to filter: \n");
             List<Contact> filtered = filter();
-            if (filteredContactFound(filtered)) return filtered;
+            if (contactFound(filtered)) return filtered;
         }
         return allContacts.getList();
-    }
-
-    private boolean filteredContactFound(List<Contact> filtered) {
-        if (filtered.size() > 0) {
-            return true;
-        } else {
-            console.showOutput("There are no contacts with that name\n");
-            filterCheck();
-        }
-        return false;
     }
 
     public List<Contact> filter() {
@@ -52,6 +42,16 @@ public class NameList {
         String letters = console.takeInput();
         checkContacts(filteredList, contactList, letters);
         return filteredList;
+    }
+
+    private boolean contactFound(List<Contact> filtered) {
+        if (filtered.size() > 0) {
+            return true;
+        } else {
+            console.showOutput("There are no contacts with that name\n");
+            filterCheck();
+        }
+        return false;
     }
 
     private void checkContacts(List<Contact> filteredList, Iterator<Contact> contactList, String letters) {
