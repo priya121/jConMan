@@ -27,11 +27,16 @@ public class Delete implements Option{
     @Override
     public void perform() {
         showAllNames(namesList);
+        filterNames();
+        int chosenContact = getValidDigit() - 1;
+        console.showOutput("Are you sure you want to delete this contact? (Y/N)\n");
+        console.showOutput(allContacts.get(chosenContact).showFields());
+        removeIfY(chosenContact);
+    }
+
+    private void filterNames() {
         List<Contact> filteredContacts = namesList.filterCheck();
         console.showOutput(namesList.formatNames(filteredContacts));
-        int chosenContact = getValidDigit() - 1;
-        console.showOutput("Are you sure you want to delete this contact? (Y/N)");
-        removeIfY(chosenContact);
     }
 
     private void showAllNames(NameList names) {

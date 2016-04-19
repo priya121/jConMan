@@ -61,7 +61,8 @@ public class DeleteTest {
     @Test
     public void userAbleToDeleteFirstContact() {
         InputOutput console = input("Ben\nSmith\n123@gmail.com\n1 Cedar Way\n123\nwww\n" +
-                                    "Sarah\nSmith\n678@gmail.com\n2 Cedar Way\n123\nwww\n4\nN\n1\nY\n5\nY\n");
+                                    "Sarah\nSmith\n678@gmail.com\n2 Cedar Way\n123\nwww\n" +
+                                    "4\nN\n1\nY\n5\nY\n");
         contactList = createContactList(console);
         Delete delete = new Delete(contactList, console);
         delete.perform();
@@ -71,7 +72,7 @@ public class DeleteTest {
     @Test
     public void userMustEnterAValidNumberToDeleteAContact() {
         InputOutput consoleIO = input("1\nPriya\nPatil\n123@gmail.com\n2 Cedar Way\n123\nwww\n" +
-                "4\nN\na\n1\nY\n5\n");
+                                      "4\nN\na\n1\nY\n5\n");
         FileType fakeFile = new FakeFile(consoleIO, allContacts, contactList);
         exitOption = new FakeExit(consoleIO, fakeFile);
         conMan = new ConMan(consoleIO, exitOption, fakeFile, allContacts);
@@ -102,7 +103,13 @@ public class DeleteTest {
         exitOption = new FakeExit(consoleIO, fakeFile);
         conMan = new ConMan(consoleIO, exitOption, fakeFile, allContacts);
         conMan.menuLoop();
-        assertTrue(recordedOutput.toString().contains("Are you sure you want to delete this contact? (Y/N)"));
+        assertTrue(recordedOutput.toString().contains("Are you sure you want to delete this contact? (Y/N)\n" +
+                                                      "First Name: Ben\n" +
+                                                      "Last Name: Smith\n" +
+                                                      "Email: 123@gmail.com\n" +
+                                                      "Home Address: 1 Cedar Way\n" +
+                                                      "Phone Number: 123\n" +
+                                                      "Website: www\n\n\n"));
     }
 
     @Test
