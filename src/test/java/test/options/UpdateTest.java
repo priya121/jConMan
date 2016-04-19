@@ -40,8 +40,8 @@ public class UpdateTest {
 
     @Test
     public void userEntering3ShowsUpdateAContactTitle() {
-        InputOutput consoleIO = input("1\nMaya\nPatil\n123@gmail.com\n1 Cedar Way\n123\n" +
-                                      "3\n1\nSarah\nSmith\n234@gmail.com\n2 Cedar Way\n123\n" +
+        InputOutput consoleIO = input("1\nMaya\nPatil\n123@gmail.com\n1 Cedar Way\n123\nwww\n" +
+                                      "3\n1\nSarah\nSmith\n234@gmail.com\n2 Cedar Way\n123\nwww\n" +
                                       "5\n");
         FileType fakeFile = new FakeFile(consoleIO, contactList, contactList);
         Option exitOption = new FakeExit(consoleIO, fakeFile);
@@ -52,8 +52,8 @@ public class UpdateTest {
 
     @Test
     public void userCanUpdateAChosenContactsDetails() {
-        InputOutput consoleIO = input("1\nMaya\nPatil\n123@gmail.com\n1 Cedar Way\n123\n" +
-                                      "3\n1\nSam\nPatil\n789@gmail.com\n3 Cedar Way\n123\n" +
+        InputOutput consoleIO = input("1\nMaya\nPatil\n123@gmail.com\n1 Cedar Way\n123\nwww\n" +
+                                      "3\n1\nSam\nPatil\n789@gmail.com\n3 Cedar Way\n123\nwww\n" +
                                       "2\nN\n1\n5\n");
         FileType fakeFile = new FakeFile(consoleIO, contactList, contactList);
         Option exitOption = new FakeExit(consoleIO, fakeFile);
@@ -67,8 +67,8 @@ public class UpdateTest {
 
     @Test
     public void userMustEnterAValidNumberWhenChoosingAContact() {
-        InputOutput consoleIO = input("1\nMaya\nPatil\n123@gmail.com\n1 Cedar Way\n123\n" +
-                                      "3\nabc\n1\nSam\nPatil\n789@gmail.com\n3 Cedar Way\n\n5\n");
+        InputOutput consoleIO = input("1\nMaya\nPatil\n123@gmail.com\n1 Cedar Way\n123\nwww\n" +
+                                      "3\nabc\n1\nSam\nPatil\n789@gmail.com\n3 Cedar Way\n\nwww\n5\n");
         FileType fakeFile = new FakeFile(consoleIO, contactList, contactList);
         Option exitOption = new FakeExit(consoleIO, fakeFile);
         ConMan conMan = new ConMan(consoleIO, exitOption, fakeFile, contactList);
@@ -78,9 +78,9 @@ public class UpdateTest {
 
     @Test
     public void userCanReadListOfContactsBeforeDecidingWhichToUpdate() {
-        InputOutput consoleIO = input("1\nPriya\nPatil\n123@gmail.com\n1 Cedar Way\n123\n" +
-                                      "1\nMaya\nPatil\n345@gmail.com\n2 Cedar Way\n123\n" +
-                                      "3\n1\nBen\nSmith\n123@gmail.com\n3 Cedar Way\n\n" +
+        InputOutput consoleIO = input("1\nPriya\nPatil\n123@gmail.com\n1 Cedar Way\n123\nwww\n" +
+                                      "1\nMaya\nPatil\n345@gmail.com\n2 Cedar Way\n123\nwww\n" +
+                                      "3\n1\nBen\nSmith\n123@gmail.com\n3 Cedar Way\n\nwww\n" +
                                       "5\n");
         FileType fakeFile = new FakeFile(consoleIO, contactList, contactList);
         Option exitOption = new FakeExit(consoleIO, fakeFile);
@@ -92,8 +92,8 @@ public class UpdateTest {
     
     @Test
     public void userPromptThatUserCanLeaveFieldBlank() {
-        InputOutput consoleIO = input("1\nMaya\nPatil\n123@gmail.com\n1 Cedar Way\n123\n" +
-                                      "3\n1\nSarah\nSmith\n234@gmail.com\n2 Cedar Way\n123\n" +
+        InputOutput consoleIO = input("1\nMaya\nPatil\n123@gmail.com\n1 Cedar Way\n123\nwww\n" +
+                                      "3\n1\nSarah\nSmith\n234@gmail.com\n2 Cedar Way\n123\nwww\n" +
                                       "5\n");
         FileType fakeFile = new FakeFile(consoleIO, contactList, contactList);
         Option exitOption = new FakeExit(consoleIO, fakeFile);
@@ -104,8 +104,8 @@ public class UpdateTest {
 
     @Test
     public void ifUserLeavesFieldBlankPreviousValueRemains() {
-        InputOutput consoleIO = input("1\nPriya\nPatil\n123@gmail.com\n1 Cedar Way\n123\n" +
-                                      "3\n1\n\n\n\n3 Cedar Way\n\n" +
+        InputOutput consoleIO = input("1\nPriya\nPatil\n123@gmail.com\n1 Cedar Way\n123\nwww\n" +
+                                      "3\n1\n\n\n\n3 Cedar Way\n\n\n" +
                                       "2\nN\n1\n" +
                                       "5\n");
         FileType fakeFile = new FakeFile(consoleIO, contactList, contactList);
@@ -116,14 +116,15 @@ public class UpdateTest {
                                                       "Last Name: Patil\n" +
                                                       "Email: 123@gmail.com\n" +
                                                       "Home Address: 3 Cedar Way\n" +
-                                                      "Phone Number: 123\n\n\n"));
+                                                      "Phone Number: 123\n" +
+                                                      "Website: www\n\n\n"));
     }
 
     @Test
     public void canUpdateAContactImportedFromAFile() {
         ContactList importedContact = new ContactList();
-        InputOutput console = new ConsoleIO(new ByteArrayInputStream(("Maya\nPatil\n123@gmail.com\n5 Rosebury Av\n123\n" +
-                                                                      "3\n1\nPriya\n\n\n3 Cedar Way\n\n" +
+        InputOutput console = new ConsoleIO(new ByteArrayInputStream(("Maya\nPatil\n123@gmail.com\n5 Rosebury Av\n123\nwww\n" +
+                                                                      "3\n1\nPriya\n\n\n3 Cedar Way\n\n\n" +
                                                                       "2\nN\n1\n2\nN\n1\n5\nY\n").getBytes()), out);
         createImportedContact(importedContact, console);
         FileType fakeFile = new FakeFile(console, contactList, importedContact);
@@ -134,7 +135,8 @@ public class UpdateTest {
                 "Last Name: Patil\n" +
                 "Email: 123@gmail.com\n" +
                 "Home Address: 3 Cedar Way\n" +
-                "Phone Number: 123\n\n\n", contactList.get(0).showFields());
+                "Phone Number: 123\n" +
+                "Website: www\n\n\n", contactList.get(0).showFields());
     }
 
     private void createImportedContact(ContactList importedContact, InputOutput console) {

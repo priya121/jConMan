@@ -13,6 +13,7 @@ public class Contact {
     private Email email;
     private HomeAddress homeAddress;
     private Phone phone;
+    private Website website;
 
     public Contact(InputOutput console) {
         this.console = console;
@@ -21,17 +22,19 @@ public class Contact {
         this.email = new Email(console);
         this.homeAddress = new HomeAddress(console);
         this.phone = new Phone(console);
-        this.fields = Arrays.asList(firstName, lastName, email, homeAddress, phone);
+        this.website = new Website(console);
+        this.fields = Arrays.asList(firstName, lastName, email, homeAddress, phone, website);
     }
 
-    public Contact(String firstName, String lastName, String email, String homeAddress, String phone, InputOutput console) {
+    public Contact(String firstName, String lastName, String email, String homeAddress, String phone, String website, InputOutput console) {
         this.console = console;
         this.firstName = new FirstName(firstName, this.console);
         this.lastName = new LastName(lastName, this.console);
         this.email = new Email(email, this.console);
         this.homeAddress = new HomeAddress(homeAddress, this.console);
         this.phone = new Phone(phone, this.console);
-        this.fields = Arrays.asList(this.firstName, this.lastName, this.email, this.homeAddress, this.phone);
+        this.website = new Website(website, this.console);
+        this.fields = Arrays.asList(this.firstName, this.lastName, this.email, this.homeAddress, this.phone, this.website);
     }
 
     public void setFields() {

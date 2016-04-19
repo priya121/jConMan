@@ -54,19 +54,20 @@ public class CreateTest {
 
     @Test
     public void userAbleToCreateAContactByEnteringFields() throws IOException {
-        InputOutput console = input("Maya\nPatil\n789@gmail.com\n2 Rosebury Av\n123\n");
+        InputOutput console = input("Maya\nPatil\n789@gmail.com\n2 Rosebury Av\n123\nwww\n");
         Create create = new Create(contactList, console);
         create.perform();
         assertEquals("First Name: Maya\n" +
                      "Last Name: Patil\n" +
                      "Email: 789@gmail.com\n" +
                      "Home Address: 2 Rosebury Av\n" +
-                     "Phone Number: 123\n\n\n", contactList.get(0).showFields());
+                     "Phone Number: 123\n" +
+                     "Website: www\n\n\n", contactList.get(0).showFields());
     }
 
     @Test
     public void userCanCreateANewContactAfterEntering1() throws IOException {
-        InputOutput consoleIO = input("1\nGary\nPaul\n345@gmail.com\n3 Rosebury Av\n123\n2\nN\n3\n5\nY\n");
+        InputOutput consoleIO = input("1\nGary\nPaul\n345@gmail.com\n3 Rosebury Av\n123\nwww\n2\nN\n3\n5\nY\n");
         FileType fakeFile = new FakeFile(consoleIO, contactList, imported);
         exitOption = new FakeExit(consoleIO, fakeFile);
         ConMan conMan = new ConMan(consoleIO, exitOption, fakeFile, contactList);
@@ -75,7 +76,8 @@ public class CreateTest {
                                                       "Last Name: Paul\n" +
                                                       "Email: 345@gmail.com\n" +
                                                       "Home Address: 3 Rosebury Av\n" +
-                                                      "Phone Number: 123\n\n\n"));
+                                                      "Phone Number: 123\n" +
+                                                      "Website: www\n\n\n"));
     }
 
     private Contact createContact(String input) {
@@ -85,8 +87,8 @@ public class CreateTest {
 
     private void getImportedContacts() {
         imported = new ContactList();
-        Contact ben = createContact("Ben\nSmith\n123@gmail.com\n1 Cedar Way\n123\n");
-        Contact sarah = createContact("Sarah\nSmith\n234@gmail.com\n2 Cedar Way\n123\n");
+        Contact ben = createContact("Ben\nSmith\n123@gmail.com\n1 Cedar Way\n123\nwww\n");
+        Contact sarah = createContact("Sarah\nSmith\n234@gmail.com\n2 Cedar Way\n123\nwww\n");
         imported.addContact(ben);
         imported.addContact(sarah);
     }

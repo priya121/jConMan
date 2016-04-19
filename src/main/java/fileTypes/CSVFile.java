@@ -34,15 +34,16 @@ public class CSVFile implements FileType {
                 String email = field[2];
                 String homeAddress = field[3];
                 String phone = field[4];
-                addContactsToList(firstName, lastName, email, homeAddress, phone, console);
+                String website = field[5];
+                addContactsToList(firstName, lastName, email, homeAddress, phone, website, console);
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private void addContactsToList(String firstName, String lastName, String email, String homeAddress, String phone, InputOutput console) {
-        Contact contact = new Contact(firstName, lastName, email, homeAddress, phone, console);
+    private void addContactsToList(String firstName, String lastName, String email, String homeAddress, String phone, String website, InputOutput console) {
+        Contact contact = new Contact(firstName, lastName, email, homeAddress, phone, website, console);
         contact.setExisting();
         allContacts.addContact(contact);
     }
@@ -57,7 +58,6 @@ public class CSVFile implements FileType {
                     fileWriter.write(field.get() + ",");
                 }
                 addNewLine(fileWriter);
-
             }
         } catch (IOException e) {
             e.printStackTrace();

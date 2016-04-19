@@ -41,15 +41,16 @@ public class JSONFile implements FileType {
                 String email = (String) obj.get("Email: ");
                 String homeAddress = (String) obj.get("Home Address: ");
                 String phone = (String) obj.get("Phone Number: ");
-                addContactsToList(firstName, lastName, email, homeAddress, phone, console);
+                String website = (String) obj.get("Website: ");
+                addContactsToList(firstName, lastName, email, homeAddress, phone, website, console);
             }
         } catch (IOException | org.json.simple.parser.ParseException e) {
             e.printStackTrace();
         }
     }
 
-    private void addContactsToList(String firstName, String lastName, String email, String homeAddress, String phone, InputOutput console) {
-        Contact contact = new Contact(firstName, lastName, email, homeAddress, phone, console);
+    private void addContactsToList(String firstName, String lastName, String email, String homeAddress, String phone, String website, InputOutput console) {
+        Contact contact = new Contact(firstName, lastName, email, homeAddress, phone, website, console);
         contact.setExisting();
         allContacts.addContact(contact);
     }
