@@ -47,6 +47,7 @@ public class Contact {
     public void updateFields() {
         for (Field field : fields) {
             console.showOutput(field.showFieldName());
+            console.showOutput("(previous) " + field.get() + "\n");
             field.update();
         }
     }

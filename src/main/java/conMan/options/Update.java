@@ -26,11 +26,25 @@ public class Update implements Option {
         if (contactsExist() && contactsNecessary()) {
             console.showOutput(contacts.formatNames(allContacts.get()));
             int chosenContact = getValidDigit() - 1;
-            console.showOutput("Fill in field to update or leave blank to keep previous value: \n");
-            allContacts.getContact(chosenContact).updateFields();
+            console.clearScreen();
+            updateDetails(chosenContact);
         } else {
             console.showOutput("There are no contacts to update.\n\n");
         }
+        mainMenu();
+    }
+
+    private void mainMenu() {
+        console.showOutput("Hit any key to go back to the main menu.");
+        console.takeInput();
+        console.clearScreen();
+    }
+
+    private void updateDetails(int chosenContact) {
+        console.showOutput("Fill in field to update or leave blank to keep previous value: \n");
+        allContacts.getContact(chosenContact).updateFields();
+        console.clearScreen();
+        console.showOutput(allContacts.getContact(chosenContact).showFields());
     }
 
     @Override

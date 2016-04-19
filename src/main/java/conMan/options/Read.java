@@ -36,6 +36,9 @@ public class Read implements Option {
         } else {
             console.showOutput("There are no contacts to display.\n\n");
         }
+        console.showOutput("Hit any key to go back to the main menu.");
+        console.takeInput();
+        console.clearScreen();
     }
 
     @Override
@@ -51,6 +54,7 @@ public class Read implements Option {
     private void showSelectedContact(List<Contact> filteredContacts) {
         int userDigit = validDigit.get(filteredContacts.size());
         Contact selected = filteredContacts.get(userDigit - 1);
+        console.clearScreen();
         console.showOutput(selected.showFields());
     }
 

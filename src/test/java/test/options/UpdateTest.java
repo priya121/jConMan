@@ -43,7 +43,7 @@ public class UpdateTest {
     @Test
     public void userEntering3ShowsUpdateAContactTitle() {
         InputOutput consoleIO = input("1\nMaya\nPatil\n123@gmail.com\n1 Cedar Way\n123\nwww\n\n" +
-                                      "3\n1\nSarah\nSmith\n234@gmail.com\n2 Cedar Way\n123\nwww\n" +
+                                      "3\n1\nSarah\nSmith\n234@gmail.com\n2 Cedar Way\n123\nwww\n\n" +
                                       "5\n");
         FileType fakeFile = new FakeFile(consoleIO, contactList, imported);
         Option exitOption = new FakeExit(consoleIO, fakeFile);
@@ -55,8 +55,8 @@ public class UpdateTest {
     @Test
     public void userCanUpdateAChosenContactsDetails() {
         InputOutput consoleIO = input("1\nMaya\nPatil\n123@gmail.com\n1 Cedar Way\n123\nwww\n\n" +
-                                      "3\n1\nSam\nPatil\n789@gmail.com\n3 Cedar Way\n123\nwww\n" +
-                                      "2\nN\n1\n5\n");
+                                      "3\n1\nSam\nPatil\n789@gmail.com\n3 Cedar Way\n123\nwww\n\n" +
+                                      "2\nN\n1\n\n5\n");
         FileType fakeFile = new FakeFile(consoleIO, contactList, imported);
         Option exitOption = new FakeExit(consoleIO, fakeFile);
         ConMan conMan = new ConMan(consoleIO, exitOption, fakeFile, contactList);
@@ -70,7 +70,7 @@ public class UpdateTest {
     @Test
     public void userMustEnterAValidNumberWhenChoosingAContact() {
         InputOutput consoleIO = input("1\nMaya\nPatil\n123@gmail.com\n1 Cedar Way\n123\nwww\n\n" +
-                                      "3\nabc\n1\nSam\nPatil\n789@gmail.com\n3 Cedar Way\n\nwww\n5\n");
+                                      "3\nabc\n1\nSam\nPatil\n789@gmail.com\n3 Cedar Way\n\nwww\n\n5\n");
         FileType fakeFile = new FakeFile(consoleIO, contactList, imported);
         Option exitOption = new FakeExit(consoleIO, fakeFile);
         ConMan conMan = new ConMan(consoleIO, exitOption, fakeFile, contactList);
@@ -82,7 +82,7 @@ public class UpdateTest {
     public void userCanReadListOfContactsBeforeDecidingWhichToUpdate() {
         InputOutput consoleIO = input("1\nPriya\nPatil\n123@gmail.com\n1 Cedar Way\n123\nwww\n\n" +
                                       "1\nMaya\nPatil\n345@gmail.com\n2 Cedar Way\n123\nwww\n\n" +
-                                      "3\n1\nBen\nSmith\n123@gmail.com\n3 Cedar Way\n\nwww\n" +
+                                      "3\n1\nBen\nSmith\n123@gmail.com\n3 Cedar Way\n\nwww\n\n" +
                                       "5\n");
         FileType fakeFile = new FakeFile(consoleIO, contactList, imported);
         Option exitOption = new FakeExit(consoleIO, fakeFile);
@@ -95,7 +95,7 @@ public class UpdateTest {
     @Test
     public void userPromptThatUserCanLeaveFieldBlank() {
         InputOutput consoleIO = input("1\nMaya\nPatil\n123@gmail.com\n1 Cedar Way\n123\nwww\n\n" +
-                                      "3\n1\nSarah\nSmith\n234@gmail.com\n2 Cedar Way\n123\nwww\n" +
+                                      "3\n1\nSarah\nSmith\n234@gmail.com\n2 Cedar Way\n123\nwww\n\n" +
                                       "5\n");
         FileType fakeFile = new FakeFile(consoleIO, contactList, imported);
         Option exitOption = new FakeExit(consoleIO, fakeFile);
@@ -107,8 +107,8 @@ public class UpdateTest {
     @Test
     public void ifUserLeavesFieldBlankPreviousValueRemains() {
         InputOutput consoleIO = input("1\nPriya\nPatil\n123@gmail.com\n1 Cedar Way\n123\nwww\n\n" +
-                                      "3\n1\n\n\n\n3 Cedar Way\n\n\n" +
-                                      "2\nN\n1\n" +
+                                      "3\n1\n\n\n\n3 Cedar Way\n\n\n\n" +
+                                      "2\nN\n1\n\n" +
                                       "5\n");
         FileType fakeFile = new FakeFile(consoleIO, contactList, imported);
         Option exitOption = new FakeExit(consoleIO, fakeFile);
@@ -123,26 +123,56 @@ public class UpdateTest {
     }
 
     @Test
+    public void displaysPreviousFieldValuesToUser() {
+        InputOutput consoleIO = input("1\nPriya\nPatil\n123@gmail.com\n1 Cedar Way\n123\nwww\n\n" +
+                                      "3\n1\n\n\n\n3 Cedar Way\n\n\n\n" +
+                                      "2\nN\n1\n\n" +
+                                      "5\n");
+        FileType fakeFile = new FakeFile(consoleIO, contactList, imported);
+        Option exitOption = new FakeExit(consoleIO, fakeFile);
+        ConMan conMan = new ConMan(consoleIO, exitOption, fakeFile, contactList);
+        conMan.menuLoop();
+        assertTrue(recordedOutput.toString().contains("First Name: (previous) Priya\n" +
+                                                      "Last Name: (previous) Patil\n" +
+                                                      "Email: (previous) 123@gmail.com\n" +
+                                                      "Home Address: (previous) 1 Cedar Way\n" +
+                                                      "Phone Number: (previous) 123\n" +
+                                                      "Website: (previous) www\n"));
+    }
+
+    @Test
     public void canUpdateAContactImportedFromAFile() {
         InputOutput console = input("Maya\nPatil\n123@gmail.com\n5 Rosebury Av\n123\nwww\n\n" +
-                                    "3\n1\nPriya\n\n\n3 Cedar Way\n\n\n" +
-                                    "2\nN\n1\n2\nN\n1\n5\nY\n");
+                                    "3\n1\nPriya\n\n\n3 Cedar Way\n\n\n\n" +
+                                    "2\nN\n1\n\n5\nY\n");
         createImportedContact(console);
         FileType fakeFile = new FakeFile(console, contactList, imported);
         Option exitOption = new FakeExit(console, fakeFile);
         ConMan conMan = new ConMan(console, exitOption, fakeFile, contactList);
         conMan.menuLoop();
         assertEquals("First Name: Priya\n" +
-                "Last Name: Patil\n" +
-                "Email: 123@gmail.com\n" +
-                "Home Address: 3 Cedar Way\n" +
-                "Phone Number: 123\n" +
-                "Website: www\n\n\n", contactList.getContact(0).showFields());
+                     "Last Name: Patil\n" +
+                     "Email: 123@gmail.com\n" +
+                     "Home Address: 3 Cedar Way\n" +
+                     "Phone Number: 123\n" +
+                     "Website: www\n\n\n", contactList.getContact(0).showFields());
+    }
+
+    @Test
+    public void asksUserToHitEnterKeyToGoBackToMainMenuAfterUpdatingContact() {
+        InputOutput consoleIO = input("3\nN\n1\n\n\n\n\n\n\n\n" +
+                                      "5\nY\n");
+        FileType fakeFile = new FakeFile(consoleIO, contactList, imported);
+        Option exitOption = new FakeExit(consoleIO, fakeFile);
+        ConMan conMan = new ConMan(consoleIO, exitOption, fakeFile, contactList);
+        conMan.menuLoop();
+        assertTrue(recordedOutput.toString().contains("Hit any key to go back to the main menu." +
+                                                      "\033[2J\033[1;1H"));
     }
 
     @Test
     public void DoesNotAllowUserToUpdateIfNoContactsExist() {
-        InputOutput consoleIO = input("3\n5\n");
+        InputOutput consoleIO = input("3\n\n5\n");
         FileType fakeFile = new FakeFile(consoleIO, contactList, imported);
         Option exitOption = new FakeExit(consoleIO, fakeFile);
         ConMan conMan = new ConMan(consoleIO, exitOption, fakeFile, contactList);

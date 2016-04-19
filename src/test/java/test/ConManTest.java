@@ -35,7 +35,7 @@ public class ConManTest {
         contactList = new ContactList();
         consoleIO = input("1\nMaya\nPatil\n123@gmail.com\n1 Cedar Way\n123\nwww\n\n" +
                           "1\nSam\nSmith\n234@gmail.com\n2 Cedar Way\n123\nwww\n\n" +
-                          "2\nN\n4\n5\n");
+                          "2\nN\n4\n\n5\n");
         fakeFile = new FakeFile(consoleIO, contactList, importedContacts);
         exitOption = new FakeExit(consoleIO, fakeFile);
         conMan = new ConMan(consoleIO, exitOption, fakeFile, contactList);
@@ -70,7 +70,7 @@ public class ConManTest {
 
     @Test
     public void canReadDetailsOfFirstContactInListByEntering2() {
-        InputOutput consoleIO = input("2\nN\n1\n5\nY\n");
+        InputOutput consoleIO = input("2\nN\n1\n\n5\nY\n");
         ConMan conMan = new ConMan(consoleIO, exitOption, fakeFile, contactList);
         conMan.menuLoop();
         assertTrue(recordedOutput.toString().contains("First Name: Priya\n" +
@@ -85,7 +85,7 @@ public class ConManTest {
     public void canUpdateTheFirstNameOfACreatedContactByEntering3() {
         InputOutput consoleIO = input("1\nMaya\nPatil\n123@gmail.com\n1 Cedar Way\n123\nwww\n\n" +
                                       "1\nSam\nSmith\n234@gmail.com\n2 Cedar Way\n123\nwww\n\n" +
-                                      "3\n4\nBeth\n\n\n\n\n\n2\nN\n4\n5\n");
+                                      "3\n4\nBeth\n\n\n\n\n\n\n2\nN\n4\n\n5\n");
         ConMan conMan = new ConMan(consoleIO, exitOption, fakeFile, contactList);
         conMan.menuLoop();
         assertTrue(recordedOutput.toString().contains("First Name: Beth\n" +
@@ -98,7 +98,8 @@ public class ConManTest {
 
     @Test
     public void canDeleteFirstCreatedContactByEntering4() {
-        InputOutput consoleIO = input("4\nN\n1\nY\n2\nN\n1\n5\n");
+        InputOutput consoleIO = input("4\nN\n1\nY\n\n" +
+                                      "2\nN\n1\n\n5\n");
         ConMan conMan = new ConMan(consoleIO, exitOption, fakeFile, contactList);
         conMan.menuLoop();
         assertTrue(recordedOutput.toString().contains("Deleting Contact..."));
@@ -118,7 +119,7 @@ public class ConManTest {
         Option exitOption = new FakeExit(consoleIO, fakeFile);
         InputOutput consoleIO = input("1\nSarah\nSmith\n234@gmail.com\n1 Cedar Way\n120-123-123\nwww\n" +
                                       "1\nPriya\nPatil\n123@gmail.com\n2 Cedar Way\n789-123-123\nwww\n" +
-                                      "4\nN\n1\nY\n5\n");
+                                      "4\nN\n1\nY\n\n5\n");
         ConMan conMan = new ConMan(consoleIO, exitOption, fakeFile, contactList);
         conMan.menuLoop();
         assertTrue(recordedOutput.toString().contains("Delete a contact \n"));
@@ -141,12 +142,11 @@ public class ConManTest {
         Option exitOption = new FakeExit(consoleIO, fakeFile);
         InputOutput consoleIO = input("1\nSarah\nSmith\n234@gmail.com\n1 Cedar Way\n120-123-123\nwww\n" +
                                       "1\nPriya\nPatil\n123@gmail.com\n2 Cedar Way\n789-123-123\nwww\n" +
-                                      "4\nN\n1\nY\n5\n");
+                                      "4\nN\n1\nY\n\n5\n");
         ConMan conMan = new ConMan(consoleIO, exitOption, fakeFile, contactList);
         conMan.menuLoop();
         assertTrue(recordedOutput.toString().contains("\033[2J\033[1;1H"));
     }
-
 
     private ContactList createdImportedContacts() {
         ContactList newList = new ContactList();

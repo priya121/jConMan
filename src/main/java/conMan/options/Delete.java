@@ -30,12 +30,14 @@ public class Delete implements Option{
             showAllNames(namesList);
             filterNames();
             int chosenContact = getValidDigit() - 1;
+            console.clearScreen();
             console.showOutput("Are you sure you want to delete this contact? (Y/N)\n");
             console.showOutput(allContacts.getContact(chosenContact).showFields());
             removeIfY(chosenContact);
         } else {
             console.showOutput("There are no contacts to delete.\n\n");
         }
+        mainMenu();
     }
 
     @Override
@@ -70,5 +72,11 @@ public class Delete implements Option{
     private int getValidDigit() {
         ValidDigit validDigit = new ValidDigit(console);
         return validDigit.get(allContacts.get().size());
+    }
+
+    private void mainMenu() {
+        console.showOutput("Hit any key to go back to the main menu.");
+        console.takeInput();
+        console.clearScreen();
     }
 }

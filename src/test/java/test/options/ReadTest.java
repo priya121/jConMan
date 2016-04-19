@@ -25,7 +25,7 @@ public class ReadTest {
     ContactList imported = new ContactList();
     ContactList contactList = new ContactList();
     InputOutput consoleIO = input("1\nPriya\nPatil\n123@gmail.com\n1 Cedar Way\n123\nwww\n\n" +
-                                  "2\nN\n1\n5\n");
+                                  "2\nN\n\n1\n\n5\n");
 
     @Test
     public void readHasAReadTitle() {
@@ -45,7 +45,7 @@ public class ReadTest {
 
     @Test
     public void userEntering1ReadsFirstContact() {
-        InputOutput consoleIO = input("2\nN\n1\n5\n");
+        InputOutput consoleIO = input("2\nN\n1\n\n5\n");
         Read read = new Read(imported, consoleIO);
         addContactsToList();
         read.perform();
@@ -59,7 +59,7 @@ public class ReadTest {
 
     @Test
     public void readFirstDisplaysAListOfNames() {
-        InputOutput consoleIO = input("2\nN\n1\n5\n");
+        InputOutput consoleIO = input("2\nN\n1\n\n5\n");
         addContactsToList();
         FileType fakeFile = new FakeFile(consoleIO, contactList, imported);
         Option exitOption = new FakeExit(consoleIO,  fakeFile);
@@ -71,7 +71,7 @@ public class ReadTest {
 
     @Test
     public void userMustEnterAValidNumberToReadContactAfterEnteringReadOption() {
-        InputOutput consoleIO = input("2\nN\na\n1\n5\n");
+        InputOutput consoleIO = input("2\nN\na\n1\n\n5\n");
         addContactsToList();
         FileType fakeFile = new FakeFile(consoleIO, contactList, imported);
         Option exitOption = new FakeExit(consoleIO, fakeFile);
@@ -82,7 +82,7 @@ public class ReadTest {
 
     @Test
     public void userCanFilterNamesBeforeSelecting() {
-        InputOutput consoleIO = input("2\nY\nSarah\n1\n5\n");
+        InputOutput consoleIO = input("2\nY\nSarah\n1\n\n5\n");
         addContactsToList();
         FileType fakeFile = new FakeFile(consoleIO, contactList, imported);
         Option exitOption = new FakeExit(consoleIO, fakeFile);
@@ -93,7 +93,7 @@ public class ReadTest {
 
     @Test
     public void asksUserToEnterAnotherNumberIfContactNumberTooHigh() {
-        InputOutput consoleIO = input("2\nY\nSarah\n8\n1\n5\n");
+        InputOutput consoleIO = input("2\nY\nSarah\n8\n1\n\n5\n");
         addContactsToList();
         FileType fakeFile = new FakeFile(consoleIO, contactList, imported);
         Option exitOption = new FakeExit(consoleIO, fakeFile);
@@ -104,7 +104,7 @@ public class ReadTest {
 
     @Test
     public void tellsUserNoContactsToDisplayIfContactsDontExist() {
-        InputOutput consoleIO = input("2\n5\n");
+        InputOutput consoleIO = input("2\n\n5\n");
         FileType fakeFile = new FakeFile(consoleIO, contactList, imported);
         Option exitOption = new FakeExit(consoleIO, fakeFile);
         ConMan conMan = new ConMan(consoleIO, exitOption, fakeFile, contactList);
@@ -115,7 +115,7 @@ public class ReadTest {
     private void addContactsToList() {
         Contact priya = createContact("Priya\nPatil\n123@gmail.com\n1 Cedar Way\n123\nwww\n");
         Contact sarah = createContact("Sarah\nBlack\n234@gmail.com\n2 Cedar Way\n123\nwww\n" +
-                                      "2\n1\n");
+                                      "2\n1\n\n");
         imported.addContact(priya);
         imported.addContact(sarah);
         setFields(imported);
