@@ -33,8 +33,8 @@ public class ConManTest {
     public void setUp() {
         importedContacts = createdImportedContacts();
         contactList = new ContactList();
-        consoleIO = input("1\nMaya\nPatil\n123@gmail.com\n1 Cedar Way\n123\nwww\n" +
-                          "1\nSam\nSmith\n234@gmail.com\n2 Cedar Way\n123\nwww\n" +
+        consoleIO = input("1\nMaya\nPatil\n123@gmail.com\n1 Cedar Way\n123\nwww\n\n" +
+                          "1\nSam\nSmith\n234@gmail.com\n2 Cedar Way\n123\nwww\n\n" +
                           "2\nN\n4\n5\n");
         fakeFile = new FakeFile(consoleIO, contactList, importedContacts);
         exitOption = new FakeExit(consoleIO, fakeFile);
@@ -83,8 +83,8 @@ public class ConManTest {
 
     @Test
     public void canUpdateTheFirstNameOfACreatedContactByEntering3() {
-        InputOutput consoleIO = input("1\nMaya\nPatil\n123@gmail.com\n1 Cedar Way\n123\nwww\n" +
-                                      "1\nSam\nSmith\n234@gmail.com\n2 Cedar Way\n123\nwww\n" +
+        InputOutput consoleIO = input("1\nMaya\nPatil\n123@gmail.com\n1 Cedar Way\n123\nwww\n\n" +
+                                      "1\nSam\nSmith\n234@gmail.com\n2 Cedar Way\n123\nwww\n\n" +
                                       "3\n4\nBeth\n\n\n\n\n\n2\nN\n4\n5\n");
         ConMan conMan = new ConMan(consoleIO, exitOption, fakeFile, contactList);
         conMan.menuLoop();

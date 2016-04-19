@@ -25,6 +25,9 @@ public class Create implements Option {
             newContact.setFields();
             allContacts.addContact(newContact);
         }
+        console.showOutput("Hit any key to go back to the main menu.");
+        console.takeInput();
+        console.clearScreen();
     }
 
     @Override

@@ -24,7 +24,7 @@ public class ReadTest {
 
     ContactList imported = new ContactList();
     ContactList contactList = new ContactList();
-    InputOutput consoleIO = input("1\nPriya\nPatil\n123@gmail.com\n1 Cedar Way\n123\nwww\n" +
+    InputOutput consoleIO = input("1\nPriya\nPatil\n123@gmail.com\n1 Cedar Way\n123\nwww\n\n" +
                                   "2\nN\n1\n5\n");
 
     @Test
