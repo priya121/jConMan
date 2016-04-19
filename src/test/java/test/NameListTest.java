@@ -58,6 +58,16 @@ public class NameListTest {
         assertEquals("Ben Smith", namesList.filterCheck().get(0).getName());
     }
 
+    @Test
+    public void asksUserToEnterYIfTheyWantToFilter() {
+        createContacts();
+        InputOutput console = new ConsoleIO(new ByteArrayInputStream("Y\nBen\n".getBytes()), out);
+        NameList namesList = new NameList(list, console);
+        namesList.filterCheck();
+        assertTrue(recordedOutput.toString().contains("\nWould you like to filter contacts by name?\n" +
+                                                      "(Y) to filter / Any other key to choose from list\n"));
+    }
+
     private Contact createContact(List<String> userInput) {
         InputOutput console = new FakeIO(userInput);
         return new Contact(console);

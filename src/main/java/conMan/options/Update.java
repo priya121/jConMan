@@ -2,18 +2,23 @@ package conMan.options;
 
 import conMan.ContactList;
 import conMan.NameList;
+import conMan.contactfields.Contact;
 import conMan.inputoutput.InputOutput;
 import conMan.inputoutput.ValidDigit;
+
+import java.util.List;
 
 public class Update implements Option {
     private final ContactList allContacts;
     private final InputOutput console;
-    private final NameList contacts;
+    private final NameList namesList;
+    private final ValidDigit validDigit;
 
     public Update(ContactList allContacts, InputOutput console) {
         this.allContacts = allContacts;
         this.console = console;
-        this.contacts = new NameList(allContacts, console);
+        this.namesList = new NameList(allContacts, console);
+        this.validDigit = new ValidDigit(console);
     }
 
     @Override
@@ -24,7 +29,8 @@ public class Update implements Option {
     @Override
     public void perform() {
         if (contactsExist() && contactsNecessary()) {
-            console.showOutput(contacts.formatNames(allContacts.get()));
+            showAllNames(namesList);
+            filterNames();
             int chosenContact = getValidDigit() - 1;
             console.clearScreen();
             updateDetails(chosenContact);
@@ -32,6 +38,11 @@ public class Update implements Option {
             console.showOutput("There are no contacts to update.\n\n");
         }
         mainMenu();
+    }
+
+    private void filterNames() {
+        List<Contact> filtered = namesList.filterCheck();
+        console.showOutput(namesList.formatNames(filtered));
     }
 
     private void mainMenu() {
@@ -58,7 +69,11 @@ public class Update implements Option {
     }
 
     private int getValidDigit() {
-        ValidDigit validDigit = new ValidDigit(console);
         return validDigit.get(allContacts.get().size());
+    }
+
+    private void showAllNames(NameList names) {
+        console.showOutput("Showing " + allContacts.get().size() + " contacts" + "\n");
+        console.showOutput(names.formatNames(allContacts.get()));
     }
 }

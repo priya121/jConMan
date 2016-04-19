@@ -30,14 +30,27 @@ public class Delete implements Option{
             showAllNames(namesList);
             filterNames();
             int chosenContact = getValidDigit() - 1;
-            console.clearScreen();
-            console.showOutput("Are you sure you want to delete this contact? (Y/N)\n");
-            console.showOutput(allContacts.getContact(chosenContact).showFields());
-            removeIfY(chosenContact);
+            deleteIfY(chosenContact);
         } else {
             console.showOutput("There are no contacts to delete.\n\n");
         }
         mainMenu();
+    }
+
+    private void deleteIfY(int chosenContact) {
+        console.clearScreen();
+        console.showOutput("Are you sure you want to delete this contact? (Y/N)\n");
+        console.showOutput(allContacts.getContact(chosenContact).showFields());
+        removeIfY(chosenContact);
+    }
+
+    private void removeIfY(int chosenContact) {
+        if (console.takeInput().equals("Y")) {
+            console.showOutput("Deleting Contact...\n");
+            allContacts.get().remove(chosenContact);
+        } else {
+            console.showOutput("Your contacts have not been changed\n");
+        }
     }
 
     @Override
@@ -60,14 +73,6 @@ public class Delete implements Option{
         console.showOutput(names.formatNames(allContacts.get()));
     }
 
-    private void removeIfY(int chosenContact) {
-        if (console.takeInput().equals("Y")) {
-            console.showOutput("Deleting Contact...\n");
-            allContacts.get().remove(chosenContact);
-        } else {
-            console.showOutput("Your contacts have not been changed\n");
-        }
-    }
 
     private int getValidDigit() {
         ValidDigit validDigit = new ValidDigit(console);

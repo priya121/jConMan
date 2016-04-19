@@ -85,7 +85,7 @@ public class ConManTest {
     public void canUpdateTheFirstNameOfACreatedContactByEntering3() {
         InputOutput consoleIO = input("1\nMaya\nPatil\n123@gmail.com\n1 Cedar Way\n123\nwww\n\n" +
                                       "1\nSam\nSmith\n234@gmail.com\n2 Cedar Way\n123\nwww\n\n" +
-                                      "3\n4\nBeth\n\n\n\n\n\n\n2\nN\n4\n\n5\n");
+                                      "3\nN\n4\nBeth\n\n\n\n\n\n\n2\nN\n4\n\n5\n");
         ConMan conMan = new ConMan(consoleIO, exitOption, fakeFile, contactList);
         conMan.menuLoop();
         assertTrue(recordedOutput.toString().contains("First Name: Beth\n" +

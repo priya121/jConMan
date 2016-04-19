@@ -18,7 +18,7 @@ public class Read implements Option {
         this.allContacts = allContacts;
         this.console = console;
         this.namesList = new NameList(allContacts, console);
-        validDigit = new ValidDigit(console);
+        this.validDigit = new ValidDigit(console);
     }
 
     @Override
@@ -36,6 +36,10 @@ public class Read implements Option {
         } else {
             console.showOutput("There are no contacts to display.\n\n");
         }
+        mainMenu();
+    }
+
+    private void mainMenu() {
         console.showOutput("Hit any key to go back to the main menu.");
         console.takeInput();
         console.clearScreen();
