@@ -123,9 +123,9 @@ public class UpdateTest {
     @Test
     public void canUpdateAContactImportedFromAFile() {
         ContactList importedContact = new ContactList();
-        InputOutput console = new ConsoleIO(new ByteArrayInputStream(("Maya\nPatil\n123@gmail.com\n5 Rosebury Av\n123\nwww\n" +
-                                                                      "3\n1\nPriya\n\n\n3 Cedar Way\n\n\n" +
-                                                                      "2\nN\n1\n2\nN\n1\n5\nY\n").getBytes()), out);
+        InputOutput console = input("Maya\nPatil\n123@gmail.com\n5 Rosebury Av\n123\nwww\n" +
+                                    "3\n1\nPriya\n\n\n3 Cedar Way\n\n\n" +
+                                    "2\nN\n1\n2\nN\n1\n5\nY\n");
         createImportedContact(importedContact, console);
         FileType fakeFile = new FakeFile(console, contactList, importedContact);
         Option exitOption = new FakeExit(console, fakeFile);
