@@ -28,7 +28,8 @@ public class Delete implements Option{
     public void perform() {
         if (contactsExist()) {
             showAllNames(namesList);
-            filterNames();
+            List<Contact> filteredContacts = namesList.filterCheck();
+            namesList.filterNames(filteredContacts);
             int chosenContact = getValidDigit() - 1;
             deleteIfY(chosenContact);
         } else {
@@ -52,11 +53,6 @@ public class Delete implements Option{
     @Override
     public boolean contactsExist() {
         return allContacts.get().size() > 0;
-    }
-
-    private void filterNames() {
-        List<Contact> filteredContacts = namesList.filterCheck();
-        console.showOutput(namesList.formatNames(filteredContacts));
     }
 
     private void showAllNames(NameList names) {
