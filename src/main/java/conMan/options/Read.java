@@ -29,14 +29,14 @@ public class Read implements Option {
     @Override
     public void perform() {
         if (contactsExist() && contactsNecessary()) {
-            showAllNames(namesList);
+            namesList.display();
             List<Contact> filtered = namesList.filterCheck();
             namesList.show(filtered);
             showSelectedContact(filtered);
         } else {
             console.showOutput("There are no contacts to display.\n\n");
         }
-        namesList.mainMenu();
+        namesList.backToMainMenu();
     }
 
     @Override
@@ -56,9 +56,4 @@ public class Read implements Option {
         console.showOutput(selected.showFields());
     }
 
-    private void showAllNames(NameList names) {
-        console.showOutput("Showing " + allContacts.contactsToDisplay().size()
-                          + " contacts out of " + allContacts.get().size() + "\n");
-        console.showOutput(names.formatNames(allContacts.contactsToDisplay()));
-    }
 }

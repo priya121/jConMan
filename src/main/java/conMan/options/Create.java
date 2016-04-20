@@ -28,7 +28,7 @@ public class Create implements Option {
             newContact.setFields();
             allContacts.addContact(newContact);
         }
-        namesList.mainMenu();
+        namesList.backToMainMenu();
     }
 
     @Override

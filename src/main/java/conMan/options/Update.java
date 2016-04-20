@@ -29,7 +29,7 @@ public class Update implements Option {
     @Override
     public void perform() {
         if (contactsExist() && contactsNecessary()) {
-            showAllNames(namesList);
+            namesList.display();
             List<Contact> filtered = namesList.filterCheck();
             namesList.show(filtered);
             int chosenContact = getValidDigit() - 1;
@@ -37,7 +37,7 @@ public class Update implements Option {
         } else {
             console.showOutput("There are no contacts to update.\n\n");
         }
-        namesList.mainMenu();
+        namesList.backToMainMenu();
     }
 
     private void updateDetails(List<Contact> filtered, int chosenContact) {
@@ -62,8 +62,4 @@ public class Update implements Option {
         return validDigit.get(allContacts.get().size());
     }
 
-    private void showAllNames(NameList names) {
-        console.showOutput("Showing " + allContacts.contactsToDisplay().size() + " contacts" + "\n");
-        console.showOutput(names.formatNames(allContacts.contactsToDisplay()));
-    }
 }

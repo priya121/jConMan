@@ -33,6 +33,7 @@ public class FileChooser {
     public void start() {
         choose();
         Option exit = new ExitConMan(console, chosenFile);
+        console.clearScreen();
         new ConMan(console, exit, chosenFile, list).menuLoop();
     }
 

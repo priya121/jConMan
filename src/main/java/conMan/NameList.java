@@ -28,7 +28,7 @@ public class NameList {
 
     public List<Contact> filterCheck() {
         console.showOutput("\nWould you like to filter contacts by name?\n" +
-                           "(Y) to filter / Any other key to choose from list\n");
+                           "(Y) to filter / Any other key to choose from the full list\n");
         if (console.takeInput().contains("Y")) {
             console.showOutput("Enter a name to filter: \n");
             List<Contact> filtered = filter();
@@ -71,10 +71,16 @@ public class NameList {
         console.showOutput(formatNames(filtered));
     }
 
-    public void mainMenu() {
+    public void backToMainMenu() {
         console.showOutput("Hit any key to go back to the main menu.");
         console.takeInput();
         console.clearScreen();
+    }
+
+    public void display() {
+        console.showOutput("Showing " + allContacts.contactsToDisplay().size()
+                           + " contacts out of " + allContacts.get().size() + "\n");
+        console.showOutput(formatNames(allContacts.contactsToDisplay()));
     }
 
     private boolean matchFound(String letters, Contact contact) {

@@ -72,7 +72,7 @@ public class NameListTest {
         NameList namesList = new NameList(list, console);
         namesList.filterCheck();
         assertTrue(recordedOutput.toString().contains("\nWould you like to filter contacts by name?\n" +
-                                                      "(Y) to filter / Any other key to choose from list\n"));
+                                                      "(Y) to filter / Any other key to choose from the full list\n"));
     }
 
     private Contact createContact(List<String> userInput) {

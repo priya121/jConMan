@@ -27,7 +27,7 @@ public class Delete implements Option{
     @Override
     public void perform() {
         if (contactsExist() && contactsNecessary()) {
-            showAllNames(namesList);
+            namesList.display();
             List<Contact> filteredContacts = namesList.filterCheck();
             namesList.show(filteredContacts);
             int chosenContact = getValidDigit() - 1;
@@ -35,7 +35,7 @@ public class Delete implements Option{
         } else {
             console.showOutput("There are no contacts to delete.\n\n");
         }
-        namesList.mainMenu();
+        namesList.backToMainMenu();
     }
 
     private void deleteIfY(int chosenContact) {
@@ -55,10 +55,6 @@ public class Delete implements Option{
         return allContacts.get().size() > 0;
     }
 
-    private void showAllNames(NameList names) {
-        console.showOutput("Showing " + allContacts.contactsToDisplay().size() + " contacts" + "\n");
-        console.showOutput(names.formatNames(allContacts.contactsToDisplay()));
-    }
 
     private void removeIfY(int chosenContact) {
         if (console.takeInput().equals("Y")) {
