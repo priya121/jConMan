@@ -39,7 +39,7 @@ public class CSVFile implements FileType {
                 addContactsToList(firstName, lastName, email, homeAddress, dob, phone, website, console);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            console.showOutput("There is no file with that name. You can carry on, but your contacts will not be saved.\n");
         }
     }
 

@@ -29,7 +29,8 @@ public class NameList {
     public List<Contact> filterCheck() {
         console.showOutput("\nWould you like to filter contacts by name?\n" +
                            "(Y) to filter / Any other key to choose from the full list\n");
-        if (console.takeInput().contains("Y")) {
+        String userInput = console.takeInput();
+        if (userInput.contains("Y")) {
             console.showOutput("Enter a name to filter: \n");
             List<Contact> filtered = filter();
             console.clearScreen();

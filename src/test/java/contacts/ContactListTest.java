@@ -2,23 +2,24 @@ package contacts;
 
 import conMan.ConMan;
 import conMan.ContactList;
-import filetypes.CSVFile;
-import filetypes.FileType;
-import filetypes.JSONFile;
 import conMan.contactfields.Contact;
 import conMan.inputoutput.ConsoleIO;
 import conMan.inputoutput.InputOutput;
 import conMan.options.Option;
+import file.FakeFile;
+import filetypes.CSVFile;
+import filetypes.FileType;
+import filetypes.JSONFile;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 import test.FakeExit;
-import file.FakeFile;
 
 import java.io.*;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class ContactListTest {
     private Contact Ben;
@@ -114,6 +115,16 @@ public class ContactListTest {
         FileType jsonFile = new CSVFile(CSVPath, console, contactList);
         jsonFile.importContacts();
         assertEquals(10, contactList.get().size());
+    }
+
+    @Test
+    public void messageThatContactsWillNotBeSavedDisplayedToUserIfNoFilePathExists() {
+        InputOutput console = input("");
+        File CSVPath = new File("100000Contacts.csv");
+        ContactList contactList = new ContactList();
+        FileType csvFile = new CSVFile(CSVPath, console, contactList);
+        csvFile.importContacts();
+        assertTrue(recordedOutput.toString().contains("There is no file with that name. You can carry on, but your contacts will not be saved."));
     }
 
     @Test
