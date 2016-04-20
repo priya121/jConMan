@@ -31,7 +31,10 @@ mvn exec:java -Dexec.mainClass="conMan.App"
 
 ###To Run Tests:
 
+To run the tests use the command:
+
 ```
-Use the command mvn test to run the tests.
+mvn test
 ```
+
 
