@@ -1,4 +1,4 @@
-package fileTypes;
+package filetypes;
 
 import conMan.ContactList;
 import conMan.contactfields.Contact;
@@ -63,6 +63,11 @@ public class CSVFile implements FileType {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public String getPath() {
+        return file.getPath();
     }
 
     private void addNewLine(FileWriter fileWriter) throws IOException {

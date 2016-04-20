@@ -7,7 +7,7 @@ import conMan.inputoutput.ConsoleIO;
 import conMan.inputoutput.InputOutput;
 import conMan.options.Option;
 import conMan.options.Read;
-import fileTypes.FileType;
+import filetypes.FileType;
 import org.junit.Test;
 import test.FakeExit;
 import file.FakeFile;

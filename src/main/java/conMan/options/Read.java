@@ -57,7 +57,8 @@ public class Read implements Option {
     }
 
     private void showAllNames(NameList names) {
-        console.showOutput("Showing " + allContacts.contactsToDisplay().size() + " contacts" + "\n");
+        console.showOutput("Showing " + allContacts.contactsToDisplay().size()
+                          + " contacts out of" + allContacts.get().size() + "\n");
         console.showOutput(names.formatNames(allContacts.contactsToDisplay()));
     }
 }

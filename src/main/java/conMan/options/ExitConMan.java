@@ -1,7 +1,7 @@
 package conMan.options;
 
 import conMan.inputoutput.InputOutput;
-import fileTypes.FileType;
+import filetypes.FileType;
 
 public class ExitConMan implements Option, Exit {
     private final FileType file;

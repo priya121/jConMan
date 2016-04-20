@@ -2,9 +2,9 @@ package contacts;
 
 import conMan.ConMan;
 import conMan.ContactList;
-import fileTypes.CSVFile;
-import fileTypes.FileType;
-import fileTypes.JSONFile;
+import filetypes.CSVFile;
+import filetypes.FileType;
+import filetypes.JSONFile;
 import conMan.contactfields.Contact;
 import conMan.inputoutput.ConsoleIO;
 import conMan.inputoutput.InputOutput;
@@ -126,6 +126,19 @@ public class ContactListTest {
         assertEquals(4, fakeFile.savedContacts.size());
     }
 
+    @Test
+    public void displaysFirstFifteenNamesIfContactListBigger() {
+        ContactList list = createLongerContactsList();
+        assertEquals(15, list.contactsToDisplay().size());
+    }
+
+    private ContactList createLongerContactsList() {
+        ContactList list = new ContactList();
+        for (int i = 0; i < 200; i++) {
+            list.addContact(Ben);
+        }
+        return list;
+    }
 
     private Contact createContact(String input) {
         ConsoleIO console = new ConsoleIO(new ByteArrayInputStream(input.getBytes()), out);
