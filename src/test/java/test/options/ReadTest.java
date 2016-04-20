@@ -24,7 +24,7 @@ public class ReadTest {
 
     ContactList imported = new ContactList();
     ContactList contactList = new ContactList();
-    InputOutput consoleIO = input("1\nPriya\nPatil\n123@gmail.com\n1 Cedar Way\n123\nwww\n\n" +
+    InputOutput consoleIO = input("1\nPriya\nPatil\n123@gmail.com\n1 Cedar Way\n04.05.06\n123\nwww\n\n" +
                                   "2\nN\n\n1\n\n5\n");
     FileType fakeFile = new FakeFile(contactList, imported);
 
@@ -53,6 +53,7 @@ public class ReadTest {
                                                       "Last Name: Patil\n" +
                                                       "Email: 123@gmail.com\n" +
                                                       "Home Address: 1 Cedar Way\n" +
+                                                      "D.O.B: 04.05.06\n" +
                                                       "Phone Number: 123\n" +
                                                       "Website: www\n\n\n"));
     }
@@ -108,8 +109,8 @@ public class ReadTest {
     }
 
     private void addContactsToList() {
-        Contact priya = createContact("Priya\nPatil\n123@gmail.com\n1 Cedar Way\n123\nwww\n");
-        Contact sarah = createContact("Sarah\nBlack\n234@gmail.com\n2 Cedar Way\n123\nwww\n" +
+        Contact priya = createContact("Priya\nPatil\n123@gmail.com\n1 Cedar Way\n04.05.06\n123\nwww\n");
+        Contact sarah = createContact("Sarah\nBlack\n234@gmail.com\n2 Cedar Way\n04.05.06\n123\nwww\n" +
                                       "2\n1\n\n");
         imported.addContact(priya);
         imported.addContact(sarah);

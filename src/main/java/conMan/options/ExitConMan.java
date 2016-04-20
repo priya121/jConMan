@@ -14,7 +14,7 @@ public class ExitConMan implements Option, Exit {
 
     @Override
     public void show() {
-        console.showOutput("ExitConMan ConMan \n");
+        console.showOutput("Exit ConMan \n");
     }
 
     @Override

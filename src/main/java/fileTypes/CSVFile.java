@@ -33,17 +33,18 @@ public class CSVFile implements FileType {
                 String lastName = field[1];
                 String email = field[2];
                 String homeAddress = field[3];
-                String phone = field[4];
-                String website = field[5];
-                addContactsToList(firstName, lastName, email, homeAddress, phone, website, console);
+                String dob = field[4];
+                String phone = field[5];
+                String website = field[6];
+                addContactsToList(firstName, lastName, email, homeAddress, dob, phone, website, console);
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private void addContactsToList(String firstName, String lastName, String email, String homeAddress, String phone, String website, InputOutput console) {
-        Contact contact = new Contact(firstName, lastName, email, homeAddress, phone, website, console);
+    private void addContactsToList(String firstName, String lastName, String email, String homeAddress, String dob, String phone, String website, InputOutput console) {
+        Contact contact = new Contact(firstName, lastName, email, homeAddress, dob, phone, website, console);
         contact.setExisting();
         allContacts.addContact(contact);
     }

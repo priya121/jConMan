@@ -33,8 +33,8 @@ public class ConManTest {
     public void setUp() {
         importedContacts = createdImportedContacts();
         contactList = new ContactList();
-        consoleIO = input("1\nMaya\nPatil\n123@gmail.com\n1 Cedar Way\n123\nwww\n\n" +
-                          "1\nSam\nSmith\n234@gmail.com\n2 Cedar Way\n123\nwww\n\n" +
+        consoleIO = input("1\nMaya\nPatil\n123@gmail.com\n1 Cedar Way\n04.05.06\n123\nwww\n\n" +
+                          "1\nSam\nSmith\n234@gmail.com\n2 Cedar Way\n04.05.06\n123\nwww\n\n" +
                           "2\nN\n4\n\n5\n");
         fakeFile = new FakeFile(contactList, importedContacts);
         exitOption = new FakeExit(consoleIO, fakeFile);
@@ -77,21 +77,23 @@ public class ConManTest {
                                                       "Last Name: Patil\n" +
                                                       "Email: 123@gmail.com\n" +
                                                       "Home Address: 2 Cedar Way\n" +
+                                                      "D.O.B: 04.05.06\n" +
                                                       "Phone Number: 123\n" +
                                                       "Website: www.\n\n\n"));
     }
 
     @Test
     public void canUpdateTheFirstNameOfACreatedContactByEntering3() {
-        InputOutput consoleIO = input("1\nMaya\nPatil\n123@gmail.com\n1 Cedar Way\n123\nwww\n\n" +
-                                      "1\nSam\nSmith\n234@gmail.com\n2 Cedar Way\n123\nwww\n\n" +
-                                      "3\nN\n4\nBeth\n\n\n\n\n\n\n2\nN\n4\n\n5\n");
+        InputOutput consoleIO = input("1\nMaya\nPatil\n123@gmail.com\n1 Cedar Way\n04.05.06\n123\nwww\n\n" +
+                                      "1\nSam\nSmith\n234@gmail.com\n2 Cedar Way\n04.05.06\n123\nwww\n\n" +
+                                      "3\nN\n4\nBeth\n\n\n\n\n\n\n\n2\nN\n4\n\n5\n");
         ConMan conMan = new ConMan(consoleIO, exitOption, fakeFile, contactList);
         conMan.menuLoop();
         assertTrue(recordedOutput.toString().contains("First Name: Beth\n" +
                                                       "Last Name: Smith\n" +
                                                       "Email: 234@gmail.com\n" +
                                                       "Home Address: 2 Cedar Way\n" +
+                                                      "D.O.B: 04.05.06\n" +
                                                       "Phone Number: 123\n" +
                                                       "Website: www\n\n\n"));
     }
@@ -117,8 +119,8 @@ public class ConManTest {
     public void conManLoopsThroughOptionsTillUserChoosesToExit() {
         FileType fakeFile = new FakeFile(contactList, importedContacts);
         Option exitOption = new FakeExit(consoleIO, fakeFile);
-        InputOutput consoleIO = input("1\nSarah\nSmith\n234@gmail.com\n1 Cedar Way\n120-123-123\nwww\n" +
-                                      "1\nPriya\nPatil\n123@gmail.com\n2 Cedar Way\n789-123-123\nwww\n" +
+        InputOutput consoleIO = input("1\nSarah\nSmith\n234@gmail.com\n1 Cedar Way\n04.05.06\n120-123-123\nwww\n" +
+                                      "1\nPriya\nPatil\n123@gmail.com\n2 Cedar Way\n04.05.06\n789-123-123\nwww\n" +
                                       "4\nN\n1\nY\n\n5\n");
         ConMan conMan = new ConMan(consoleIO, exitOption, fakeFile, contactList);
         conMan.menuLoop();
@@ -139,8 +141,8 @@ public class ConManTest {
     @Test
     public void conManClearsScreenInBetweenOptions() {
         Option exitOption = new FakeExit(consoleIO, fakeFile);
-        InputOutput consoleIO = input("1\nSarah\nSmith\n234@gmail.com\n1 Cedar Way\n120-123-123\nwww\n" +
-                                      "1\nPriya\nPatil\n123@gmail.com\n2 Cedar Way\n789-123-123\nwww\n" +
+        InputOutput consoleIO = input("1\nSarah\nSmith\n234@gmail.com\n1 Cedar Way\n04.05.06\n120-123-123\nwww\n" +
+                                      "1\nPriya\nPatil\n123@gmail.com\n2 Cedar Way\n04.05.06\n789-123-123\nwww\n" +
                                       "4\nN\n1\nY\n\n5\n");
         ConMan conMan = new ConMan(consoleIO, exitOption, fakeFile, contactList);
         conMan.menuLoop();
@@ -149,8 +151,8 @@ public class ConManTest {
 
     private ContactList createdImportedContacts() {
         ContactList newList = new ContactList();
-        Contact priya = new Contact("Priya", "Patil", "123@gmail.com", "2 Cedar Way", "123", "www.", consoleIO);
-        Contact sarah = new Contact("Sarah", "Smith", "234@gmail.com", "3 Cedar Way", "123", "www.", consoleIO);
+        Contact priya = new Contact("Priya", "Patil", "123@gmail.com", "2 Cedar Way", "04.05.06", "123", "www.", consoleIO);
+        Contact sarah = new Contact("Sarah", "Smith", "234@gmail.com", "3 Cedar Way", "04.05.06", "123", "www.", consoleIO);
         priya.setExisting();
         sarah.setExisting();
         newList.addContact(priya);

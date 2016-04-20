@@ -34,9 +34,9 @@ public class ContactListTest {
 
     @Before
      public void setUp() throws IOException {
-        Ben = createContact("Ben\nSmith\n234@gmail.com\n2 Rosebury Av\n123\nwww\n\n");
-        Sarah = createContact("Sarah\nSmith\n234@gmail.com\n2 Cedar Way\n234\nwww\n\n");
-        Priya = createContact("Priya\nPatil\n123@gmail.com\n3 Rosebury Av\n567\nwww\n\n");
+        Ben = createContact("Ben\nSmith\n234@gmail.com\n2 Rosebury Av\n04.05.06\n123\nwww\n\n");
+        Sarah = createContact("Sarah\nSmith\n234@gmail.com\n2 Cedar Way\n04.05.06\n234\nwww\n\n");
+        Priya = createContact("Priya\nPatil\n123@gmail.com\n3 Rosebury Av\n04.05.06\n567\nwww\n\n");
         setContactFields();
         addContactsToList();
         contactList = new ContactList();
@@ -57,7 +57,7 @@ public class ContactListTest {
 
     @Test
     public void contactWrittenToFileInJSONFormat() throws IOException {
-        InputOutput console = input("1\nBen\nSmith\n234@gmail.com\n2 Rosebury Av\n123\nwww\n\n5\nY\n");
+        InputOutput console = input("1\nBen\nSmith\n234@gmail.com\n2 Rosebury Av\n04.05.06\n123\nwww\n\n5\nY\n");
         ContactList allContacts = new ContactList();
         FileType jsonFile = new JSONFile(output, console, allContacts);
         Option exit = new FakeExit(console, jsonFile);
@@ -65,20 +65,20 @@ public class ContactListTest {
         conMan.menuLoop();
         assertEquals("{\"Last Name: \":\"Smith\",\"Email: \":\"234@gmail.com\"" +
                      ",\"Home Address: \":\"2 Rosebury Av\"," +
-                      "\"First Name: \":\"Ben\",\"Phone Number: \":\"123\",\"Website: \":\"www\"}", readTempFile(output.getPath(), 144));
+                      "\"First Name: \":\"Ben\",\"Phone Number: \":\"123\",\"Website: \":\"www\",\"D.O.B: \":\"04.05.06\"}\n", readTempFile(output.getPath(), 166));
     }
 
     @Test
     public void contactWrittenToFileInCSVFormat() throws IOException {
-        InputOutput console = input("1\nBen\nSmith\n234@gmail.com\n2 Rosebury Av\n123\nwww\n\n" +
-                                    "1\nSarah\nSmith\n456@gmail.com\n6 Forlease Road\n345\nwww\n\n5\nY\n");
+        InputOutput console = input("1\nBen\nSmith\n234@gmail.com\n2 Rosebury Av\n04.05.06\n123\nwww\n\n" +
+                                    "1\nSarah\nSmith\n456@gmail.com\n6 Forlease Road\n04.05.06\n345\nwww\n\n5\nY\n");
         ContactList allContacts = new ContactList();
         FileType CSVfile = new CSVFile(output, console, allContacts);
         Option exit = new FakeExit(console, CSVfile);
         ConMan conMan = new ConMan(console, exit, CSVfile, allContacts);
         conMan.menuLoop();
-        assertEquals("Ben,Smith,234@gmail.com,2 Rosebury Av,123,www,\n" +
-                     "Sarah,Smith,456@gmail.com,6 Forlease Road,345,www,\n", readTempFile(output.getPath(), 98));
+        assertEquals("Ben,Smith,234@gmail.com,2 Rosebury Av,04.05.06,123,www,\n" +
+                     "Sarah,Smith,456@gmail.com,6 Forlease Road,04.05.06,345,www,\n", readTempFile(output.getPath(), 116));
     }
 
     @Test
@@ -91,13 +91,14 @@ public class ContactListTest {
                      "Last Name: Patil\n" +
                      "Email: 123@gmail.com\n" +
                      "Home Address: 3 Rosebury Av\n" +
+                     "D.O.B: 04.05.06\n" +
                      "Phone Number: 567\n" +
                      "Website: www\n\n\n", contactList.getContact(2).showFields());
     }
 
     @Test
     public void contactsSavedToFileOnExit() {
-        InputOutput console = input("1\nGeorge\nBlack\n678@gmail.com\n3 Rosebury Av\n123\nwww\n\n" +
+        InputOutput console = input("1\nGeorge\nBlack\n678@gmail.com\n3 Rosebury Av\n04.05.06\n123\nwww\n\n" +
                                     "2\nN\n1\n\n5\nY\n");
         Option exit = new FakeExit(console, fakeFile);
         ConMan conMan = new ConMan(console, exit, fakeFile, contactList);
