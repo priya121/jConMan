@@ -12,8 +12,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -65,8 +64,9 @@ public class NameListTest {
         NameList namesList = new NameList(list, console);
         namesList.filterCheck();
         assertTrue(recordedOutput.toString().contains("\nWould you like to filter contacts by name?\n" +
-                                                      "(Y) to filter / Any other key to choose from list\n"));
+                "(Y) to filter / Any other key to choose from list\n"));
     }
+
 
     private Contact createContact(List<String> userInput) {
         InputOutput console = new FakeIO(userInput);
@@ -84,4 +84,5 @@ public class NameListTest {
         list.addContact(Sarah);
         setContactFields(list);
     }
+
 }

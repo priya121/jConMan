@@ -15,7 +15,7 @@ public class App {
     public static void main(String[] args) {
         InputOutput io = new ConsoleIO(System.in, System.out);
         ContactList list = new ContactList();
-        File file = new File("/Users/priyapatil/Work/conMan.csv");
+        File file = new File("/Users/priyapatil/Work/MOCK_DATA.csv");
         FileType CSV = new CSVFile(file, io, list);
         FileType jsonFile = new JSONFile(file, io, list);
         Option exit = new ExitConMan(io, CSV);

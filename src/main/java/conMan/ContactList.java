@@ -19,4 +19,16 @@ public class ContactList {
     public List<Contact> get() {
         return allContacts;
     }
+
+    public List<Contact> contactsToDisplay() {
+        if (allContacts.size() >= 15) {
+            List<Contact> firstFifteen = new ArrayList<>();
+            for (int i = 0; i < 15; i++) {
+                firstFifteen.add(allContacts.get(i));
+            }
+            return firstFifteen;
+        } else {
+            return allContacts;
+        }
+    }
 }

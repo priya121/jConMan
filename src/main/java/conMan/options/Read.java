@@ -31,7 +31,7 @@ public class Read implements Option {
         if (contactsExist() && contactsNecessary()) {
             showAllNames(namesList);
             List<Contact> filtered = namesList.filterCheck();
-            namesList.filterNames(filtered);
+            namesList.show(filtered);
             showSelectedContact(filtered);
         } else {
             console.showOutput("There are no contacts to display.\n\n");
@@ -57,7 +57,7 @@ public class Read implements Option {
     }
 
     private void showAllNames(NameList names) {
-        console.showOutput("Showing " + allContacts.get().size() + " contacts" + "\n");
-        console.showOutput(names.formatNames(allContacts.get()));
+        console.showOutput("Showing " + allContacts.contactsToDisplay().size() + " contacts" + "\n");
+        console.showOutput(names.formatNames(allContacts.contactsToDisplay()));
     }
 }

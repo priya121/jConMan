@@ -26,10 +26,10 @@ public class Delete implements Option{
 
     @Override
     public void perform() {
-        if (contactsExist()) {
+        if (contactsExist() && contactsNecessary()) {
             showAllNames(namesList);
             List<Contact> filteredContacts = namesList.filterCheck();
-            namesList.filterNames(filteredContacts);
+            namesList.show(filteredContacts);
             int chosenContact = getValidDigit() - 1;
             deleteIfY(chosenContact);
         } else {
@@ -56,8 +56,8 @@ public class Delete implements Option{
     }
 
     private void showAllNames(NameList names) {
-        console.showOutput("Showing " + allContacts.get().size() + " contacts" + "\n");
-        console.showOutput(names.formatNames(allContacts.get()));
+        console.showOutput("Showing " + allContacts.contactsToDisplay().size() + " contacts" + "\n");
+        console.showOutput(names.formatNames(allContacts.contactsToDisplay()));
     }
 
     private void removeIfY(int chosenContact) {

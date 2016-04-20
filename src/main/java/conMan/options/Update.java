@@ -31,9 +31,8 @@ public class Update implements Option {
         if (contactsExist() && contactsNecessary()) {
             showAllNames(namesList);
             List<Contact> filtered = namesList.filterCheck();
-            namesList.filterNames(filtered);
+            namesList.show(filtered);
             int chosenContact = getValidDigit() - 1;
-            console.clearScreen();
             updateDetails(filtered, chosenContact);
         } else {
             console.showOutput("There are no contacts to update.\n\n");
@@ -42,6 +41,7 @@ public class Update implements Option {
     }
 
     private void updateDetails(List<Contact> filtered, int chosenContact) {
+        console.clearScreen();
         console.showOutput("Fill in field to update or leave blank to keep previous value: \n");
         filtered.get(chosenContact).updateFields();
         console.clearScreen();
@@ -63,7 +63,7 @@ public class Update implements Option {
     }
 
     private void showAllNames(NameList names) {
-        console.showOutput("Showing " + allContacts.get().size() + " contacts" + "\n");
-        console.showOutput(names.formatNames(allContacts.get()));
+        console.showOutput("Showing " + allContacts.contactsToDisplay().size() + " contacts" + "\n");
+        console.showOutput(names.formatNames(allContacts.contactsToDisplay()));
     }
 }

@@ -65,7 +65,7 @@ public class NameList {
         }
     }
 
-    public void filterNames(List<Contact> filtered) {
+    public void show(List<Contact> filtered) {
         console.clearScreen();
         console.showOutput("Choose a contact by number: \n");
         console.showOutput(formatNames(filtered));
