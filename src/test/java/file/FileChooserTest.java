@@ -1,4 +1,4 @@
-package test;
+package file;
 
 import conMan.FileChooser;
 import conMan.inputoutput.ConsoleIO;

@@ -67,7 +67,6 @@ public class NameListTest {
                 "(Y) to filter / Any other key to choose from list\n"));
     }
 
-
     private Contact createContact(List<String> userInput) {
         InputOutput console = new FakeIO(userInput);
         return new Contact(console);

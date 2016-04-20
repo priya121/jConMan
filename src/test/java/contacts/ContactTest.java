@@ -1,4 +1,4 @@
-package test;
+package contacts;
 
 import conMan.contactfields.Contact;
 import conMan.inputoutput.InputOutput;

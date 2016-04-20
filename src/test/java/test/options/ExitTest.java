@@ -7,7 +7,7 @@ import conMan.inputoutput.InputOutput;
 import fileTypes.FileType;
 import org.junit.Test;
 import test.FakeExit;
-import test.FakeFile;
+import file.FakeFile;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;

@@ -1,4 +1,4 @@
-package test;
+package file;
 
 import conMan.ContactList;
 import conMan.contactfields.Contact;

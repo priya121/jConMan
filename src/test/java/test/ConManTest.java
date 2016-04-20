@@ -2,6 +2,7 @@ package test;
 
 import conMan.ConMan;
 import conMan.ContactList;
+import file.FakeFile;
 import fileTypes.FileType;
 import conMan.contactfields.Contact;
 import conMan.inputoutput.ConsoleIO;

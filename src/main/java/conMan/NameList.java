@@ -35,7 +35,7 @@ public class NameList {
             console.clearScreen();
             if (contactFound(filtered)) return filtered;
         }
-        return allContacts.get();
+        return allContacts.contactsToDisplay();
     }
 
     public List<Contact> filter() {

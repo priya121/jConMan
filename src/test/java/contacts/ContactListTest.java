@@ -1,4 +1,4 @@
-package test;
+package contacts;
 
 import conMan.ConMan;
 import conMan.ContactList;
@@ -13,6 +13,8 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
+import test.FakeExit;
+import file.FakeFile;
 
 import java.io.*;
 
@@ -106,23 +108,10 @@ public class ContactListTest {
         assertEquals(4, fakeFile.savedContacts.size());
     }
 
-    @Test
-    public void displaysFirstFifteenNamesIfContactListBigger() {
-        ContactList list = createLongerContactsList();
-        assertEquals(15, list.contactsToDisplay().size());
-    }
 
     private Contact createContact(String input) {
         ConsoleIO console = new ConsoleIO(new ByteArrayInputStream(input.getBytes()), out);
         return new Contact(console);
-    }
-
-    private ContactList createLongerContactsList() {
-        ContactList list = new ContactList();
-        for (int i = 0; i < 15; i++) {
-            list.addContact(Ben);
-        }
-        return list;
     }
 
     private void setContactFields() {

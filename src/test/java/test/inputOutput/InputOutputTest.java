@@ -10,7 +10,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 import test.FakeExit;
-import test.FakeFile;
+import file.FakeFile;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
