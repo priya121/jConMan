@@ -84,7 +84,7 @@ public class ContactListTest {
     }
 
     @Test
-    public void contactCanBeImportedFromAFile() throws IOException {
+    public void contactCanBeImportedFromAFakeFile() throws IOException {
         InputOutput console = input("2\nN\n1\n\n5\nY\n");
         Option exit = new FakeExit(console, fakeFile);
         ConMan conMan = new ConMan(console, exit, fakeFile, contactList);
@@ -96,6 +96,24 @@ public class ContactListTest {
                      "D.O.B: 04.05.06\n" +
                      "Phone Number: 567\n" +
                      "Website: www\n\n\n", contactList.getContact(2).showFields());
+    }
+
+    @Test
+    public void contactsCanBeImportedFromACSVFile() {
+        InputOutput console = input("");
+        File CSVPath = new File("1000Contacts.csv");
+        FileType jsonFile = new CSVFile(CSVPath, console, contactList);
+        jsonFile.importContacts();
+        assertEquals(1000, contactList.get().size());
+    }
+
+    @Test
+    public void contactsCanBeAddedFromAJSONFile() {
+        InputOutput console = input("");
+        File CSVPath = new File("10Contacts.json");
+        FileType jsonFile = new CSVFile(CSVPath, console, contactList);
+        jsonFile.importContacts();
+        assertEquals(10, contactList.get().size());
     }
 
     @Test

@@ -46,8 +46,8 @@ public class FileChooser {
     }
     private void displayChoices() {
         console.showOutput("Choose a file type: \n" +
-                           "1) A JSON File\n" +
-                           "2) A CSV File\n" +
-                           "3) 1000 Dummy CSV Contacts\n");
+                           "1) Write to your own JSON File\n" +
+                           "2) Write to your own CSV File\n" +
+                           "3) Import 1000 Dummy CSV Contacts\n");
     }
 }
