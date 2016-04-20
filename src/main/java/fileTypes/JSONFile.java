@@ -1,4 +1,4 @@
-package fileTypes;
+package filetypes;
 
 import conMan.ContactList;
 import conMan.contactfields.Contact;
@@ -68,6 +68,11 @@ public class JSONFile implements FileType {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public String getPath() {
+        return file.getPath();
     }
 
     private JSONObject contactToJSON(Contact contact) {

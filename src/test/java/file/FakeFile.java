@@ -2,7 +2,7 @@ package file;
 
 import conMan.ContactList;
 import conMan.contactfields.Contact;
-import fileTypes.FileType;
+import filetypes.FileType;
 
 import java.util.ArrayList;
 
@@ -30,5 +30,10 @@ public class FakeFile implements FileType {
         for (Contact contact : allContacts.get()) {
             savedContacts.add(contact);
         }
+    }
+
+    @Override
+    public String getPath() {
+        return "Fake File";
     }
 }

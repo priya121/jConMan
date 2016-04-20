@@ -3,7 +3,7 @@ package test;
 import conMan.inputoutput.InputOutput;
 import conMan.options.Exit;
 import conMan.options.Option;
-import fileTypes.FileType;
+import filetypes.FileType;
 
 public class FakeExit implements Option, Exit {
     private final FileType file;

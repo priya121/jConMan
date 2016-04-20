@@ -4,7 +4,7 @@ import conMan.ConMan;
 import conMan.ContactList;
 import conMan.inputoutput.ConsoleIO;
 import conMan.inputoutput.InputOutput;
-import fileTypes.FileType;
+import filetypes.FileType;
 import org.junit.Test;
 import test.FakeExit;
 import file.FakeFile;

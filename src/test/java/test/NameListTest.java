@@ -80,16 +80,16 @@ public class NameListTest {
         return new Contact(console);
     }
 
-    private void setContactFields(ContactList list) {
-        for (Contact contact : list.get()) {
-            contact.setFields();
-        }
-    }
-
     private void createContacts() {
         list.addContact(Ben);
         list.addContact(Sarah);
         setContactFields(list);
+    }
+
+    private void setContactFields(ContactList list) {
+        for (Contact contact : list.get()) {
+            contact.setFields();
+        }
     }
 
 }

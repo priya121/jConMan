@@ -2,9 +2,9 @@ package contacts;
 
 import conMan.ConMan;
 import conMan.ContactList;
-import fileTypes.CSVFile;
-import fileTypes.FileType;
-import fileTypes.JSONFile;
+import filetypes.CSVFile;
+import filetypes.FileType;
+import filetypes.JSONFile;
 import conMan.contactfields.Contact;
 import conMan.inputoutput.ConsoleIO;
 import conMan.inputoutput.InputOutput;

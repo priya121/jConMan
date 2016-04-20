@@ -2,7 +2,7 @@ package test.inputOutput;
 
 import conMan.ConMan;
 import conMan.ContactList;
-import fileTypes.FileType;
+import filetypes.FileType;
 import conMan.inputoutput.ConsoleIO;
 import conMan.inputoutput.InputOutput;
 import conMan.options.Option;
