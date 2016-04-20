@@ -2,12 +2,11 @@ package test;
 
 import conMan.ConMan;
 import conMan.ContactList;
-import file.FakeFile;
-import fileTypes.FileType;
 import conMan.contactfields.Contact;
 import conMan.inputoutput.ConsoleIO;
 import conMan.inputoutput.InputOutput;
 import conMan.options.Option;
+import file.FakeFile;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -21,7 +20,6 @@ import static org.junit.Assert.assertTrue;
 
 public class ConManTest {
     private InputOutput consoleIO;
-    private ContactList importedContacts;
     private ContactList contactList;
     private FakeFile fakeFile;
     private FakeExit exitOption;
@@ -32,7 +30,7 @@ public class ConManTest {
 
     @Before
     public void setUp() {
-        importedContacts = createdImportedContacts();
+        ContactList importedContacts = createdImportedContacts();
         contactList = new ContactList();
         consoleIO = input("1\nMaya\nPatil\n123@gmail.com\n1 Cedar Way\n04.05.06\n123\nwww\n\n" +
                           "1\nSam\nSmith\n234@gmail.com\n2 Cedar Way\n04.05.06\n123\nwww\n\n" +
@@ -118,8 +116,6 @@ public class ConManTest {
 
     @Test
     public void conManLoopsThroughOptionsTillUserChoosesToExit() {
-        FileType fakeFile = new FakeFile(contactList, importedContacts);
-        Option exitOption = new FakeExit(consoleIO, fakeFile);
         InputOutput consoleIO = input("1\nSarah\nSmith\n234@gmail.com\n1 Cedar Way\n04.05.06\n120-123-123\nwww\n" +
                                       "1\nPriya\nPatil\n123@gmail.com\n2 Cedar Way\n04.05.06\n789-123-123\nwww\n" +
                                       "4\nN\n1\nY\n\n5\n");

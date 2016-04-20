@@ -6,10 +6,11 @@ import conMan.contactfields.Contact;
 import conMan.inputoutput.ConsoleIO;
 import conMan.inputoutput.InputOutput;
 import conMan.options.Create;
+import conMan.options.Option;
+import file.FakeFile;
 import org.junit.Before;
 import org.junit.Test;
 import test.FakeExit;
-import file.FakeFile;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -25,7 +26,6 @@ public class CreateTest {
 
     private ContactList imported;
     private ContactList contactList;
-    private FakeExit exitOption;
     private FakeFile fakeFile;
 
     @Before
@@ -46,7 +46,7 @@ public class CreateTest {
     @Test
     public void userEntering1ShowsCreateAContactTitle() {
         InputOutput consoleIO = input("1\n");
-        exitOption = new FakeExit(consoleIO, fakeFile);
+        FakeExit exitOption = new FakeExit(consoleIO, fakeFile);
         ConMan conMan = new ConMan(consoleIO, exitOption, fakeFile, contactList);
         conMan.menuChoice();
         assertTrue(recordedOutput.toString().contains("Create a contact \n"));
@@ -70,9 +70,7 @@ public class CreateTest {
     public void userCanCreateANewContactAfterEntering1() throws IOException {
         InputOutput consoleIO = input("1\nGary\nPaul\n345@gmail.com\n3 Rosebury Av\n04.05.06\n123\nwww\n\n" +
                                       "2\nN\n3\n\n5\nY\n");
-        exitOption = new FakeExit(consoleIO, fakeFile);
-        ConMan conMan = new ConMan(consoleIO, exitOption, fakeFile, contactList);
-        conMan.menuLoop();
+        runMenuLoop(consoleIO);
         assertTrue(recordedOutput.toString().contains("First Name: Gary\n" +
                                                       "Last Name: Paul\n" +
                                                       "Email: 345@gmail.com\n" +
@@ -86,11 +84,15 @@ public class CreateTest {
     public void asksUserToHitEnterKeyToGoBackToMainMenuAfterCreatingContact() {
         InputOutput consoleIO = input("1\nGary\nPaul\n345@gmail.com\n3 Rosebury Av\n04.05.06\n123\nwww\n\n" +
                                       "5\nY\n");
-        exitOption = new FakeExit(consoleIO, fakeFile);
-        ConMan conMan = new ConMan(consoleIO, exitOption, fakeFile, contactList);
-        conMan.menuLoop();
+        runMenuLoop(consoleIO);
         assertTrue(recordedOutput.toString().contains("Hit any key to go back to the main menu." +
                                                       "\033[2J\033[1;1H"));
+    }
+
+    private void runMenuLoop(InputOutput consoleIO) {
+        Option exitOption = new FakeExit(consoleIO, fakeFile);
+        ConMan conMan = new ConMan(consoleIO, exitOption, fakeFile, contactList);
+        conMan.menuLoop();
     }
 
     private Contact createContact(String input) {

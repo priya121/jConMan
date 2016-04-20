@@ -37,9 +37,7 @@ public class ReadTest {
 
     @Test
     public void userEntering2ShowsReadAContactsDetailsTitle() {
-        Option exitOption = new FakeExit(consoleIO, fakeFile);
-        ConMan conMan = new ConMan(consoleIO, exitOption, fakeFile, contactList);
-        conMan.menuLoop();
+        runMenuLoop(consoleIO);
         assertTrue(recordedOutput.toString().contains("Read a contact's details \n"));
     }
 
@@ -62,9 +60,7 @@ public class ReadTest {
     public void readFirstDisplaysAListOfNames() {
         InputOutput consoleIO = input("2\nN\n1\n\n5\n");
         addContactsToList();
-        Option exitOption = new FakeExit(consoleIO,  fakeFile);
-        ConMan conMan = new ConMan(consoleIO, exitOption, fakeFile, contactList);
-        conMan.menuLoop();
+        runMenuLoop(consoleIO);
         assertTrue(recordedOutput.toString().contains("1) Priya Patil\n" +
                                                       "2) Sarah Black\n"));
     }
@@ -73,9 +69,7 @@ public class ReadTest {
     public void userMustEnterAValidNumberToReadContactAfterEnteringReadOption() {
         InputOutput consoleIO = input("2\nN\na\n1\n\n5\n");
         addContactsToList();
-        Option exitOption = new FakeExit(consoleIO, fakeFile);
-        ConMan conMan = new ConMan(consoleIO, exitOption, fakeFile, contactList);
-        conMan.menuLoop();
+        runMenuLoop(consoleIO);
         assertTrue(recordedOutput.toString().contains("Please enter a valid number: "));
     }
 
@@ -83,9 +77,7 @@ public class ReadTest {
     public void userCanFilterNamesBeforeSelecting() {
         InputOutput consoleIO = input("2\nY\nSarah\n1\n\n5\n");
         addContactsToList();
-        Option exitOption = new FakeExit(consoleIO, fakeFile);
-        ConMan conMan = new ConMan(consoleIO, exitOption, fakeFile, contactList);
-        conMan.menuLoop();
+        runMenuLoop(consoleIO);
         assertTrue(recordedOutput.toString().contains("Enter a name to filter: \n"));
     }
 
@@ -93,19 +85,21 @@ public class ReadTest {
     public void asksUserToEnterAnotherNumberIfContactNumberTooHigh() {
         InputOutput consoleIO = input("2\nY\nSarah\n8\n1\n\n5\n");
         addContactsToList();
-        Option exitOption = new FakeExit(consoleIO, fakeFile);
-        ConMan conMan = new ConMan(consoleIO, exitOption, fakeFile, contactList);
-        conMan.menuLoop();
+        runMenuLoop(consoleIO);
         assertTrue(recordedOutput.toString().contains("Please enter a valid number: "));
     }
 
     @Test
     public void tellsUserNoContactsToDisplayIfContactsDontExist() {
         InputOutput consoleIO = input("2\n\n5\n");
+        runMenuLoop(consoleIO);
+        assertTrue(recordedOutput.toString().contains("There are no contacts to display.\n"));
+    }
+
+    private void runMenuLoop(InputOutput consoleIO) {
         Option exitOption = new FakeExit(consoleIO, fakeFile);
         ConMan conMan = new ConMan(consoleIO, exitOption, fakeFile, contactList);
         conMan.menuLoop();
-        assertTrue(recordedOutput.toString().contains("There are no contacts to display.\n"));
     }
 
     private void addContactsToList() {

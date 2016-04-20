@@ -30,7 +30,6 @@ public class FileChooser {
         this.fileTypes = Arrays.asList(JSON, CSV, dummyCSV);
     }
 
-
     public FileType choose() {
         displayChoices();
         ValidDigit validDigit = new ValidDigit(console);

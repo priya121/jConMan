@@ -6,10 +6,10 @@ import conMan.contactfields.Contact;
 import conMan.inputoutput.ConsoleIO;
 import conMan.inputoutput.InputOutput;
 import conMan.options.Delete;
+import file.FakeFile;
 import org.junit.Before;
 import org.junit.Test;
 import test.FakeExit;
-import file.FakeFile;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -21,7 +21,6 @@ import static org.junit.Assert.assertTrue;
 
 public class DeleteTest {
     private FakeExit exitOption;
-    private ConMan conMan;
     private ContactList contactList;
     private ContactList allContacts;
     private ContactList newList;
@@ -55,9 +54,7 @@ public class DeleteTest {
     public void userEntering4ShowsDeleteAContactTitle() {
         InputOutput consoleIO = input("1\nBen\nSmith\n345@gmail.com\n2 Rosebury Av\n04.05.06\n123\nwww\n\n" +
                                       "4\nN\n1\nY\n\n5\n");
-        exitOption = new FakeExit(consoleIO, fakeFile);
-        conMan = new ConMan(consoleIO, exitOption, fakeFile, allContacts);
-        conMan.menuLoop();
+        menuLoop(consoleIO);
         assertTrue(recordedOutput.toString().contains("Delete a contact "));
     }
 
@@ -76,9 +73,7 @@ public class DeleteTest {
     public void userMustEnterAValidNumberToDeleteAContact() {
         InputOutput consoleIO = input("1\nPriya\nPatil\n123@gmail.com\n2 Cedar Way\n04.05.06\n123\nwww\n\n" +
                                       "4\nN\na\n1\nY\n\n5\n");
-        exitOption = new FakeExit(consoleIO, fakeFile);
-        conMan = new ConMan(consoleIO, exitOption, fakeFile, allContacts);
-        conMan.menuLoop();
+        menuLoop(consoleIO);
         assertTrue(recordedOutput.toString().contains("Please enter a valid number: "));
     }
 
@@ -88,7 +83,7 @@ public class DeleteTest {
                                       "1\nMaya\nPatil\n345@gmail.com\n2 Cedar Way\n04.05.06\n123\nwww\n\n" +
                                       "4\nN\n1\nY\n\n5\n");
         exitOption = new FakeExit(consoleIO, fakeFile);
-        conMan = new ConMan(consoleIO, exitOption, fakeFile, allContacts);
+        ConMan conMan = new ConMan(consoleIO, exitOption, fakeFile, allContacts);
         conMan.menuLoop();
         assertTrue(recordedOutput.toString().contains("1) Ben Smith\n" +
                                                       "2) Sarah Smith\n" +
@@ -101,7 +96,7 @@ public class DeleteTest {
         InputOutput consoleIO = input("1\nPriya\nPatil\n123@gmail.com\n1 Cedar Way\n04.05.06\n123\nwww\n\n" +
                                       "4\nN\n1\nY\n\n5\n");
         exitOption = new FakeExit(consoleIO, fakeFile);
-        conMan = new ConMan(consoleIO, exitOption, fakeFile, allContacts);
+        ConMan conMan = new ConMan(consoleIO, exitOption, fakeFile, allContacts);
         conMan.menuLoop();
         assertTrue(recordedOutput.toString().contains("Are you sure you want to delete this contact? (Y/N)\n" +
                                                       "First Name: Ben\n" +
@@ -117,29 +112,29 @@ public class DeleteTest {
     public void doesNotDeleteAContactIfUserEntersN() {
         InputOutput consoleIO = input("1\nPriya\nPatil\n123@gmail.com\n1 Cedar Way\n04.05.06\n123\nwww\n\n" +
                                       "4\nN\n1\nN\n\n5\n");
-        exitOption = new FakeExit(consoleIO, fakeFile);
-        conMan = new ConMan(consoleIO, exitOption, fakeFile, allContacts);
-        conMan.menuLoop();
+        menuLoop(consoleIO);
         assertTrue(recordedOutput.toString().contains("Your contacts have not been changed"));
     }
 
     @Test
     public void doesNotAllowUserToDeleteAContactIfNoContactsExist() {
         InputOutput consoleIO = input("4\n\n5\n");
-        exitOption = new FakeExit(consoleIO, fakeFile);
-        conMan = new ConMan(consoleIO, exitOption, fakeFile, emptyList);
-        conMan.menuLoop();
+        menuLoop(consoleIO);
         assertTrue(recordedOutput.toString().contains("There are no contacts to delete.\n\n"));
     }
 
     @Test
     public void asksUserToHitEnterKeyToGoBackToMainMenuAfterDeleteOptionSelected() {
         InputOutput consoleIO = input("4\n\n5\n");
+        menuLoop(consoleIO);
+        assertTrue(recordedOutput.toString().contains("Hit any key to go back to the main menu." +
+                                                      "\033[2J\033[1;1H"));
+    }
+
+    private void menuLoop(InputOutput consoleIO) {
         exitOption = new FakeExit(consoleIO, fakeFile);
         ConMan conMan = new ConMan(consoleIO, exitOption, fakeFile, emptyList);
         conMan.menuLoop();
-        assertTrue(recordedOutput.toString().contains("Hit any key to go back to the main menu." +
-                                                      "\033[2J\033[1;1H"));
     }
 
     private InputOutput input(String input) {

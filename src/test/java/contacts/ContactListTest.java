@@ -145,7 +145,6 @@ public class ContactListTest {
         importedContacts.addContact(Priya);
     }
 
-
     private InputOutput input(String input) {
         return new ConsoleIO(new ByteArrayInputStream(input.getBytes()), out);
     }
