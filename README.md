@@ -21,7 +21,7 @@ cd jConMan/
 mvn compile
 ```
 
-To run the App:
+###To run the App:
 
 ```
 mvn exec:java -Dexec.mainClass="conMan.App"
