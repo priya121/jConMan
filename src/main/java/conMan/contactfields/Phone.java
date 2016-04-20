@@ -5,14 +5,14 @@ import conMan.inputoutput.InputOutput;
 public class Phone implements Field {
     private InputOutput console;
     private String phone;
-    private String savedvalue;
+    private String savedValue;
 
     public Phone(InputOutput console) {
         this.console = console;
     }
 
     public Phone(String savedValue, InputOutput console) {
-        this.savedvalue = savedValue;
+        this.savedValue = savedValue;
         this.console  = console;
     }
 
@@ -31,7 +31,7 @@ public class Phone implements Field {
 
     @Override
     public void setExisting() {
-        phone = savedvalue;
+        phone = savedValue;
     }
 
     @Override
