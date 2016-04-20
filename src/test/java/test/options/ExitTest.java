@@ -5,9 +5,7 @@ import conMan.ContactList;
 import conMan.inputoutput.ConsoleIO;
 import conMan.inputoutput.InputOutput;
 import fileTypes.FileType;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.TemporaryFolder;
 import test.FakeExit;
 import test.FakeFile;
 
@@ -19,11 +17,10 @@ import java.io.PrintStream;
 import static org.junit.Assert.assertTrue;
 
 public class ExitTest {
-    @Rule
-    public TemporaryFolder temporaryFolder = new TemporaryFolder();
 
     ByteArrayOutputStream recordedOutput = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(recordedOutput);
+
     ContactList allContacts = new ContactList();
     ContactList contactList = new ContactList();
 
